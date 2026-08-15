@@ -54,31 +54,52 @@ export const TimelineView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Era Selectors */}
-      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-        {eras.map((era) => (
-          <button
-            key={era}
-            className="btn btn-secondary"
-            style={{
-              padding: '6px 12px',
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              borderColor: selectedEra === era ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
-              color: selectedEra === era ? '#60a5fa' : 'var(--nhf-text-muted)',
-              background: selectedEra === era ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)'
-            }}
-            onClick={() => {
-              soundEngine.playClick(600);
-              setSelectedEra(era);
-              if (era === 'Future Horizon') {
-                discoverAnomaly('tl-future-era');
-              }
-            }}
-          >
-            {era}
-          </button>
-        ))}
-      </div>
+      <>
+        {/* Desktop View */}
+        <div className="filter-desktop" style={{ gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+          {eras.map((era) => (
+            <button
+              key={era}
+              className="btn btn-secondary"
+              style={{
+                padding: '6px 12px',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                borderColor: selectedEra === era ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
+                color: selectedEra === era ? '#60a5fa' : 'var(--nhf-text-muted)',
+                background: selectedEra === era ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)'
+              }}
+              onClick={() => {
+                soundEngine.playClick(600);
+                setSelectedEra(era);
+                if (era === 'Future Horizon') {
+                  discoverAnomaly('tl-future-era');
+                }
+              }}
+            >
+              {era}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile View */}
+        <select
+          className="filter-mobile"
+          value={selectedEra}
+          onChange={(e) => {
+            soundEngine.playClick(600);
+            const val = e.target.value;
+            setSelectedEra(val);
+            if (val === 'Future Horizon') {
+              discoverAnomaly('tl-future-era');
+            }
+          }}
+        >
+          {eras.map(era => (
+            <option key={era} value={era}>{era}</option>
+          ))}
+        </select>
+      </>
 
       {/* Timeline Stream */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>

@@ -214,9 +214,11 @@ export const Room4MonitorView: React.FC<Props> = ({ store }) => {
             alignItems: 'center',
             borderRadius: '2px',
             marginBottom: '12px',
-            zIndex: 5
+            zIndex: 5,
+            flexWrap: 'wrap',
+            gap: '8px'
           }}>
-            <span>BitchX-1.0c4 - [channel: #afterhours] [mode: +nt] [lag: -4ms]</span>
+            <span style={{ wordBreak: 'break-all' }}>BitchX-1.0c4 - [channel: #afterhours] [mode: +nt] [lag: -4ms]</span>
             <span style={{ fontFamily: 'var(--font-mono)' }}>{clockTime} UTC</span>
           </div>
 

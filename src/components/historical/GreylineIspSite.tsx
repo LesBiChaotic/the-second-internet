@@ -109,36 +109,38 @@ export const GreylineIspSite: React.FC<Props> = ({ store }) => {
                   </p>
                 </div>
 
-                <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem', background: '#fff', border: '1px solid #808080' }}>
-                  <thead>
-                    <tr style={{ background: '#000080', color: '#fff', textAlign: 'left' }}>
-                      <th style={{ padding: '6px' }}>Core Router Node</th>
-                      <th style={{ padding: '6px' }}>Interface Address</th>
-                      <th style={{ padding: '6px' }}>Status</th>
-                      <th style={{ padding: '6px' }}>Active Peers</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr style={{ borderBottom: '1px solid #ddd' }}>
-                      <td style={{ padding: '6px' }}>MKE-CORE-04 (Milwaukee)</td>
-                      <td style={{ padding: '6px' }}>198.51.100.1</td>
-                      <td style={{ padding: '6px', color: '#b91c1c', fontWeight: 'bold' }}>ANOMALOUS (RACK 4 TEMP DROP)</td>
-                      <td style={{ padding: '6px' }}>Sprint, Ameritech, 0.0.0.0/room</td>
-                    </tr>
-                    <tr style={{ borderBottom: '1px solid #ddd' }}>
-                      <td style={{ padding: '6px' }}>CHI-GW-01 (Chicago Gateway)</td>
-                      <td style={{ padding: '6px' }}>209.142.68.1</td>
-                      <td style={{ padding: '6px', color: '#15803d' }}>OPERATIONAL</td>
-                      <td style={{ padding: '6px' }}>MCI WorldCom, UUNET</td>
-                    </tr>
-                    <tr>
-                      <td style={{ padding: '6px' }}>MSN-POP-02 (Madison Dial-in)</td>
-                      <td style={{ padding: '6px' }}>209.142.68.14</td>
-                      <td style={{ padding: '6px', color: '#15803d' }}>OPERATIONAL</td>
-                      <td style={{ padding: '6px' }}>UW Campus Subnet, Marrow.net</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div style={{ overflowX: 'auto' }}>
+                  <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem', background: '#fff', border: '1px solid #808080' }}>
+                    <thead>
+                      <tr style={{ background: '#000080', color: '#fff', textAlign: 'left' }}>
+                        <th style={{ padding: '6px', whiteSpace: 'nowrap' }}>Core Router Node</th>
+                        <th style={{ padding: '6px', whiteSpace: 'nowrap' }}>Interface Address</th>
+                        <th style={{ padding: '6px', whiteSpace: 'nowrap' }}>Status</th>
+                        <th style={{ padding: '6px', whiteSpace: 'nowrap' }}>Active Peers</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style={{ borderBottom: '1px solid #ddd' }}>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>MKE-CORE-04 (Milwaukee)</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>198.51.100.1</td>
+                        <td style={{ padding: '6px', color: '#b91c1c', fontWeight: 'bold', whiteSpace: 'nowrap' }}>ANOMALOUS (RACK 4 TEMP DROP)</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>Sprint, Ameritech, 0.0.0.0/room</td>
+                      </tr>
+                      <tr style={{ borderBottom: '1px solid #ddd' }}>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>CHI-GW-01 (Chicago Gateway)</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>209.142.68.1</td>
+                        <td style={{ padding: '6px', color: '#15803d', whiteSpace: 'nowrap' }}>OPERATIONAL</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>MCI WorldCom, UUNET</td>
+                      </tr>
+                      <tr>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>MSN-POP-02 (Madison Dial-in)</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>209.142.68.14</td>
+                        <td style={{ padding: '6px', color: '#15803d', whiteSpace: 'nowrap' }}>OPERATIONAL</td>
+                        <td style={{ padding: '6px', whiteSpace: 'nowrap' }}>UW Campus Subnet, Marrow.net</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
 

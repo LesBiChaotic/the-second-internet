@@ -315,12 +315,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
         </div>
       ) : (
         /* Unlocked Classified Workspace */
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'minmax(300px, 360px) 1fr',
-          gap: '20px',
-          minHeight: '620px'
-        }}>
+        <div className="responsive-grid-sidebar" style={{ minHeight: '620px' }}>
           {/* Left Exhibit Selector */}
           <div style={{
             background: 'var(--nhf-bg-surface)',
@@ -454,6 +449,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
               color: 'var(--nhf-text-primary)',
               lineHeight: 1.75,
               whiteSpace: 'pre-wrap',
+              wordBreak: 'break-word',
               minHeight: '260px',
               boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.2)'
             }}>

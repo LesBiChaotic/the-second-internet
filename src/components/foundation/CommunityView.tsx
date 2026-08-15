@@ -117,32 +117,49 @@ export const CommunityView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Category Filter Pills */}
-      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-        {categories.map((cat) => (
-          <button
-            key={cat.id}
-            className="btn btn-secondary"
-            style={{
-              padding: '5px 12px',
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              borderColor: selectedCategory === cat.id ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
-              color: selectedCategory === cat.id ? '#60a5fa' : 'var(--nhf-text-muted)',
-              background: selectedCategory === cat.id ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)',
-              whiteSpace: 'nowrap'
-            }}
-            onClick={() => {
-              soundEngine.playClick(600);
-              setSelectedCategory(cat.id);
-            }}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
+      <>
+        {/* Desktop View */}
+        <div className="filter-desktop" style={{ gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              className="btn btn-secondary"
+              style={{
+                padding: '5px 12px',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                borderColor: selectedCategory === cat.id ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
+                color: selectedCategory === cat.id ? '#60a5fa' : 'var(--nhf-text-muted)',
+                background: selectedCategory === cat.id ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)',
+                whiteSpace: 'nowrap'
+              }}
+              onClick={() => {
+                soundEngine.playClick(600);
+                setSelectedCategory(cat.id);
+              }}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile View */}
+        <select
+          className="filter-mobile"
+          value={selectedCategory}
+          onChange={(e) => {
+            soundEngine.playClick(600);
+            setSelectedCategory(e.target.value);
+          }}
+        >
+          {categories.map(cat => (
+            <option key={cat.id} value={cat.id}>{cat.label}</option>
+          ))}
+        </select>
+      </>
 
       {/* Members Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', gap: '20px' }}>
         {filteredMembers.map((m) => {
           const isAnom = m.category === 'ANOMALOUS' || m.status === 'UNRECOGNIZED_NETWORK';
           return (

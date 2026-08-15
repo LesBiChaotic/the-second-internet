@@ -241,8 +241,8 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
         ))}
       </div>
 
-      {/* Posts Stream */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Split Layout */}
+      <div className="responsive-grid-sidebar">
         {filteredPosts.map((post) => {
           const hasCensored = post.content.includes('[CENSORED_SECTION_START]');
           const isUncensored = uncensoredSections[post.id];

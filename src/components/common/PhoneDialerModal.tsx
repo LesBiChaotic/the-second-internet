@@ -215,7 +215,7 @@ export const PhoneDialerModal: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="modal-body" style={{ display: 'flex', flexDirection: 'column' }}>
+        <div className="modal-body" style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto' }}>
           {/* Display Screen */}
           <div style={{
             backgroundColor: '#05080f',

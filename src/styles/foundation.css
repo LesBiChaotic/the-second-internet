@@ -538,5 +538,39 @@
   }
 }
 
-
-
+/* --- Responsive Filter Utilities --- */
+.filter-desktop {
+  display: flex;
+}
+.filter-mobile {
+  display: none;
+}
+.responsive-grid-sidebar {
+  display: grid;
+  grid-template-columns: minmax(280px, 360px) 1fr;
+  gap: 20px;
+}
+@media (max-width: 768px) {
+  .filter-desktop {
+    display: none !important;
+  }
+  .filter-mobile {
+    display: block !important;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--nhf-bg-surface);
+    color: var(--nhf-text-primary);
+    border: 1px solid var(--nhf-accent-blue);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .filter-mobile:focus {
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.3);
+  }
+  .responsive-grid-sidebar {
+    grid-template-columns: 1fr !important;
+  }
+}

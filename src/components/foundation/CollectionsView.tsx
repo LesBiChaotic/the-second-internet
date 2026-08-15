@@ -21,7 +21,8 @@ export const CollectionsView: React.FC<Props> = ({ store }) => {
 
   const handleOpenCollection = (colId: string) => {
     soundEngine.playClick(750);
-    if (colId === 'col-04') navigate('SITE_MARROW');
+    if (colId === 'col-01') alert('Collection COL-01-USENET is currently undergoing ingestion processing. Access restricted.');
+    else if (colId === 'col-04') navigate('SITE_MARROW');
     else if (colId === 'col-07') navigate('SITE_CANDLEROOM');
     else if (colId === 'col-09') navigate('SITE_GREYLINE');
     else if (colId === 'col-11') navigate('SITE_AFTERHOURS');
@@ -30,6 +31,8 @@ export const CollectionsView: React.FC<Props> = ({ store }) => {
     else if (colId === 'col-17') {
       discoverAnomaly('col-17-click');
       navigate('RESTRICTED_VAULT');
+    } else {
+      alert('This collection is not yet available for exploration.');
     }
   };
 
@@ -48,31 +51,48 @@ export const CollectionsView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Filter Tag Bar */}
-      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
-        {allTags.map((tag) => (
-          <button
-            key={tag}
-            className="btn btn-secondary"
-            style={{
-              padding: '4px 12px',
-              fontSize: '0.75rem',
-              fontFamily: 'var(--font-mono)',
-              borderColor: filterTag === tag ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
-              color: filterTag === tag ? '#60a5fa' : 'var(--nhf-text-muted)',
-              background: filterTag === tag ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)'
-            }}
-            onClick={() => {
-              soundEngine.playClick(600);
-              setFilterTag(tag);
-            }}
-          >
-            {tag}
-          </button>
-        ))}
-      </div>
+      <>
+        {/* Desktop View */}
+        <div className="filter-desktop" style={{ gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              className="btn btn-secondary"
+              style={{
+                padding: '4px 12px',
+                fontSize: '0.75rem',
+                fontFamily: 'var(--font-mono)',
+                borderColor: filterTag === tag ? 'var(--nhf-accent-blue)' : 'var(--nhf-border)',
+                color: filterTag === tag ? '#60a5fa' : 'var(--nhf-text-muted)',
+                background: filterTag === tag ? 'rgba(59, 130, 246, 0.15)' : 'var(--nhf-bg-surface)'
+              }}
+              onClick={() => {
+                soundEngine.playClick(600);
+                setFilterTag(tag);
+              }}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
+        {/* Mobile View */}
+        <select 
+          className="filter-mobile"
+          value={filterTag}
+          onChange={(e) => {
+            soundEngine.playClick(600);
+            setFilterTag(e.target.value);
+          }}
+        >
+          {allTags.map(tag => (
+            <option key={tag} value={tag}>{tag}</option>
+          ))}
+        </select>
+      </>
 
       {/* Collections Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
         {filtered.map((col) => {
           const isQuarantined = col.status === 'Quarantined';
           return (

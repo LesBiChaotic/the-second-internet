@@ -241,7 +241,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Foundation Research & Announcements */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
         {/* Recent Publications */}
         <div style={{ background: 'var(--nhf-bg-surface)', border: '1px solid var(--nhf-border)', borderRadius: 'var(--radius-md)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: 'var(--shadow-subtle)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

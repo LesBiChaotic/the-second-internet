@@ -67,7 +67,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 320px) 1fr', gap: '24px', minHeight: '650px' }}>
+      <div className="responsive-grid-sidebar" style={{ minHeight: '650px' }}>
         {/* Document List */}
         <div style={{
           background: 'var(--nhf-bg-surface)',

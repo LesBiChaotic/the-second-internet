@@ -22,7 +22,7 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: '20px' }}>
         {staffRoster.map((staff) => {
           const isMissing = staff.status === 'Missing';
           const isUnverified = staff.status === 'Unverified';

@@ -84,6 +84,8 @@
   background-color: #003838;
   border: 3px ridge #008080;
   border-collapse: collapse;
+  table-layout: fixed;
+  word-wrap: break-word;
 }
 
 .marrow-header-cell {

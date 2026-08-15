@@ -94,6 +94,8 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
         className="modal-card"
         style={{
           maxWidth: '560px',
+          maxHeight: '90vh',
+          overflowY: 'auto',
           backgroundColor: '#0c111a',
           border: '1px solid #1e293b'
         }}

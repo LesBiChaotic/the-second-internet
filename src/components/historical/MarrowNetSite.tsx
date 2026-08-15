@@ -148,7 +148,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                     </div>
 
                     {/* Retro 88x31 Badges Row */}
-                    <div className="retro-badge-row" style={{ justifyContent: 'center', marginTop: '24px' }}>
+                    <div className="retro-badge-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', marginTop: '24px', gap: '8px' }}>
                       <div className="retro-88x31-badge badge-netscape">NETSCAPE 4.0 NOW</div>
                       <div className="retro-88x31-badge badge-notepad">MADE W/ NOTEPAD</div>
                       <div className="retro-88x31-badge badge-apache">APACHE POWERED</div>
@@ -176,8 +176,8 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
 
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
                               {thread.posts.map((p) => (
-                                <div key={p.id} style={{ background: '#001a1a', border: '1px solid #004d4d', padding: '12px' }}>
-                                  <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #003333', paddingBottom: '4px', marginBottom: '8px', fontSize: '0.8rem', color: '#80cbc4' }}>
+                                <div key={p.id} style={{ background: '#001a1a', border: '1px solid #004d4d', padding: '12px', wordBreak: 'break-word' }}>
+                                  <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', borderBottom: '1px solid #003333', paddingBottom: '4px', marginBottom: '8px', fontSize: '0.8rem', color: '#80cbc4' }}>
                                     <span style={{ fontWeight: 'bold', color: '#80deea' }}>
                                       {p.authorHandle} ({p.authorTitle})
                                     </span>
@@ -193,9 +193,9 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                         );
                       })()
                     ) : (
-                      <div className="marrow-box">
+                      <div className="marrow-box" style={{ overflowX: 'auto' }}>
                         <div className="marrow-box-title">Discussion Boards</div>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem' }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.88rem', minWidth: '400px' }}>
                           <thead>
                             <tr style={{ background: '#004d4d', color: '#e0f2f1', textAlign: 'left' }}>
                               <th style={{ padding: '6px' }}>Thread Topic</th>
@@ -230,7 +230,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                 {activeTab === 'MEMBERS' && (
                   <div className="marrow-box">
                     <div className="marrow-box-title">Member Directory (1998 Roster)</div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '12px' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '12px' }}>
                       {marrowMembers.map((m) => (
                         <div key={m.handle} style={{ background: '#001a1a', border: '1px solid #004d4d', padding: '12px' }}>
                           <div style={{ fontWeight: 'bold', color: '#80deea', fontSize: '1rem' }}>

@@ -65,6 +65,25 @@ export function App() {
     setIsCrtActive(!isCrtActive);
   };
 
+  React.useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && e.state.view) {
+        // We bypass store.navigate here so we don't push another history state
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('nhf_currentView', e.state.view);
+          if (e.state.subId) localStorage.setItem('nhf_currentSubId', e.state.subId);
+          if (e.state.url) localStorage.setItem('nhf_activeUrl', e.state.url);
+        }
+        // Instead of a full reload, we can trigger a location reload or implement a discrete setter
+        // However, for immediate reactive update we can use store's navigate with a flag, 
+        // but store doesn't expose raw setters for currentView. A simple reload works perfectly for Back button here.
+        window.location.reload();
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   const renderCurrentView = () => {
     switch (store.currentView) {
       case 'DASHBOARD': return <FoundationDashboard store={store} />;

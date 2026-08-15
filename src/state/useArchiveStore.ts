@@ -459,6 +459,9 @@ export function useArchiveStore(): ArchiveState {
 
   // Auto-mutate network status and clearance based on discoveries
   useEffect(() => {
+    // Do not auto-escalate clearance if the user is still at the login gate
+    if (isGateOpen) return;
+
     const count = discoveredAnomalies.length;
     
     // Integrity slowly slips as anomalies accumulate
@@ -481,7 +484,7 @@ export function useArchiveStore(): ArchiveState {
       setNetworkStatus('HOME');
       setClearanceLevelState('LEVEL_NULL');
     }
-  }, [discoveredAnomalies, clearanceLevel]);
+  }, [discoveredAnomalies, clearanceLevel, isGateOpen]);
 
   const toggleTheme = () => {
     setThemeMode(prev => {
@@ -599,6 +602,10 @@ export function useArchiveStore(): ArchiveState {
       if (typeof window !== 'undefined') {
         localStorage.setItem('nhf_activeUrl', calculatedUrl);
       }
+    }
+
+    if (typeof window !== 'undefined' && window.history) {
+      window.history.pushState({ view, subId, url: calculatedUrl }, '', window.location.pathname);
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });

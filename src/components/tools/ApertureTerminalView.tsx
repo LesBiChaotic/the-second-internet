@@ -422,6 +422,8 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
             minHeight: '380px',
             maxHeight: '520px',
             overflowY: 'auto',
+            overflowX: 'auto',
+            wordBreak: 'break-word',
             fontFamily: 'var(--font-mono)',
             fontSize: '0.85rem',
             lineHeight: 1.6,

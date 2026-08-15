@@ -49,7 +49,7 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Split Layout: Left Roster, Right Dossier */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 320px) 1fr', gap: '24px', minHeight: '600px' }}>
+      <div className="responsive-grid-sidebar" style={{ minHeight: '600px' }}>
         {/* Left Character List */}
         <div style={{
           background: 'var(--nhf-bg-surface)',

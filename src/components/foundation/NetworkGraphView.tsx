@@ -210,10 +210,12 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Canvas container */}
-      <div className="graph-canvas-container" style={{ boxShadow: 'var(--shadow-subtle)' }}>
+      <div className="graph-canvas-container" style={{ boxShadow: 'var(--shadow-subtle)', overflowX: 'auto', position: 'relative' }}>
         <canvas
           ref={canvasRef}
           width={900}
+          height={600}
+          style={{ minWidth: '900px', display: 'block' }}
           height={600}
           className="graph-canvas"
           onClick={handleCanvasClick}
