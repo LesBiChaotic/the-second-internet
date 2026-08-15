@@ -87,7 +87,7 @@ export const PalisadeSocialSite: React.FC<Props> = ({ store }) => {
           </div>
 
           {/* Profile Body */}
-          <div style={{ padding: '24px', display: 'grid', gridTemplateColumns: '220px 1fr', gap: '24px' }}>
+          <div className="responsive-grid-sidebar" style={{ padding: '24px', gap: '24px' }}>
             {/* Left Sidebar */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               <div style={{ width: '100%', height: '180px', background: '#e2e8f0', border: '1px solid #cbd5e1', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748b', fontSize: '0.85rem' }}>

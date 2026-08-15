@@ -215,8 +215,7 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
           ref={canvasRef}
           width={900}
           height={600}
-          style={{ minWidth: '900px', display: 'block' }}
-          height={600}
+          style={{ width: '900px', height: '600px', minWidth: '900px', display: 'block', maxWidth: 'none' }}
           className="graph-canvas"
           onClick={handleCanvasClick}
         />

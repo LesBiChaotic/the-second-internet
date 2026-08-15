@@ -47,14 +47,31 @@ export const ChatArchiveView: React.FC<Props> = ({ store }) => {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '24px', minHeight: '600px' }}>
+      <div className="responsive-grid-sidebar" style={{ minHeight: '600px' }}>
+        {/* Mobile Selector */}
+        <select
+          className="filter-mobile"
+          value={selectedChatId}
+          onChange={(e) => {
+            const chat = chatLogsData.find(c => c.id === e.target.value);
+            if (chat) handleSelect(chat);
+          }}
+          style={{ marginBottom: '16px' }}
+        >
+          <option value="" disabled>Select Chat Log...</option>
+          {chatLogsData.map(chat => (
+            <option key={chat.id} value={chat.id}>
+              {chat.channel} ({chat.server})
+            </option>
+          ))}
+        </select>
+
         {/* Chat Log Selector */}
-        <div style={{
+        <div className="filter-desktop" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
           padding: '16px',
-          display: 'flex',
           flexDirection: 'column',
           gap: '8px',
           boxShadow: 'var(--shadow-subtle)'

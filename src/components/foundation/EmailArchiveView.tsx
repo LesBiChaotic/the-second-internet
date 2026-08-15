@@ -47,14 +47,31 @@ export const EmailArchiveView: React.FC<Props> = ({ store }) => {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '24px', minHeight: '600px' }}>
+      <div className="responsive-grid-sidebar" style={{ minHeight: '600px' }}>
+        {/* Mobile Selector */}
+        <select
+          className="filter-mobile"
+          value={selectedEmailId}
+          onChange={(e) => {
+            const em = emailsData.find(m => m.id === e.target.value);
+            if (em) handleSelect(em);
+          }}
+          style={{ marginBottom: '16px' }}
+        >
+          <option value="" disabled>Select Email...</option>
+          {emailsData.map(em => (
+            <option key={em.id} value={em.id}>
+              {em.from.split('@')[0]} - {em.subject}
+            </option>
+          ))}
+        </select>
+
         {/* Email List */}
-        <div style={{
+        <div className="filter-desktop" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
           padding: '16px',
-          display: 'flex',
           flexDirection: 'column',
           gap: '8px',
           maxHeight: '700px',

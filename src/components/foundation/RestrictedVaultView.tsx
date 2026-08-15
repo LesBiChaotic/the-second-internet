@@ -316,13 +316,34 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
       ) : (
         /* Unlocked Classified Workspace */
         <div className="responsive-grid-sidebar" style={{ minHeight: '620px' }}>
+          {/* Mobile Selector */}
+          <select 
+            className="filter-mobile"
+            value={activeExhibit.id}
+            onChange={(e) => {
+              const ex = exhibits.find(x => x.id === e.target.value);
+              if (ex) {
+                 soundEngine.playClick(650);
+                 setActiveExhibitId(ex.id);
+                 discoverAnomaly(`vault-item-${ex.id}`);
+              }
+            }}
+            style={{ marginBottom: '16px' }}
+          >
+            <option value="" disabled>Select Quarantined Relic...</option>
+            {exhibits.map(ex => (
+              <option key={ex.id} value={ex.id}>
+                {ex.code} - {ex.title}
+              </option>
+            ))}
+          </select>
+
           {/* Left Exhibit Selector */}
-          <div style={{
+          <div className="filter-desktop" style={{
             background: 'var(--nhf-bg-surface)',
             border: '1px solid var(--nhf-border)',
             borderRadius: 'var(--radius-md)',
             padding: '16px',
-            display: 'flex',
             flexDirection: 'column',
             gap: '8px',
             boxShadow: 'var(--shadow-subtle)'

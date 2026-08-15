@@ -47,18 +47,33 @@ export const ResearchPapersView: React.FC<Props> = ({ store }) => {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '320px 1fr', gap: '24px', minHeight: '650px' }}>
+      <div className="responsive-grid-sidebar" style={{ minHeight: '650px' }}>
+        {/* Mobile Selector */}
+        <select
+          className="filter-mobile"
+          value={selectedArticleId}
+          onChange={(e) => {
+            const art = foundationArticles.find(a => a.id === e.target.value);
+            if (art) handleSelect(art);
+          }}
+          style={{ marginBottom: '16px' }}
+        >
+          <option value="" disabled>Select Research Paper...</option>
+          {foundationArticles.map(art => (
+            <option key={art.id} value={art.id}>
+              {art.title} ({art.category.toUpperCase()})
+            </option>
+          ))}
+        </select>
+
         {/* Left Article List */}
-        <div style={{
+        <div className="filter-desktop" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
           padding: '16px',
-          display: 'flex',
           flexDirection: 'column',
           gap: '8px',
-          maxHeight: '750px',
-          overflowY: 'auto'
         }}>
           {foundationArticles.map((art) => {
             const isSelected = art.id === selectedArticleId;

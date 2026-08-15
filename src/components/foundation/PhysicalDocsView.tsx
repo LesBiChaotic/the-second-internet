@@ -68,17 +68,36 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
       </div>
 
       <div className="responsive-grid-sidebar" style={{ minHeight: '650px' }}>
+        {/* Mobile Selector */}
+        <select
+          className="filter-mobile"
+          value={selectedDocId}
+          onChange={(e) => {
+            const doc = physicalDocsData.find(d => d.id === e.target.value);
+            if (doc) handleSelect(doc);
+          }}
+          style={{ marginBottom: '16px' }}
+        >
+          <option value="" disabled>Select Physical Evidence...</option>
+          {Array.from(new Set(physicalDocsData.map(d => d.docType))).map(type => (
+            <optgroup key={type} label={type}>
+              {physicalDocsData.filter(d => d.docType === type).map(doc => (
+                <option key={doc.id} value={doc.id}>
+                  {doc.title}
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+
         {/* Document List */}
-        <div style={{
+        <div className="filter-desktop" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
           padding: '16px',
-          display: 'flex',
           flexDirection: 'column',
           gap: '8px',
-          maxHeight: '750px',
-          overflowY: 'auto'
         }}>
           {physicalDocsData.map((doc) => {
             const isSelected = doc.id === selectedDocId;
