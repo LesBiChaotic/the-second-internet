@@ -217,7 +217,7 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Tag Filters */}
-      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+      <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px', maxWidth: '100%', minWidth: 0 }}>
         {tags.map((tag) => (
           <button
             key={tag}
