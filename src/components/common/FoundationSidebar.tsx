@@ -29,7 +29,12 @@ import {
   Terminal,
   Tv,
   Zap,
-  HelpCircle
+  HelpCircle,
+  Sun,
+  Moon,
+  Type,
+  Volume2,
+  VolumeX
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
@@ -39,9 +44,11 @@ interface Props {
   store: ArchiveState;
   mobileOpen: boolean;
   onCloseMobile: () => void;
+  isCrtActive: boolean;
+  onToggleCrt: () => void;
 }
 
-export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseMobile }) => {
+export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseMobile, isCrtActive, onToggleCrt }) => {
   const { 
     currentView, 
     navigate, 
@@ -50,7 +57,16 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
     discoveredAnomalies, 
     setIsPhoneDialerOpen,
     unreadDmCount,
-    openFieldGuide
+    openFieldGuide,
+    theme,
+    themeMode,
+    useDeviceFont,
+    audioMuted,
+    ambientHumEnabled,
+    toggleTheme,
+    toggleDeviceFont,
+    toggleAudioMute,
+    toggleAmbientHum
   } = store;
 
   const handleNav = (view: string, subId?: string) => {
@@ -114,6 +130,163 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             <div style={{ fontSize: '0.66rem', color: 'var(--nhf-text-muted)', marginTop: '2px', lineHeight: 1.3 }}>
               {store.networkStatus === 'HOME' ? 'And the internet that remembers us.' : 'Digital Archaeology & Telemetry'}
             </div>
+          </div>
+        </div>
+
+        {/* Global Display, Audio & Telemetry Settings */}
+        <div className="sidebar-nav-section" style={{
+          background: 'rgba(56, 189, 248, 0.03)',
+          border: '1px solid var(--nhf-border)',
+          borderRadius: '10px',
+          padding: '8px 6px'
+        }}>
+          <div className="sidebar-section-title" style={{ color: '#38bdf8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#38bdf8' }} />
+            Display & Audio Controls
+          </div>
+
+          {/* Theme Toggle */}
+          <div 
+            className="sidebar-nav-item"
+            onClick={() => {
+              soundEngine.playClick(750);
+              toggleTheme();
+            }}
+            style={{ justifyContent: 'space-between' }}
+            title="Toggle Light / Dark / Auto System Theme"
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              {themeMode === 'system' ? (
+                <Sparkles size={16} color="var(--nhf-accent-blue)" />
+              ) : theme === 'dark' ? (
+                <Sun size={16} color="#f59e0b" />
+              ) : (
+                <Moon size={16} color="#3b82f6" />
+              )}
+              <span>Theme: {themeMode === 'system' ? `Auto (${theme})` : theme === 'dark' ? 'Dark' : 'Light'}</span>
+            </span>
+          </div>
+
+          {/* Font Toggle */}
+          <div 
+            className="sidebar-nav-item"
+            onClick={() => {
+              soundEngine.playClick(800);
+              toggleDeviceFont();
+            }}
+            style={{ 
+              justifyContent: 'space-between',
+              color: useDeviceFont ? '#38bdf8' : undefined
+            }}
+            title="Switch between Archival Typography (Inter/Newsreader) and Native Platform Font (Android Roboto / Apple SF Pro)"
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Type size={16} />
+              <span>{useDeviceFont ? 'Device Font (Roboto/SF)' : 'Archival Font'}</span>
+            </span>
+            <span style={{ 
+              fontSize: '0.65rem', 
+              padding: '2px 6px', 
+              borderRadius: '4px', 
+              background: useDeviceFont ? 'rgba(56, 189, 248, 0.15)' : 'var(--nhf-bg-card)',
+              color: useDeviceFont ? '#38bdf8' : 'var(--nhf-text-muted)',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 700
+            }}>
+              {useDeviceFont ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* CRT Toggle */}
+          <div 
+            className="sidebar-nav-item"
+            onClick={() => {
+              soundEngine.playClick(900);
+              onToggleCrt();
+            }}
+            style={{
+              color: isCrtActive ? '#38bdf8' : undefined
+            }}
+            title="Toggle CRT Scanline Overlay and Phosphor Glow"
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Tv size={16} />
+              <span>CRT Scanlines</span>
+            </span>
+            <span style={{ 
+              fontSize: '0.65rem', 
+              padding: '2px 6px', 
+              borderRadius: '4px', 
+              background: isCrtActive ? 'rgba(56, 189, 248, 0.15)' : 'var(--nhf-bg-card)',
+              color: isCrtActive ? '#38bdf8' : 'var(--nhf-text-muted)',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 700
+            }}>
+              {isCrtActive ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* Ambient Hum Toggle */}
+          <div 
+            className="sidebar-nav-item"
+            onClick={() => {
+              if (!ambientHumEnabled) {
+                soundEngine.startAmbientHum();
+              } else {
+                soundEngine.stopAmbientHum();
+              }
+              toggleAmbientHum();
+            }}
+            title="Toggle 58.4Hz Carrier Background Hum"
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Radio size={16} color={ambientHumEnabled ? '#38bdf8' : 'var(--nhf-text-muted)'} />
+              <span>58.4Hz Carrier Hum</span>
+            </span>
+            <span style={{ 
+              fontSize: '0.65rem', 
+              padding: '2px 6px', 
+              borderRadius: '4px', 
+              background: ambientHumEnabled ? 'rgba(56, 189, 248, 0.15)' : 'var(--nhf-bg-card)',
+              color: ambientHumEnabled ? '#38bdf8' : 'var(--nhf-text-muted)',
+              fontFamily: 'var(--font-mono)',
+              fontWeight: 700
+            }}>
+              {ambientHumEnabled ? 'ON' : 'OFF'}
+            </span>
+          </div>
+
+          {/* Audio Mute Toggle */}
+          <div 
+            className="sidebar-nav-item"
+            onClick={() => {
+              toggleAudioMute();
+              soundEngine.playClick(900);
+            }}
+            title="Mute or Unmute All UI Audio Feedback"
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              {audioMuted ? <VolumeX size={16} color="var(--nhf-accent-crimson)" /> : <Volume2 size={16} />}
+              <span>{audioMuted ? 'Audio Muted' : 'Audio Active'}</span>
+            </span>
+          </div>
+
+          {/* Network Status */}
+          <div 
+            className="sidebar-nav-item"
+            style={{ cursor: 'default', opacity: 0.85 }}
+          >
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{
+                width: '8px',
+                height: '8px',
+                borderRadius: '50%',
+                backgroundColor: store.networkStatus === 'HOME' ? '#ef4444' : store.networkStatus === 'OUTSIDE' ? '#f59e0b' : '#10b981',
+                boxShadow: `0 0 6px ${store.networkStatus === 'HOME' ? '#ef4444' : store.networkStatus === 'OUTSIDE' ? '#f59e0b' : '#10b981'}`,
+                flexShrink: 0
+              }} />
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}>Subnet: {store.networkStatus}</span>
+            </span>
           </div>
         </div>
 

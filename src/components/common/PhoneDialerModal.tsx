@@ -171,28 +171,22 @@ export const PhoneDialerModal: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      backgroundColor: 'rgba(3, 7, 18, 0.85)',
-      backdropFilter: 'blur(8px)',
-      zIndex: 2000,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '16px'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '540px',
-        backgroundColor: '#0c111a',
-        border: '1px solid #1e293b',
-        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.7)',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+    <div 
+      className="modal-backdrop"
+      onClick={() => {
+        handleHangUp();
+        setIsPhoneDialerOpen(false);
+      }}
+    >
+      <div 
+        className="modal-card"
+        style={{
+          maxWidth: '520px',
+          backgroundColor: '#0c111a',
+          border: '1px solid #1e293b'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div style={{
           backgroundColor: '#070b12',
@@ -220,16 +214,18 @@ export const PhoneDialerModal: React.FC<Props> = ({ store }) => {
           </button>
         </div>
 
-        {/* Display Screen */}
-        <div style={{
-          backgroundColor: '#05080f',
-          padding: '16px 20px',
-          borderBottom: '1px solid #1e293b',
-          minHeight: '110px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between'
-        }}>
+        {/* Modal Scrollable Body */}
+        <div className="modal-body" style={{ display: 'flex', flexDirection: 'column' }}>
+          {/* Display Screen */}
+          <div style={{
+            backgroundColor: '#05080f',
+            padding: '16px 20px',
+            borderBottom: '1px solid #1e293b',
+            minHeight: '100px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <span style={{ fontSize: '0.72rem', fontFamily: 'var(--font-mono)', color: '#64748b' }}>
               CARRIER: {callState === 'CONNECTED' ? 'ONLINE (DUPLEX)' : callState === 'DIALING' ? 'HANDSHAKE...' : 'READY'}
@@ -381,5 +377,6 @@ export const PhoneDialerModal: React.FC<Props> = ({ store }) => {
         </div>
       </div>
     </div>
+  </div>
   );
 };

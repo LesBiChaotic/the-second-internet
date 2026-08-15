@@ -109,3 +109,27 @@
   border-radius: var(--radius-sm);
   padding: 10px 14px;
 }
+
+@media (max-width: 768px) {
+  .trace-hero-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trace-post-card {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .trace-post-title {
+    font-size: 1.05rem;
+  }
+
+  .trace-comment-replies {
+    margin-left: 8px;
+    padding-left: 8px;
+  }
+}
+

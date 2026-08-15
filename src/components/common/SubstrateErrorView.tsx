@@ -52,14 +52,15 @@ export const SubstrateErrorView: React.FC<Props> = ({ store, attemptedUrl, onRes
   return (
     <div style={{
       maxWidth: '780px',
-      margin: '40px auto',
+      margin: '16px auto',
+      width: '100%',
       background: 'var(--nhf-bg-surface)',
       border: '2px solid rgba(239, 68, 68, 0.4)',
       borderRadius: 'var(--radius-md)',
-      padding: '32px 36px',
+      padding: 'clamp(16px, 3vw, 32px)',
       display: 'flex',
       flexDirection: 'column',
-      gap: '20px',
+      gap: '18px',
       boxShadow: '0 8px 30px rgba(239, 68, 68, 0.15)'
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>

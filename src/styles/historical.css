@@ -361,3 +361,51 @@
   background-color: #020502;
   padding: 20px;
 }
+
+/* =========================================================================
+   Mobile Optimization Layer for Historical Sites & Wrapper Toolbar
+   ========================================================================= */
+@media (max-width: 768px) {
+  .archive-wrapper-bar {
+    height: auto;
+    min-height: 44px;
+    padding: 8px 10px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .wrapper-nav-left {
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .wrapper-return-btn {
+    min-height: 36px;
+    padding: 6px 10px;
+  }
+
+  .wrapper-actions-right {
+    gap: 4px;
+  }
+
+  .marrow-container,
+  .afterhours-container,
+  .candleroom-container,
+  .greyline-container,
+  .palisade-container,
+  .bluewindow-container,
+  .terminal21-container {
+    padding: 12px 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .bluewindow-wrapper {
+    padding: 16px 12px;
+  }
+
+  .terminal21-box {
+    padding: 12px 8px;
+  }
+}
+

@@ -63,28 +63,21 @@ export const GuestbookSignModal: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      backgroundColor: 'rgba(3, 7, 18, 0.85)',
-      backdropFilter: 'blur(8px)',
-      zIndex: 2000,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '16px'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '520px',
-        backgroundColor: '#002B2B',
-        border: '3px ridge #80CBC4',
-        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.8)',
-        color: '#E0F2F1',
-        fontFamily: '"Times New Roman", Times, serif',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+    <div 
+      className="modal-backdrop"
+      onClick={closeGuestbookModal}
+    >
+      <div 
+        className="modal-card"
+        style={{
+          maxWidth: '520px',
+          backgroundColor: '#002B2B',
+          border: '3px ridge #80CBC4',
+          color: '#E0F2F1',
+          fontFamily: '"Times New Roman", Times, serif'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Retro Header */}
         <div style={{
           backgroundColor: '#004D40',
@@ -110,7 +103,7 @@ export const GuestbookSignModal: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Body */}
-        <form onSubmit={handleSubmit} style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <form onSubmit={handleSubmit} className="modal-body" style={{ padding: 'clamp(14px, 3vw, 20px)', display: 'flex', flexDirection: 'column', gap: '14px' }}>
           <p style={{ fontSize: '0.88rem', margin: 0, color: '#B2DFDB', fontStyle: 'italic' }}>
             Leave your handle and thoughts in the guestbook. Visitors and network listeners can see your message across all temporal archives.
           </p>

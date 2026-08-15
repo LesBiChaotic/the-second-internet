@@ -111,24 +111,9 @@ export const DirectMessagesView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Dual-Panel Chat Workspace */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'minmax(250px, 300px) 1fr',
-        gap: '12px',
-        background: 'var(--nhf-bg-surface)',
-        border: '1px solid var(--nhf-border)',
-        borderRadius: 'var(--radius-md)',
-        minHeight: '560px',
-        overflow: 'hidden',
-        boxShadow: 'var(--shadow-subtle)'
-      }}>
+      <div className="dm-layout-grid">
         {/* Left Sidebar: Threads List */}
-        <div style={{
-          borderRight: '1px solid var(--nhf-border)',
-          background: 'var(--nhf-bg-primary)',
-          display: 'flex',
-          flexDirection: 'column'
-        }}>
+        <div className="dm-thread-sidebar">
           <div style={{
             padding: '12px 14px',
             borderBottom: '1px solid var(--nhf-border)',
@@ -205,7 +190,7 @@ export const DirectMessagesView: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Right Panel: Conversation Stream */}
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', background: 'var(--nhf-bg-surface)' }}>
+        <div className="dm-chat-pane">
           {/* Thread Header */}
           <div style={{
             padding: '12px 16px',

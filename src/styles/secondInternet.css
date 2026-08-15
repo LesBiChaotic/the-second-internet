@@ -155,3 +155,26 @@
   color: #64748b;
   font-size: 0.85rem;
 }
+
+@media (max-width: 768px) {
+  .si-wrapper {
+    flex-direction: column;
+  }
+
+  .si-right-nav {
+    width: 100%;
+    order: 0;
+    border-left: none;
+    border-bottom: 1px solid #222933;
+    padding: 14px 12px;
+  }
+
+  .si-main-content {
+    padding: 16px 12px;
+  }
+
+  .si-post {
+    padding: 14px;
+  }
+}
+

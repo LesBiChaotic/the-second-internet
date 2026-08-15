@@ -86,28 +86,19 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{
-      position: 'fixed',
-      inset: 0,
-      backgroundColor: 'rgba(4, 7, 13, 0.88)',
-      backdropFilter: 'blur(8px)',
-      zIndex: 2000,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '16px'
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '560px',
-        backgroundColor: '#0c111a',
-        border: '1px solid #1e293b',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.1)',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
+    <div 
+      className="modal-backdrop"
+      onClick={() => setIsGateOpen(false)}
+    >
+      <div 
+        className="modal-card"
+        style={{
+          maxWidth: '560px',
+          backgroundColor: '#0c111a',
+          border: '1px solid #1e293b'
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Institutional Top Bar */}
         <div style={{
           backgroundColor: '#070b12',
@@ -200,7 +191,7 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '24px' }}>
+        <div className="modal-body" style={{ padding: 'clamp(14px, 3vw, 24px)' }}>
           {activeTab === 'VISITOR' ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div style={{

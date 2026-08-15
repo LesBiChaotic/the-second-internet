@@ -56,24 +56,24 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
         background: 'linear-gradient(135deg, var(--nhf-bg-surface), var(--nhf-bg-card))',
         border: '1px solid var(--nhf-border)',
         borderRadius: 'var(--radius-md)',
-        padding: '28px 32px',
+        padding: 'clamp(16px, 3vw, 28px) clamp(14px, 3vw, 32px)',
         display: 'flex',
         flexDirection: 'column',
-        gap: '14px',
+        gap: '12px',
         boxShadow: 'var(--shadow-subtle)'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
           <div className="badge badge-blue">DIGITAL HUMANITIES ARCHIVE & PRESERVATION FACILITY</div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--nhf-text-muted)', fontFamily: 'var(--font-mono)' }}>
+          <span style={{ fontSize: '0.72rem', color: 'var(--nhf-text-muted)', fontFamily: 'var(--font-mono)' }}>
             EST. 2017 // MADISON & CHICAGO
           </span>
         </div>
         
-        <h1 style={{ fontSize: '1.8rem', fontWeight: 700, color: 'var(--nhf-text-primary)', lineHeight: '1.3' }}>
+        <h1 className="hero-headline" style={{ fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', fontWeight: 700, color: 'var(--nhf-text-primary)', lineHeight: '1.3' }}>
           Preserving the digital commons before memory dissolves.
         </h1>
         
-        <p style={{ fontSize: '0.95rem', color: 'var(--nhf-text-secondary)', maxWidth: '780px', lineHeight: '1.6' }}>
+        <p style={{ fontSize: 'clamp(0.82rem, 2.2vw, 0.95rem)', color: 'var(--nhf-text-secondary)', maxWidth: '780px', lineHeight: '1.6' }}>
           The Net History Foundation catalogs, reconstructs, and safeguards endangered early internet culture (1994–2012). From regional dialup BBS spools and student webrings to early forum communities and personal blogs, our mission is to ensure the first digital generation is not erased.
         </p>
 

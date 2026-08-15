@@ -68,13 +68,29 @@
   --shadow-elevated: 0 12px 28px -5px rgba(0, 0, 0, 0.12), 0 8px 12px -6px rgba(0, 0, 0, 0.06);
 }
 
-/* Device / Native System Font Stack Override */
-.use-device-font,
+/* Device / Native System Font Stack Override (Explicit Android Roboto & Apple SF Pro) */
+.use-device-font {
+  --font-sans: Roboto, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans", system-ui, sans-serif !important;
+  --font-serif: "Noto Serif", "Droid Serif", "New York", Georgia, "Times New Roman", serif !important;
+  --font-mono: "Roboto Mono", "Droid Sans Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace !important;
+  --font-display: Roboto, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif !important;
+  --font-retro: "Roboto Mono", "Droid Sans Mono", "SF Mono", ui-monospace, monospace !important;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", system-ui, sans-serif !important;
+}
+
 .use-device-font * {
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif !important;
-  --font-serif: "Times New Roman", Times, Georgia, serif !important;
-  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace !important;
-  --font-display: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-family: inherit !important;
+}
+
+.use-device-font code,
+.use-device-font pre,
+.use-device-font .badge,
+.use-device-font .stat-value,
+.use-device-font .omnibox-input,
+.use-device-font .network-badge,
+.use-device-font .clearance-pill,
+.use-device-font [data-mono="true"] {
+  font-family: "Roboto Mono", "Droid Sans Mono", "SF Mono", ui-monospace, monospace !important;
 }
 
 * {
@@ -400,3 +416,158 @@ body {
   pointer-events: none;
   opacity: 0.7;
 }
+
+/* ==========================================================================
+   MOBILE & TOUCH DEVICE OPTIMIZATION LAYER
+   ========================================================================== */
+
+/* Safe Area Insets for notched iPhones & Android gesture nav */
+.app-container {
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Touch-friendly scrolling for all scrollable containers */
+.foundation-sidebar,
+.main-content-area,
+.modal-body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---- Mobile Breakpoint: Phones (≤ 768px) ---- */
+@media (max-width: 768px) {
+
+  /* Auto-enable platform-native font on mobile viewports.
+     Android → Roboto, iOS → SF Pro, without needing the toggle. */
+  :root, .theme-dark, .theme-light {
+    --font-sans: Roboto, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Noto Sans", system-ui, sans-serif;
+    --font-serif: "Noto Serif", "Droid Serif", "New York", Georgia, serif;
+    --font-mono: "Roboto Mono", "Droid Sans Mono", "SF Mono", ui-monospace, monospace;
+    --font-display: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  /* Responsive Typography */
+  body {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  h1, .hero-headline {
+    font-size: clamp(1.15rem, 5vw, 1.5rem) !important;
+    line-height: 1.35;
+  }
+
+  h2 {
+    font-size: clamp(1.05rem, 4vw, 1.3rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(0.95rem, 3.5vw, 1.15rem) !important;
+  }
+
+  /* Content Padding */
+  .main-content-area {
+    padding: 12px !important;
+  }
+
+  /* Enlarge All Buttons for Touch */
+  .btn {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Stat Banner Compact */
+  .stats-banner {
+    padding: 14px 16px;
+    gap: 10px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    min-width: 80px;
+    flex: 1 1 auto;
+  }
+
+  .stat-value {
+    font-size: 1.05rem;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+  }
+
+  /* Dashboard Cards Grid — Narrower Minimum */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .dashboard-card {
+    padding: 16px;
+    border-radius: 10px;
+    gap: 10px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .card-description {
+    font-size: 0.82rem;
+  }
+
+  /* Badge Sizing */
+  .badge {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
+
+  /* Modal Adjustments for Small Screens */
+  .modal-backdrop {
+    padding: 8px !important;
+    align-items: flex-end !important;
+  }
+
+  .modal-card {
+    max-width: 100% !important;
+    max-height: 92vh !important;
+    border-radius: 14px 14px 0 0 !important;
+    animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  @keyframes modalSlideUp {
+    from { opacity: 0; transform: translateY(60px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scrollbar Hide on Mobile (native momentum scrolling) */
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+}
+
+/* ---- Small Phones (≤ 380px) ---- */
+@media (max-width: 380px) {
+  .main-content-area {
+    padding: 8px !important;
+  }
+
+  .stats-banner {
+    padding: 10px 12px;
+  }
+
+  .stat-value {
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+}
+

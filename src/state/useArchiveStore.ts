@@ -239,9 +239,10 @@ export function useArchiveStore(): ArchiveState {
 
   const theme: 'dark' | 'light' = themeMode === 'system' ? systemTheme : themeMode;
 
-  // Device Font Preference
+  // Device Font Preference (defaults to true on mobile/Android/iOS for native rendering, or user saved choice)
+  const isMobileDevice: boolean = typeof window !== 'undefined' ? Boolean(/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768) : false;
   const savedFont = typeof window !== 'undefined' ? localStorage.getItem('nhf_use_device_font') : null;
-  const [useDeviceFont, setUseDeviceFont] = useState<boolean>(savedFont === 'true');
+  const [useDeviceFont, setUseDeviceFont] = useState<boolean>(savedFont !== null ? savedFont === 'true' : isMobileDevice);
 
   // Direct Messaging / Comms State
   const savedDms = typeof window !== 'undefined' ? localStorage.getItem('nhf_dm_threads') : null;

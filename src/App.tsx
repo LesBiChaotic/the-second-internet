@@ -135,6 +135,8 @@ export function App() {
               store={store} 
               mobileOpen={mobileMenuOpen}
               onCloseMobile={() => setMobileMenuOpen(false)}
+              isCrtActive={isCrtActive}
+              onToggleCrt={handleToggleCrt}
             />
           )}
           

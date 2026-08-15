@@ -304,24 +304,99 @@
   display: none;
 }
 
+.show-on-mobile-only {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .show-on-mobile {
     display: inline-flex;
+  }
+
+  .show-on-mobile-only {
+    display: block;
   }
   
   .hide-on-mobile {
     display: none !important;
   }
 
+  .hide-on-mobile-header {
+    display: none !important;
+  }
+
+  /* Header — Compact & Touch-Friendly */
+  .foundation-header {
+    height: 52px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .foundation-brand {
+    gap: 6px;
+  }
+
+  .foundation-logo-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  /* Omnibox — Prevent iOS Zoom & Fill Available Width */
+  .omnibox-container {
+    margin: 0 6px;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .omnibox-input {
+    font-size: 16px; /* Prevents iOS auto-zoom on focus */
+    padding: 10px 12px 10px 34px;
+    border-radius: 10px;
+  }
+
+  /* Header Buttons — Minimum 44×44 Tap Target */
+  .header-status-group {
+    gap: 4px;
+  }
+
+  .header-status-group .btn {
+    min-width: 40px;
+    min-height: 40px;
+    padding: 8px;
+    border-radius: 10px;
+    justify-content: center;
+  }
+
+  /* Network Badge & Clearance Pill — Compact */
+  .network-badge {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    border-radius: 8px;
+  }
+
+  .clearance-pill {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Sidebar Drawer — Full Width on Small Phones */
   .foundation-sidebar {
     position: fixed;
-    top: var(--header-height);
+    top: 52px;
     left: -100%;
     bottom: 0;
     z-index: 1000;
-    width: 280px;
+    width: min(280px, 85vw);
     transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 10px 0 25px rgba(0, 0, 0, 0.5);
+    padding: 14px 10px;
+    gap: 16px;
+    height: auto;
   }
 
   .foundation-sidebar.mobile-open {
@@ -334,21 +409,134 @@
     inset: 0;
     background: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     z-index: 999;
   }
 
+  /* Sidebar Nav Items — Touch-Friendly */
+  .sidebar-nav-item {
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    border-radius: 10px;
+  }
+
+  .sidebar-section-title {
+    font-size: 0.68rem;
+    padding: 6px 12px 4px;
+  }
+
+  /* Stats in sidebar */
   .stats-banner {
-    padding: 16px 20px;
-    gap: 14px;
+    padding: 12px 16px;
+    gap: 10px;
   }
 
   .stat-value {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 }
 
+/* Direct Messages Dual-Panel Workspace */
+.dm-layout-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 280px) 1fr;
+  background: var(--nhf-bg-surface);
+  border: 1px solid var(--nhf-border);
+  border-radius: var(--radius-md);
+  min-height: 560px;
+  overflow: hidden;
+  box-shadow: var(--shadow-subtle);
+}
+
+.dm-thread-sidebar {
+  border-right: 1px solid var(--nhf-border);
+  background: var(--nhf-bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+.dm-chat-pane {
+  display: flex;
+  flex-direction: column;
+  background: var(--nhf-bg-surface);
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .dm-layout-grid {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .dm-thread-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--nhf-border);
+    max-height: 200px;
+  }
+
+  .dm-chat-pane {
+    min-height: 440px;
+  }
+}
+
+/* Forensic Analyzer Drawer */
+.forensic-drawer {
+  position: fixed;
+  top: var(--header-height);
+  right: -380px;
+  bottom: 0;
+  width: 360px;
+  background-color: var(--nhf-bg-surface);
+  border-left: 1px solid var(--nhf-border);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+  z-index: 1500;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.forensic-drawer.open {
+  right: 0;
+}
+
+@media (max-width: 768px) {
+  .forensic-drawer {
+    right: 0;
+    left: 0;
+    top: auto;
+    bottom: -100%;
+    width: 100%;
+    max-height: 80vh;
+    border-left: none;
+    border-top: 1px solid var(--nhf-border);
+    border-radius: 16px 16px 0 0;
+    transition: bottom 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
+  }
+
+  .forensic-drawer.open {
+    bottom: 0;
+  }
+}
+
+/* Desktop: Hide Mobile-Only Elements */
 @media (min-width: 769px) {
   .sidebar-mobile-backdrop {
     display: none !important;
   }
+
+  .hide-on-mobile-header {
+    display: inline-flex;
+  }
+
+  .show-on-mobile-only {
+    display: none !important;
+  }
 }
+
+
+
