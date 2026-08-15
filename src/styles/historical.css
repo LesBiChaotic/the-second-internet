@@ -1,0 +1,363 @@
+/* Authentic Historical Period Web Styles (1995 - 2007) */
+
+/* Foundation Top Archive Wrapper Toolbar */
+.archive-wrapper-bar {
+  height: var(--wrapper-bar-height);
+  background-color: var(--nhf-bg-surface);
+  border-bottom: 1px solid var(--nhf-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--nhf-text-secondary);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  box-shadow: var(--shadow-subtle);
+}
+
+.wrapper-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.wrapper-return-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--nhf-accent-blue);
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 6px;
+  background-color: rgba(56, 189, 248, 0.1);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.wrapper-return-btn:hover {
+  background-color: rgba(56, 189, 248, 0.2);
+  border-color: var(--nhf-accent-blue);
+}
+
+.wrapper-site-badge {
+  color: var(--nhf-text-primary);
+  font-weight: 700;
+}
+
+.wrapper-snapshot-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--nhf-bg-card);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--nhf-border);
+}
+
+.wrapper-actions-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* =========================================================================
+   1. MARROW.NET (1997 - 1999) - Dark Teal Table Aesthetics
+   ========================================================================= */
+.marrow-container {
+  background-color: #002b2b;
+  color: #e0f2f1;
+  font-family: 'Times New Roman', Times, serif;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+  padding: 20px;
+}
+
+.marrow-layout-table {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #003838;
+  border: 3px ridge #008080;
+  border-collapse: collapse;
+}
+
+.marrow-header-cell {
+  background: linear-gradient(180deg, #004d4d, #002222);
+  border-bottom: 2px solid #00aaaa;
+  padding: 20px;
+  text-align: center;
+}
+
+.marrow-logo-title {
+  font-family: 'Times New Roman', serif;
+  font-size: 2.2rem;
+  color: #80cbc4;
+  letter-spacing: 0.1em;
+  text-shadow: 2px 2px #001111;
+  margin-bottom: 6px;
+}
+
+.marrow-nav-bar {
+  background-color: #001f1f;
+  padding: 8px;
+  border-bottom: 1px solid #006666;
+  text-align: center;
+}
+
+.marrow-nav-link {
+  color: #80deea;
+  text-decoration: underline;
+  margin: 0 10px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.marrow-content-area {
+  padding: 24px;
+}
+
+.marrow-box {
+  background-color: #002424;
+  border: 1px solid #006666;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.marrow-box-title {
+  background-color: #004d4d;
+  color: #e0f2f1;
+  padding: 6px 12px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-bottom: 1px solid #008080;
+  margin: -16px -16px 14px -16px;
+}
+
+/* =========================================================================
+   2. AFTERHOURS.ORG (2001 - 2005) - phpBB Nocturnal Board Aesthetics
+   ========================================================================= */
+.afterhours-container {
+  background-color: #080c14;
+  color: #cbd5e1;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+  padding: 24px 16px;
+}
+
+.afterhours-wrapper {
+  max-width: 1040px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.afterhours-header {
+  background: linear-gradient(180deg, #131d2e, #0b111a);
+  border: 1px solid #1e293b;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.afterhours-board-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #93c5fd;
+  letter-spacing: -0.02em;
+}
+
+.afterhours-tagline {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-style: italic;
+}
+
+.afterhours-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+}
+
+.afterhours-th {
+  background-color: #1e293b;
+  color: #94a3b8;
+  padding: 10px 14px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: left;
+  border-bottom: 1px solid #334155;
+}
+
+.afterhours-tr {
+  border-bottom: 1px solid #1e293b;
+  transition: background-color 0.1s ease;
+}
+
+.afterhours-tr:hover {
+  background-color: #141f33;
+}
+
+.afterhours-td {
+  padding: 12px 14px;
+  font-size: 0.85rem;
+}
+
+.afterhours-post-card {
+  background-color: #0f172a;
+  border: 1px solid #1e293b;
+  display: flex;
+  margin-bottom: 12px;
+}
+
+.afterhours-author-col {
+  width: 180px;
+  padding: 16px;
+  background-color: #090e17;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+}
+
+.afterhours-author-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #60a5fa;
+}
+
+.afterhours-post-body {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.afterhours-post-content {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* =========================================================================
+   3. CANDLE ROOM (1998) - Eccentric Paranormal Directory
+   ========================================================================= */
+.candleroom-container {
+  background-color: #0a0505;
+  color: #e5dada;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 24px;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+}
+
+.candleroom-box {
+  max-width: 860px;
+  margin: 0 auto;
+  border: 2px dashed #994422;
+  padding: 24px;
+  background-color: #140a0a;
+}
+
+.candleroom-title {
+  color: #ff7733;
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
+}
+
+/* =========================================================================
+   4. GREYLINE ISP (1995 - 2002) - Technical Corporate Intranet
+   ========================================================================= */
+.greyline-container {
+  background-color: #c0c0c0;
+  color: #000000;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 20px;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+}
+
+.greyline-window {
+  max-width: 960px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #dfdfdf #404040 #404040 #dfdfdf;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.greyline-titlebar {
+  background: linear-gradient(90deg, #000080, #1084d0);
+  color: #ffffff;
+  padding: 6px 12px;
+  font-weight: bold;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.greyline-body {
+  padding: 20px;
+}
+
+/* =========================================================================
+   5. BLUE WINDOW (2004 - 2007) - Personal Social Journaling
+   ========================================================================= */
+.bluewindow-container {
+  background: #2a3342;
+  color: #333333;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', sans-serif;
+  padding: 30px 16px;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+}
+
+.bluewindow-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.bluewindow-entry {
+  border-bottom: 1px dashed #cccccc;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.bluewindow-meta {
+  font-size: 0.8rem;
+  color: #777777;
+  margin-bottom: 12px;
+}
+
+/* =========================================================================
+   6. TERMINAL 21 (2002) - CRT Hacker Console
+   ========================================================================= */
+.terminal21-container {
+  background-color: #050a05;
+  color: #33ff66;
+  font-family: var(--font-mono);
+  padding: 24px;
+  min-height: calc(100vh - var(--wrapper-bar-height));
+}
+
+.terminal21-box {
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid #1a5e2a;
+  background-color: #020502;
+  padding: 20px;
+}

@@ -1,0 +1,111 @@
+/* TRACE Modern Investigator Community Feed Styles */
+
+.trace-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.trace-hero-header {
+  background-color: var(--nhf-bg-surface);
+  border: 1px solid var(--nhf-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trace-title-group h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--nhf-text-primary);
+  margin-bottom: 4px;
+}
+
+.trace-title-group p {
+  font-size: 0.85rem;
+  color: var(--nhf-text-secondary);
+}
+
+.trace-post-card {
+  background-color: var(--nhf-bg-surface);
+  border: 1px solid var(--nhf-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: border-color 0.15s ease;
+}
+
+.trace-post-card:hover {
+  border-color: var(--nhf-border-light);
+}
+
+.trace-post-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.78rem;
+  color: var(--nhf-text-muted);
+}
+
+.trace-author-handle {
+  font-family: var(--font-mono);
+  color: var(--nhf-accent-blue);
+  font-weight: 600;
+}
+
+.trace-post-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--nhf-text-primary);
+  line-height: 1.4;
+}
+
+.trace-post-body {
+  font-size: 0.92rem;
+  color: var(--nhf-text-secondary);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.trace-comments-container {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--nhf-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trace-comment-item {
+  background-color: var(--nhf-bg-card);
+  border: 1px solid var(--nhf-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.trace-comment-replies {
+  margin-left: 20px;
+  border-left: 2px solid var(--nhf-border-light);
+  padding-left: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.trace-reply-item {
+  background-color: var(--nhf-bg-primary);
+  border: 1px solid var(--nhf-border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
