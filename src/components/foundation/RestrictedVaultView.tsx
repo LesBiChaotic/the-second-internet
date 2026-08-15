@@ -316,38 +316,48 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
       ) : (
         /* Unlocked Classified Workspace */
         <div className="responsive-grid-sidebar" style={{ minHeight: '620px' }}>
-          {/* Mobile Selector */}
-          <select 
-            className="filter-mobile"
-            value={activeExhibit.id}
-            onChange={(e) => {
-              const ex = exhibits.find(x => x.id === e.target.value);
-              if (ex) {
-                 soundEngine.playClick(650);
-                 setActiveExhibitId(ex.id);
-                 discoverAnomaly(`vault-item-${ex.id}`);
+          <style>{`
+            .vault-sidebar {
+              background: var(--nhf-bg-surface);
+              border: 1px solid var(--nhf-border);
+              border-radius: var(--radius-md);
+              padding: 16px;
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              box-shadow: var(--shadow-subtle);
+            }
+            .vault-sidebar-list {
+              display: flex;
+              flex-direction: column;
+              gap: 8px;
+              overflow-y: auto;
+            }
+            .vault-sidebar-item {
+              padding: 12px 14px;
+              border-radius: 8px;
+              cursor: pointer;
+              transition: all 0.15s ease;
+            }
+            @media (max-width: 768px) {
+              .vault-sidebar {
+                padding: 12px;
               }
-            }}
-            style={{ marginBottom: '16px' }}
-          >
-            <option value="" disabled>Select Quarantined Relic...</option>
-            {exhibits.map(ex => (
-              <option key={ex.id} value={ex.id}>
-                {ex.code} - {ex.title}
-              </option>
-            ))}
-          </select>
-
-          {/* Left Exhibit Selector */}
-          <div className="filter-desktop" style={{
-            background: 'var(--nhf-bg-surface)',
-            border: '1px solid var(--nhf-border)',
-            borderRadius: 'var(--radius-md)',
-            padding: '16px',
-            flexDirection: 'column',
-            gap: '8px',
-            boxShadow: 'var(--shadow-subtle)'
-          }}>
+              .vault-sidebar-list {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                padding-bottom: 8px;
+              }
+              .vault-sidebar-item {
+                min-width: 240px;
+                flex-shrink: 0;
+              }
+            }
+          `}</style>
+          
+          {/* Responsive Sidebar / Tab Row */}
+          <div className="vault-sidebar">
             <div style={{
               fontSize: '0.75rem',
               fontFamily: 'var(--font-mono)',
@@ -360,25 +370,22 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
               7 Quarantined Black-Box Relics
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
+            <div className="vault-sidebar-list">
               {exhibits.map((ex) => {
                 const isSelected = ex.id === activeExhibit.id;
 
                 return (
                   <div
                     key={ex.id}
+                    className="vault-sidebar-item"
                     onClick={() => {
                       soundEngine.playClick(650);
                       setActiveExhibitId(ex.id);
                       discoverAnomaly(`vault-item-${ex.id}`);
                     }}
                     style={{
-                      padding: '12px 14px',
-                      borderRadius: '8px',
                       border: isSelected ? '1px solid var(--nhf-accent-crimson)' : '1px solid var(--nhf-border)',
-                      backgroundColor: isSelected ? 'rgba(239, 68, 68, 0.08)' : 'var(--nhf-bg-card)',
-                      cursor: 'pointer',
-                      transition: 'all 0.15s ease'
+                      backgroundColor: isSelected ? 'rgba(239, 68, 68, 0.08)' : 'var(--nhf-bg-card)'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2px' }}>

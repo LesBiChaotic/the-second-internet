@@ -171,10 +171,11 @@ body {
   -webkit-backdrop-filter: blur(8px) !important;
   z-index: 2500 !important;
   display: flex !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   justify-content: center !important;
   padding: 16px !important;
   box-sizing: border-box !important;
+  overflow-y: auto !important;
   overscroll-behavior: contain !important;
   animation: modalFadeIn 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -182,13 +183,12 @@ body {
 .modal-card {
   width: 100%;
   max-width: 540px;
-  max-height: 88vh !important;
+  margin: auto !important;
   background-color: var(--nhf-bg-surface) !important;
   border: 1px solid var(--nhf-border) !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--nhf-border) !important;
   color: var(--nhf-text-primary) !important;
   overflow-y: auto !important;
-  display: flex !important;
   display: flex !important;
   flex-direction: column !important;
   overscroll-behavior: contain !important;

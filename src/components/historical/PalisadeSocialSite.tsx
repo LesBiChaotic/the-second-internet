@@ -53,9 +53,9 @@ export const PalisadeSocialSite: React.FC<Props> = ({ store }) => {
       <div style={{ background: '#3b5998', minHeight: 'calc(100vh - var(--wrapper-bar-height))', padding: '24px 16px', color: '#1c1e21', fontFamily: 'Arial, sans-serif' }}>
         <div style={{ maxWidth: '900px', margin: '0 auto', background: '#fff', border: '1px solid #d3d3d3', borderRadius: '4px', overflow: 'hidden' }}>
           {/* Top Bar */}
-          <div style={{ background: '#29487d', padding: '10px 20px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ background: '#29487d', padding: '10px 20px', color: '#fff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
             <div style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>palisade</div>
-            <div style={{ fontSize: '0.8rem', display: 'flex', gap: '12px' }}>
+            <div style={{ fontSize: '0.8rem', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
               <span>Profile</span>
               <span>Friends ({selectedProfile.friendsCount})</span>
               <span>Inbox (2)</span>
@@ -63,7 +63,7 @@ export const PalisadeSocialSite: React.FC<Props> = ({ store }) => {
           </div>
 
           {/* Profile Switcher */}
-          <div style={{ background: '#eceff5', padding: '8px 20px', borderBottom: '1px solid #d3d3d3', display: 'flex', gap: '8px' }}>
+          <div style={{ background: '#eceff5', padding: '8px 20px', borderBottom: '1px solid #d3d3d3', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
             {palisadeProfiles.map((p) => (
               <button
                 key={p.id}
@@ -73,12 +73,13 @@ export const PalisadeSocialSite: React.FC<Props> = ({ store }) => {
                   setSelectedProfileId(p.id);
                 }}
                 style={{
-                  padding: '4px 10px',
+                  padding: '6px 12px',
                   fontSize: '0.78rem',
                   border: '1px solid #999',
                   background: selectedProfileId === p.id ? '#fff' : '#e0e0e0',
                   fontWeight: selectedProfileId === p.id ? 'bold' : 'normal',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  borderRadius: '3px'
                 }}
               >
                 {p.name}
