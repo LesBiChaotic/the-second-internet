@@ -38,7 +38,7 @@ export const GreylineIspSite: React.FC<Props> = ({ store }) => {
 </html>`;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', overflowX: 'hidden' }}>
       <ArchiveWrapperBar
         store={store}
         siteName="greyline.net"
@@ -57,7 +57,7 @@ export const GreylineIspSite: React.FC<Props> = ({ store }) => {
 
           <div className="greyline-body">
             {/* Nav Tabs */}
-            <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #808080', paddingBottom: '8px', marginBottom: '16px' }}>
+            <div style={{ display: 'flex', gap: '8px', borderBottom: '2px solid #808080', paddingBottom: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
               <button
                 className="btn btn-secondary"
                 style={{

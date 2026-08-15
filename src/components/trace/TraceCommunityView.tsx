@@ -249,8 +249,8 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
 
           return (
             <div key={post.id} className="trace-post-card">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <div className="trace-post-meta" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
+                <div className="trace-post-meta" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                   <UserAvatar handleOrName={post.author} size={26} isSpecial={post.author.includes('wintermute')} />
                   <span className="trace-author-handle">u/{post.author}</span>
                   <span>•</span>

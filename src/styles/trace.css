@@ -17,6 +17,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .trace-title-group h1 {
@@ -72,6 +74,8 @@
   color: var(--nhf-text-secondary);
   line-height: 1.6;
   white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .trace-comments-container {

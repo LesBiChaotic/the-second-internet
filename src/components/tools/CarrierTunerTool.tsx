@@ -241,7 +241,7 @@ export const CarrierTunerTool: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Grid: Oscilloscope Canvas + Control Dashboard */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(320px, 1fr) 340px', gap: '20px' }}>
+      <div className="responsive-grid-sidebar" style={{ gap: '20px' }}>
         {/* Left: Oscilloscope Screen */}
         <div style={{
           backgroundColor: '#03070d',

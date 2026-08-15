@@ -141,7 +141,7 @@ export const PacketTerminalView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Grid: Sample Selector + Hex & ASCII Panels */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(280px, 320px) 1fr', gap: '20px' }}>
+      <div className="responsive-grid-sidebar" style={{ gap: '20px' }}>
         {/* Left: Sample Captures */}
         <div style={{
           backgroundColor: 'var(--nhf-bg-surface)',
