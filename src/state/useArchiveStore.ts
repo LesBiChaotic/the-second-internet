@@ -777,6 +777,7 @@ export function useArchiveStore(): ArchiveState {
     setIsFrequencyTunerOpen,
     openGuestbookModal,
     closeGuestbookModal,
-    addGuestbookEntry
+    addGuestbookEntry,
+    restoreState
   };
 }
