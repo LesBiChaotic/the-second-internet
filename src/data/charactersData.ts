@@ -14,7 +14,7 @@ export const charactersData: CharacterIdentity[] = [
     ],
     firstSeen: '1997-11-14',
     lastSeen: '2026-03-02',
-    avatarUrl: '/assets/images/naomi_polaroid_1998.jpg',
+    avatarUrl: './assets/images/naomi_polaroid_1998.jpg',
     biography: 'Central recurring figure across four distinct eras of early web culture. As "nyxgirl" on Marrow.net in 1997, she organized webrings and discussed strange 404 redirects. On AfterHours (2001-2003) as "lucidwitch", she was present during the infamous Oct 14, 2003 Routing Event where she received the broadcast "Please stop describing us". Later kept an emotional personal diary on Blue Window before attempting to retire to Palisade in 2007. In 2026, she provided a contradictory oral history interview to the Foundation claiming she never used the handle lucidwitch.',
     status: 'Active',
     contradictions: [
@@ -56,7 +56,7 @@ export const charactersData: CharacterIdentity[] = [
     ],
     firstSeen: '1999-08-20',
     lastSeen: '2026-07-14 (Still Updating Closed Host)',
-    avatarUrl: '/assets/images/portland_payphone_rain.jpg',
+    avatarUrl: './assets/images/portland_payphone_rain.jpg',
     biography: 'Photographer and essayist based in Portland/Seattle. Maintained the famous "Glasshouse" persona on AfterHours. When Blue Window shut down its physical servers in December 2007, Rowan\'s blog continued updating through impossible HTTP routing. New journal entries have been recorded in 2011, 2018, and as recently as 2026, describing normal daily life while receiving comments from deceased friends.',
     status: 'Impossible',
     contradictions: [
@@ -76,7 +76,7 @@ export const charactersData: CharacterIdentity[] = [
     ],
     firstSeen: '1996-03-01',
     lastSeen: '2019-10-14',
-    avatarUrl: '/assets/images/greyline_rack_frost.jpg',
+    avatarUrl: './assets/images/greyline_rack_frost.jpg',
     biography: 'Lead infrastructure engineer at Greyline ISP during the 1990s. Authored the famous 1998 internal memo: "It is behaving like we are connected to another network that believes we are the invalid address." Co-founded the Net History Foundation in 2017 to catalog anomalous early-net artifacts. Officially vanished on October 14, 2019 (the 16th anniversary of the 2003 Routing Event). Internal Foundation records list him alternately as "Deceased" and "On Indefinite Field Leave".',
     status: 'Disappeared',
     contradictions: [
@@ -96,7 +96,7 @@ export const charactersData: CharacterIdentity[] = [
     ],
     firstSeen: '1998-02-19',
     lastSeen: '2003-10-15',
-    avatarUrl: '/assets/images/afterhours_crt_room.jpg',
+    avatarUrl: './assets/images/afterhours_crt_room.jpg',
     biography: 'Founder and chief moderator of AfterHours. Dedicated to creating an uncommercialized sanctuary for nocturnal thinkers. On the night of October 14, 2003, Janus received hundreds of automated moderator alerts as threads across the forum began mirroring real-world physical actions of users. His final post at 04:19 AM reads: "Do not look behind the monitor." His house at 1412 E. Johnson St in Madison, WI was found undisturbed the next morning with his ViewSonic CRT monitor still humming.',
     status: 'Disappeared',
     contradictions: [

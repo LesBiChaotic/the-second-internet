@@ -71,6 +71,7 @@ export interface ArchiveState {
   openGuestbookModal: (target: 'marrow' | 'candle') => void;
   closeGuestbookModal: () => void;
   addGuestbookEntry: (entry: any) => void;
+  restoreState: (view: string, subId?: string, url?: string) => void;
 }
 
 export interface DirectMessage {
@@ -609,6 +610,19 @@ export function useArchiveStore(): ArchiveState {
     }
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const restoreState = (view: string, subId?: string, url?: string) => {
+    setCurrentView(view);
+    setCurrentSubId(subId);
+    if (url) setActiveUrl(url);
+    
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('nhf_currentView', view);
+      if (subId) localStorage.setItem('nhf_currentSubId', subId);
+      else localStorage.removeItem('nhf_currentSubId');
+      if (url) localStorage.setItem('nhf_activeUrl', url);
+    }
   };
 
   const setSnapshotYear = (year: number) => {

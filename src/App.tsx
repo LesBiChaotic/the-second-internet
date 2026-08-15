@@ -68,16 +68,10 @@ export function App() {
   React.useEffect(() => {
     const handlePopState = (e: PopStateEvent) => {
       if (e.state && e.state.view) {
-        // We bypass store.navigate here so we don't push another history state
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('nhf_currentView', e.state.view);
-          if (e.state.subId) localStorage.setItem('nhf_currentSubId', e.state.subId);
-          if (e.state.url) localStorage.setItem('nhf_activeUrl', e.state.url);
-        }
-        // Instead of a full reload, we can trigger a location reload or implement a discrete setter
-        // However, for immediate reactive update we can use store's navigate with a flag, 
-        // but store doesn't expose raw setters for currentView. A simple reload works perfectly for Back button here.
-        window.location.reload();
+        store.restoreState(e.state.view, e.state.subId, e.state.url);
+      } else {
+        // Fallback to DASHBOARD on initial state (if no state was pushed)
+        store.restoreState('DASHBOARD', undefined, 'https://nethistoryfoundation.org/');
       }
     };
     window.addEventListener('popstate', handlePopState);

@@ -300,7 +300,7 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
                   <img
                     src={post.imageUrl}
                     alt={post.title}
-                    style={{ width: '100%', height: '260px', objectFit: 'cover', display: 'block' }}
+                    style={{ width: '100%', height: 'auto', maxHeight: '260px', aspectRatio: '16/9', objectFit: 'cover', display: 'block' }}
                   />
                   <div style={{
                     position: 'absolute',
