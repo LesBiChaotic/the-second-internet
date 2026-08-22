@@ -51,6 +51,11 @@ export const FoundationHeader: React.FC<Props> = ({
   } = store;
 
   const [inputUrl, setInputUrl] = useState(activeUrl);
+  const [isEditingUrl, setIsEditingUrl] = useState(false);
+
+  React.useEffect(() => {
+    if (!isEditingUrl) setInputUrl(activeUrl);
+  }, [activeUrl, isEditingUrl]);
 
   const handleUrlSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,9 +65,14 @@ export const FoundationHeader: React.FC<Props> = ({
     if (cleaned.includes('marrow') && cleaned.includes('below')) {
       store.discoverAnomaly('mw-below-direct');
       navigate('SITE_MARROW', 'below', 'https://archive.nethistoryfoundation.org/1998/www.marrow.net/below');
-    } else if (cleaned.includes('roomwithoutdoors') || cleaned.includes('second-bus') || cleaned.includes('second')) {
-      store.discoverAnomaly('si-room-direct');
-      navigate('SECOND_NET', 'roomwithoutdoors.net', 'second-bus://roomwithoutdoors.net');
+    } else if (cleaned.includes('roomwithoutdoors') || cleaned.startsWith('second-bus://')) {
+      if (store.canEnterSecondInternet) {
+        store.discoverAnomaly('si-room-direct');
+        navigate('SECOND_NET', 'roomwithoutdoors.net', 'second-bus://roomwithoutdoors.net');
+      } else {
+        store.notify('ADDRESS UNRESOLVED: route exists, but the local aperture cannot hold it yet.', 'warning');
+        navigate('RESTRICTED_VAULT');
+      }
     } else if (cleaned.includes('quiz')) {
       navigate('QUIZ');
     } else if (cleaned.includes('tuner') || cleaned.includes('frequency')) {
@@ -132,7 +142,8 @@ export const FoundationHeader: React.FC<Props> = ({
       </button>
 
       {/* Sleek Compact Brand Mark */}
-      <div 
+      <button
+        type="button"
         className="foundation-brand" 
         onClick={() => {
           soundEngine.playClick(600);
@@ -145,7 +156,7 @@ export const FoundationHeader: React.FC<Props> = ({
         <span style={{ fontSize: '0.76rem', fontFamily: 'var(--font-mono)', fontWeight: 800, color: 'var(--nhf-accent-blue)', letterSpacing: '0.06em' }} className="hide-on-mobile">
           NHF // ARCHIVES
         </span>
-      </div>
+      </button>
 
       {/* Spacious Omnibox / Interactive URL bar */}
       <form className="omnibox-container" onSubmit={handleUrlSubmit}>
@@ -155,6 +166,9 @@ export const FoundationHeader: React.FC<Props> = ({
           className="omnibox-input"
           value={inputUrl}
           onChange={(e) => setInputUrl(e.target.value)}
+          onFocus={() => setIsEditingUrl(true)}
+          onBlur={() => setIsEditingUrl(false)}
+          aria-label="Archive address and global search"
           placeholder="Search archives, URLs, passcodes..."
           onClick={() => {
             soundEngine.playClick(750);
@@ -269,4 +283,3 @@ export const FoundationHeader: React.FC<Props> = ({
     </header>
   );
 };
-

@@ -368,6 +368,18 @@
    Mobile Optimization Layer for Historical Sites & Wrapper Toolbar
    ========================================================================= */
 @media (max-width: 768px) {
+  .historical-site-wrapper,
+  .archive-content,
+  .archive-page {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  pre, code {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
   .archive-wrapper-bar {
     height: auto;
     min-height: 44px;
@@ -410,4 +422,3 @@
     padding: 12px 8px;
   }
 }
-

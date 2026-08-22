@@ -210,6 +210,18 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Canvas container */}
+      <div className="mobile-node-browser" aria-label="Network entities">
+        <label htmlFor="network-node-select">Inspect an entity or archive</label>
+        <select id="network-node-select" value={selectedNode?.id || ''} onChange={event => {
+          const node = initialNodes.find(item => item.id === event.target.value) || null;
+          setSelectedNode(node);
+          if (node?.isAnomalous) discoverAnomaly(`graph-node-${node.id}`);
+        }}>
+          <option value="">Choose a network node…</option>
+          {initialNodes.filter(node => showSecondLayer || node.type !== 'SECOND_NET').map(node => <option key={node.id} value={node.id}>{node.name}</option>)}
+        </select>
+        {selectedNode && <div className="mobile-node-detail"><strong>{selectedNode.name}</strong><span>{selectedNode.type}{selectedNode.isAnomalous ? ' // ANOMALOUS' : ''}</span><p>{edges.filter(edge => edge.source === selectedNode.id || edge.target === selectedNode.id).map(edge => edge.label).join(' · ') || 'No indexed relationships.'}</p></div>}
+      </div>
       <div className="graph-canvas-container" style={{ boxShadow: 'var(--shadow-subtle)', overflowX: 'auto', position: 'relative' }}>
         <canvas
           ref={canvasRef}

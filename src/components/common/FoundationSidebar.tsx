@@ -35,6 +35,7 @@ import {
   Type,
   Volume2,
   VolumeX
+  ,Settings
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
@@ -46,9 +47,10 @@ interface Props {
   onCloseMobile: () => void;
   isCrtActive: boolean;
   onToggleCrt: () => void;
+  onOpenSettings: () => void;
 }
 
-export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseMobile, isCrtActive, onToggleCrt }) => {
+export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseMobile, isCrtActive, onToggleCrt, onOpenSettings }) => {
   const { 
     currentView, 
     navigate, 
@@ -88,10 +90,14 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
         <div 
           className="sidebar-mobile-backdrop"
           onClick={onCloseMobile}
+          role="button"
+          tabIndex={0}
+          aria-label="Close navigation menu"
+          onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') onCloseMobile(); }}
         />
       )}
 
-      <aside className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`}>
+      <aside className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`} aria-label="Primary archive navigation">
         {/* Institutional Brand Header in Sidebar */}
         <div 
           style={{
@@ -288,6 +294,11 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
               <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.78rem' }}>Subnet: {store.networkStatus}</span>
             </span>
           </div>
+
+          <button className="sidebar-nav-item sidebar-button" onClick={() => { onOpenSettings(); onCloseMobile(); }}>
+            <Settings size={16} />
+            <span>Save & Restart Controls</span>
+          </button>
         </div>
 
         {/* 1. Institutional Registry (🔵 Blue Accent) */}
