@@ -17,6 +17,7 @@
 .topology-table-route { padding: 18px; border: 1px solid #274b62; background-color: #071d2b; background-image: linear-gradient(rgba(56,189,248,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.09) 1px,transparent 1px); background-size: 24px 24px; box-shadow: inset 0 0 45px rgba(0,0,0,.4),5px 6px 0 var(--nhf-border); }
 .topology-table-route .forensic-route-heading { background:#0b2637; border-color:#315c73; color:#d9f4ff }.topology-table-route .forensic-route-heading p{color:#9bc6d8 !important}
 .topology-table-route .graph-canvas-container { border: 2px solid #315c73; border-radius: 0; box-shadow: 0 0 24px rgba(56,189,248,.12) !important; }
+.topology-table-route .graph-node-detail-overlay,.topology-table-route .graph-overlay-controls { color:#cbd5e1 !important; }
 
 /* WHOIS — dot-matrix registry printout. */
 .whois-registry-route { max-width: 980px; }
@@ -59,5 +60,24 @@
 .aperture-operations-route::before { content:"ARCHIVIST OPERATIONS · AIR-GAPPED SESSION"; position:absolute; top:-10px; right:18px; padding:1px 8px; background:#6b2026; color:#fff; font:700 .52rem var(--font-mono); letter-spacing:.1em; }
 .aperture-heading { border-left-color:#ef4444 !important; background:#171014 !important; }.aperture-heading h1{color:#f8fafc !important}.aperture-heading p{color:#b8aeb1 !important}
 
+/* Restricted vault — contain its scrollable relic rail and document viewer. */
+.restricted-vault-route,.restricted-vault-route > *,.vault-workspace,.vault-workspace > *,.vault-exhibit-viewer,.vault-exhibit-viewer > * { min-width:0; max-width:100%; }
+.restricted-vault-route h1,.restricted-vault-route h2,.restricted-vault-route p,.restricted-vault-route [class*="badge"] { overflow-wrap:anywhere; }
+.vault-sidebar-list { max-width:100%; overscroll-behavior-inline:contain; }
+.vault-exhibit-actions { min-width:0; max-width:100%; flex-wrap:wrap; }
+.vault-exhibit-actions .btn { min-width:0; }
+
+/* Aperture — keep long hostnames and the shell prompt inside the chassis. */
+.aperture-operations-route,.aperture-operations-route > *,.aperture-terminal-frame,.aperture-window-bar,.aperture-window-identity,.aperture-command-bar { min-width:0; max-width:100%; }
+.aperture-window-identity { overflow:hidden; }
+.aperture-window-identity span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.aperture-command-bar input { min-width:0; width:100%; }
+
 .theme-light .whois-record-sheet,.theme-light .route-trace-sheet,.theme-light .packet-console-route { background-color:#f8f1df !important; }
-@media(max-width:768px){.forensic-route-heading{padding:14px}.evidence-wall-route{border-width:6px;padding:12px}.evidence-wall-route .caseboard-card:nth-child(n){transform:none}.topology-table-route,.carrier-bench-route,.radio-rack-route,.packet-console-route,.aperture-operations-route{padding:10px}.signal-bench-grid{grid-template-columns:1fr}.radio-rack-route{border-left-width:6px;border-right-width:6px}.route-hop{padding-left:42px !important}.whois-record-sheet::after,.aperture-operations-route::before{display:none}}
+.theme-light .topology-table-route { border-color:#82a6b8; background-color:#e9f2f3; background-image:linear-gradient(rgba(3,105,161,.11) 1px,transparent 1px),linear-gradient(90deg,rgba(3,105,161,.11) 1px,transparent 1px); box-shadow:inset 0 0 35px rgba(2,132,199,.08),5px 6px 0 var(--nhf-border); }
+.theme-light .topology-table-route .forensic-route-heading { background:#f2f7f4; border-color:#82a6b8; color:#17384a; }
+.theme-light .topology-table-route .forensic-route-heading h1 { color:#17384a !important; }
+.theme-light .topology-table-route .forensic-route-heading p { color:#476575 !important; }
+.theme-light .topology-table-route .graph-canvas-container { border-color:#6f93a6; }
+@media(max-width:768px){.forensic-route-heading{padding:14px}.evidence-wall-route{border-width:6px;padding:12px}.evidence-wall-route .caseboard-card:nth-child(n){transform:none}.topology-table-route,.carrier-bench-route,.radio-rack-route,.packet-console-route,.aperture-operations-route{padding:10px}.signal-bench-grid{grid-template-columns:1fr}.radio-rack-route{border-left-width:6px;border-right-width:6px}.route-hop{padding-left:42px !important}.whois-record-sheet::after,.aperture-operations-route::before{display:none}.restricted-vault-route{overflow-x:clip}.restricted-vault-route>div:first-child{padding:18px 16px !important}.restricted-vault-route>div:first-child>div:first-child{min-width:0}.vault-workspace{width:100%}.vault-sidebar-list{width:100%}.vault-sidebar-item{min-width:min(240px,82vw)!important}.vault-exhibit-viewer{padding:18px 16px!important}.vault-exhibit-actions{width:100%}.vault-exhibit-actions .btn{flex:1 1 150px;justify-content:center}.aperture-window-bar{gap:8px}.aperture-window-identity{flex:1}.aperture-command-bar{flex-wrap:wrap}.aperture-command-bar>span{max-width:100%;overflow-wrap:anywhere}.aperture-command-bar input{flex:1 1 150px}.aperture-command-bar .btn{flex:0 0 auto}}
+@media(max-width:380px){.restricted-vault-route>div:first-child>div:first-child{align-items:flex-start!important}.restricted-vault-route>div:first-child>div:first-child>div:first-child{width:38px!important;height:38px!important}.aperture-command-bar .btn{width:100%;justify-content:center}.topology-table-route{padding:7px}}
