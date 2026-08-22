@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { 
   Home, 
   Layers, 
@@ -51,6 +51,7 @@ interface Props {
 }
 
 export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseMobile, isCrtActive, onToggleCrt, onOpenSettings }) => {
+  const sidebarRef = useRef<HTMLElement>(null);
   const { 
     currentView, 
     navigate, 
@@ -83,6 +84,35 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
     if (onCloseMobile) onCloseMobile();
   };
 
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+    const items = sidebar.querySelectorAll<HTMLElement>('.sidebar-nav-item:not(button):not([data-static])');
+    const cleanup = Array.from(items).map(item => {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      if (item.classList.contains('active')) item.setAttribute('aria-current', 'page');
+      const keyHandler = (event: KeyboardEvent) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          item.click();
+        }
+      };
+      item.addEventListener('keydown', keyHandler);
+      return () => item.removeEventListener('keydown', keyHandler);
+    });
+    return () => cleanup.forEach(dispose => dispose());
+  }, [currentView, mobileOpen, theme, themeMode, useDeviceFont, audioMuted, ambientHumEnabled, isCrtActive]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onCloseMobile();
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [mobileOpen, onCloseMobile]);
+
   return (
     <>
       {/* Mobile Backdrop Overlay */}
@@ -97,7 +127,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
         />
       )}
 
-      <aside className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`} aria-label="Primary archive navigation">
+      <aside ref={sidebarRef} className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`} aria-label="Primary archive navigation">
         {/* Institutional Brand Header in Sidebar */}
         <div 
           style={{
@@ -280,6 +310,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           {/* Network Status */}
           <div 
             className="sidebar-nav-item"
+            data-static
             style={{ cursor: 'default', opacity: 0.85 }}
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>

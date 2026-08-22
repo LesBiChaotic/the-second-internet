@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useArchiveStore } from './state/useArchiveStore';
 import { FoundationHeader } from './components/common/FoundationHeader';
 import { FoundationSidebar } from './components/common/FoundationSidebar';
@@ -60,6 +60,7 @@ export function App() {
   const [isCrtActive, setIsCrtActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const mainContentRef = useRef<HTMLElement>(null);
 
   React.useEffect(() => {
     const originalAlert = window.alert;
@@ -84,6 +85,11 @@ export function App() {
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
+
+  React.useEffect(() => {
+    document.title = `${store.currentView.replace(/_/g, ' ')} — Net History Foundation`;
+    mainContentRef.current?.focus({ preventScroll: true });
+  }, [store.currentView, store.currentSubId]);
 
   const renderCurrentView = () => {
     switch (store.currentView) {
@@ -135,6 +141,7 @@ export function App() {
 
   return (
     <div className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
+      <a className="skip-link" href="#archive-main">Skip to archive content</a>
       <div className="app-container">
         {/* Institutional Top Header */}
         {!isHistoricalOrSecondNet && (
@@ -161,7 +168,7 @@ export function App() {
             />
           )}
           
-          <main className="main-content-area" style={{ padding: isHistoricalOrSecondNet ? '0' : undefined }}>
+          <main id="archive-main" ref={mainContentRef} className="main-content-area" style={{ padding: isHistoricalOrSecondNet ? '0' : undefined }} tabIndex={-1}>
             <React.Suspense fallback={<div className="route-loading" role="status"><span /> Reconstructing archive snapshot…</div>}>
               {renderCurrentView()}
             </React.Suspense>

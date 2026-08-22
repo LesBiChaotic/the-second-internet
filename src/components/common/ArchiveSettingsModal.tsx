@@ -15,6 +15,14 @@ const resetOptions: Array<{ scope: ResetScope; title: string; detail: string }> 
 export const ArchiveSettingsModal: React.FC<Props> = ({ store, open, onClose }) => {
   const [confirming, setConfirming] = useState<ResetScope | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (!open) return;
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [open, onClose]);
+
   if (!open) return null;
 
   const downloadSave = () => {
