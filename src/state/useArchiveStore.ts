@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { 
   ClearanceLevel, 
   NetworkStatus, 
@@ -20,6 +20,9 @@ export interface ArchiveState {
   activeSourceModal: { title: string; htmlSource: string } | null;
   audioMuted: boolean;
   ambientHumEnabled: boolean;
+  notifications: ArchiveNotification[];
+  investigationChapter: number;
+  canEnterSecondInternet: boolean;
   
   // Theme & Visual Customization State
   themeMode: 'system' | 'dark' | 'light';
@@ -72,6 +75,19 @@ export interface ArchiveState {
   closeGuestbookModal: () => void;
   addGuestbookEntry: (entry: any) => void;
   restoreState: (view: string, subId?: string, url?: string) => void;
+  notify: (message: string, tone?: ArchiveNotification['tone']) => void;
+  dismissNotification: (id: string) => void;
+  resetProgress: (scope: ResetScope) => void;
+  exportSave: () => string;
+  importSave: (serialized: string) => boolean;
+}
+
+export type ResetScope = 'investigation' | 'messages' | 'caseboard' | 'appearance' | 'all';
+
+export interface ArchiveNotification {
+  id: string;
+  message: string;
+  tone: 'info' | 'success' | 'warning' | 'danger';
 }
 
 export interface DirectMessage {
@@ -193,6 +209,24 @@ const getSystemTheme = (): 'dark' | 'light' => {
   return 'light';
 };
 
+const SAVE_VERSION = 2;
+const SAVE_KEYS = [
+  'nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance',
+  'nhf_anomalies', 'nhf_caseboard', 'nhf_gate_entered', 'nhf_archetype',
+  'nhf_theme_mode', 'nhf_use_device_font', 'nhf_dm_threads', 'nhf_dm_indices',
+  'nhf_skip_field_guide_warning'
+] as const;
+
+const safeParse = <T,>(value: string | null, fallback: T): T => {
+  if (!value) return fallback;
+  try {
+    const parsed = JSON.parse(value);
+    return parsed == null ? fallback : parsed as T;
+  } catch {
+    return fallback;
+  }
+};
+
 export function useArchiveStore(): ArchiveState {
   // Load persisted room/view from localStorage
   const savedView = typeof window !== 'undefined' ? localStorage.getItem('nhf_currentView') : null;
@@ -215,12 +249,13 @@ export function useArchiveStore(): ArchiveState {
   const [clearanceLevel, setClearanceLevelState] = useState<ClearanceLevel>(savedClearance || 'VISITOR');
   const [networkStatus, setNetworkStatus] = useState<NetworkStatus>('INTERNET');
   const [archiveIntegrity, setArchiveIntegrity] = useState<number>(99.74);
-  const [discoveredAnomalies, setDiscoveredAnomalies] = useState<string[]>(savedAnomalies ? JSON.parse(savedAnomalies) : []);
-  const [caseboardPins, setCaseboardPins] = useState<CaseboardPin[]>(savedCaseboard ? JSON.parse(savedCaseboard) : initialCaseboardPins);
+  const [discoveredAnomalies, setDiscoveredAnomalies] = useState<string[]>(safeParse(savedAnomalies, []));
+  const [caseboardPins, setCaseboardPins] = useState<CaseboardPin[]>(safeParse(savedCaseboard, initialCaseboardPins));
   const [activeForensicDrawer, setActiveForensicDrawer] = useState<ForensicMetadata | null>(null);
   const [activeSourceModal, setActiveSourceModal] = useState<{ title: string; htmlSource: string } | null>(null);
   const [audioMuted, setAudioMuted] = useState<boolean>(false);
   const [ambientHumEnabled, setAmbientHumEnabled] = useState<boolean>(false);
+  const [notifications, setNotifications] = useState<ArchiveNotification[]>([]);
 
   // Theme Mode ('system' | 'dark' | 'light')
   const savedThemeMode = (typeof window !== 'undefined' ? localStorage.getItem('nhf_theme_mode') : null) as 'system' | 'dark' | 'light' | null;
@@ -247,7 +282,7 @@ export function useArchiveStore(): ArchiveState {
 
   // Direct Messaging / Comms State
   const savedDms = typeof window !== 'undefined' ? localStorage.getItem('nhf_dm_threads') : null;
-  const [dmThreads, setDmThreads] = useState<DMThread[]>(savedDms ? JSON.parse(savedDms) : initialDmThreads);
+  const [dmThreads, setDmThreads] = useState<DMThread[]>(safeParse(savedDms, initialDmThreads));
   const [activeDmThreadId, setActiveDmThreadId] = useState<string>('dm-kai');
 
   const unreadDmCount = dmThreads.filter(t => t.unread).length;
@@ -265,7 +300,7 @@ export function useArchiveStore(): ArchiveState {
   // Progressive Dialogue State & Non-Repeating Engine
   const savedDmIndices = typeof window !== 'undefined' ? localStorage.getItem('nhf_dm_indices') : null;
   const [dmIndices, setDmIndices] = useState<{ [threadId: string]: number }>(
-    savedDmIndices ? JSON.parse(savedDmIndices) : { 'dm-kai': 0, 'dm-wintermute': 0, 'dm-janus': 0 }
+    safeParse(savedDmIndices, { 'dm-kai': 0, 'dm-wintermute': 0, 'dm-janus': 0 })
   );
 
   const KAI_QUESTIONS = [
@@ -458,6 +493,22 @@ export function useArchiveStore(): ArchiveState {
   const [guestbookModalTarget, setGuestbookModalTarget] = useState<'marrow' | 'candle' | null>(null);
   const [customGuestbookEntries, setCustomGuestbookEntries] = useState<any[]>([]);
 
+  const investigationChapter = discoveredAnomalies.length >= 9 ? 5
+    : discoveredAnomalies.length >= 6 ? 4
+      : discoveredAnomalies.length >= 3 ? 3
+        : discoveredAnomalies.length >= 1 ? 2 : 1;
+  const canEnterSecondInternet = investigationChapter >= 5 || clearanceLevel === 'LEVEL_NULL' || clearanceLevel === 'LEVEL_OMEGA';
+
+  const dismissNotification = useCallback((id: string) => {
+    setNotifications(prev => prev.filter(item => item.id !== id));
+  }, []);
+
+  const notify = useCallback((message: string, tone: ArchiveNotification['tone'] = 'info') => {
+    const id = `notice-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+    setNotifications(prev => [...prev.slice(-3), { id, message, tone }]);
+    window.setTimeout(() => dismissNotification(id), 4200);
+  }, [dismissNotification]);
+
   // Auto-mutate network status and clearance based on discoveries
   useEffect(() => {
     // Do not auto-escalate clearance if the user is still at the login gate
@@ -548,6 +599,13 @@ export function useArchiveStore(): ArchiveState {
   };
 
   const navigate = (view: string, subId?: string, url?: string) => {
+    if (view === 'SECOND_NET' && !canEnterSecondInternet) {
+      notify('ROUTE REFUSED: the aperture is unstable. Resolve nine archive anomalies before attempting a permanent crossing.', 'warning');
+      setCurrentView('RESTRICTED_VAULT');
+      setCurrentSubId(undefined);
+      setActiveUrl('https://nethistoryfoundation.org/restricted/collection-17');
+      return;
+    }
     setCurrentView(view);
     setCurrentSubId(subId);
 
@@ -721,6 +779,62 @@ export function useArchiveStore(): ArchiveState {
     setCustomGuestbookEntries(prev => [entry, ...prev]);
   };
 
+  const resetProgress = (scope: ResetScope) => {
+    if (scope === 'investigation' || scope === 'all') {
+      ['nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance', 'nhf_anomalies', 'nhf_gate_entered', 'nhf_archetype', 'nhf_skip_field_guide_warning'].forEach(key => localStorage.removeItem(key));
+      setCurrentView('DASHBOARD');
+      setCurrentSubId(undefined);
+      setActiveUrl('https://nethistoryfoundation.org/');
+      setClearanceLevelState('VISITOR');
+      setNetworkStatus('INTERNET');
+      setArchiveIntegrity(99.74);
+      setDiscoveredAnomalies([]);
+      setUserArchetypeState(null);
+      setIsGateOpenState(true);
+    }
+    if (scope === 'messages' || scope === 'all') {
+      localStorage.removeItem('nhf_dm_threads');
+      localStorage.removeItem('nhf_dm_indices');
+      setDmThreads(initialDmThreads);
+      setDmIndices({ 'dm-kai': 0, 'dm-wintermute': 0, 'dm-janus': 0 });
+    }
+    if (scope === 'caseboard' || scope === 'all') {
+      localStorage.removeItem('nhf_caseboard');
+      setCaseboardPins(initialCaseboardPins);
+    }
+    if (scope === 'appearance' || scope === 'all') {
+      localStorage.removeItem('nhf_theme_mode');
+      localStorage.removeItem('nhf_use_device_font');
+      setThemeMode('system');
+      setUseDeviceFont(isMobileDevice);
+    }
+    notify(scope === 'all' ? 'Archive workstation restored to factory state.' : `${scope[0].toUpperCase() + scope.slice(1)} data reset.`, 'success');
+  };
+
+  const exportSave = () => JSON.stringify({
+    version: SAVE_VERSION,
+    exportedAt: new Date().toISOString(),
+    data: Object.fromEntries(SAVE_KEYS.map(key => [key, localStorage.getItem(key)]))
+  }, null, 2);
+
+  const importSave = (serialized: string) => {
+    try {
+      const parsed = JSON.parse(serialized);
+      if (!parsed || typeof parsed.data !== 'object') throw new Error('Invalid archive save');
+      SAVE_KEYS.forEach(key => {
+        const value = parsed.data[key];
+        if (typeof value === 'string') localStorage.setItem(key, value);
+        else localStorage.removeItem(key);
+      });
+      notify('Save imported. Reloading the archive workstation…', 'success');
+      window.setTimeout(() => window.location.reload(), 500);
+      return true;
+    } catch {
+      notify('Import rejected: this file is not a valid NHF investigation save.', 'danger');
+      return false;
+    }
+  };
+
   return {
     currentView,
     currentSubId,
@@ -735,6 +849,9 @@ export function useArchiveStore(): ArchiveState {
     activeSourceModal,
     audioMuted,
     ambientHumEnabled,
+    notifications,
+    investigationChapter,
+    canEnterSecondInternet,
     themeMode,
     theme,
     useDeviceFont,
@@ -778,6 +895,11 @@ export function useArchiveStore(): ArchiveState {
     openGuestbookModal,
     closeGuestbookModal,
     addGuestbookEntry,
-    restoreState
+    restoreState,
+    notify,
+    dismissNotification,
+    resetProgress,
+    exportSave,
+    importSave
   };
 }

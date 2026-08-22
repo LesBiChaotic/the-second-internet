@@ -17,6 +17,7 @@ import {
 import { ArchiveState } from '../../state/useArchiveStore';
 import { foundationCollections, foundationArticles } from '../../data/foundationData';
 import { soundEngine } from '../../state/useAudioEngine';
+import { CurrentInvestigationPanel } from './CurrentInvestigationPanel';
 
 interface Props {
   store: ArchiveState;
@@ -27,6 +28,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+      <CurrentInvestigationPanel store={store} />
       {/* Top Banner Stats */}
       <div className="stats-banner">
         <div className="stat-item">

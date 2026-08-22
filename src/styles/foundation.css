@@ -23,6 +23,9 @@
   text-decoration: none;
   color: inherit;
   flex-shrink: 0;
+  background: transparent;
+  border: 0;
+  font: inherit;
 }
 
 .foundation-logo-mark {
@@ -362,8 +365,8 @@
   }
 
   .header-status-group .btn {
-    min-width: 40px;
-    min-height: 40px;
+    min-width: 44px;
+    min-height: 44px;
     padding: 8px;
     border-radius: 10px;
     justify-content: center;
@@ -387,7 +390,7 @@
   /* Sidebar Drawer — Full Width on Small Phones */
   .foundation-sidebar {
     position: fixed;
-    top: 52px;
+    top: calc(52px + env(safe-area-inset-top));
     left: -100%;
     bottom: 0;
     z-index: 1000;

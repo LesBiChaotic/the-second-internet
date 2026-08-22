@@ -9,6 +9,8 @@ import { LoginGateModal } from './components/common/LoginGateModal';
 import { PhoneDialerModal } from './components/common/PhoneDialerModal';
 import { GuestbookSignModal } from './components/interactive/GuestbookSignModal';
 import { FieldGuideWarningModal } from './components/common/FieldGuideWarningModal';
+import { NotificationViewport } from './components/common/NotificationViewport';
+import { ArchiveSettingsModal } from './components/common/ArchiveSettingsModal';
 
 // Foundation Views
 import { FoundationDashboard } from './components/foundation/FoundationDashboard';
@@ -59,6 +61,13 @@ export function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [isCrtActive, setIsCrtActive] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+
+  React.useEffect(() => {
+    const originalAlert = window.alert;
+    window.alert = (message?: unknown) => store.notify(String(message ?? ''), 'info');
+    return () => { window.alert = originalAlert; };
+  }, [store.notify]);
 
   const handleToggleCrt = () => {
     soundEngine.playCrtDegauss();
@@ -150,6 +159,7 @@ export function App() {
               onCloseMobile={() => setMobileMenuOpen(false)}
               isCrtActive={isCrtActive}
               onToggleCrt={handleToggleCrt}
+              onOpenSettings={() => setSettingsOpen(true)}
             />
           )}
           
@@ -205,6 +215,8 @@ export function App() {
             onClose={() => setSearchOpen(false)}
           />
         )}
+        <ArchiveSettingsModal store={store} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+        <NotificationViewport store={store} />
       </div>
     </div>
   );
