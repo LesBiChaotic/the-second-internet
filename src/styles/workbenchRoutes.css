@@ -1,0 +1,61 @@
+/* Checkpoint 8 Phase 3 — specialized forensic workstations. */
+.forensic-route { width: min(100%,1180px); margin-inline: auto; }
+.forensic-route-heading { position: relative; padding: 16px 18px 18px; border: 1px solid var(--nhf-border); border-left: 7px solid var(--nhf-accent-emerald); border-radius: 1px; background: color-mix(in srgb,var(--nhf-bg-surface) 90%,transparent); box-shadow: 4px 4px 0 color-mix(in srgb,var(--nhf-border) 38%,transparent); }
+.forensic-route-heading::after { content: "FORENSIC WORKSTATION · CALIBRATION CURRENT"; display: block; margin-top: 9px; color: var(--nhf-text-muted); font: 600 .54rem var(--font-mono); letter-spacing: .11em; }
+.forensic-route-heading h1 { font-family: var(--font-serif); font-size: clamp(1.7rem,3vw,2.4rem) !important; font-weight: 500 !important; line-height: 1.1; }
+
+/* Caseboard — cork-backed evidence wall. */
+.evidence-wall-route { max-width: 1240px; padding: clamp(16px,3vw,30px); border: 10px solid color-mix(in srgb,#6b4f36 72%,var(--nhf-border)); outline: 2px solid #2f241c; background-color: #60462f; background-image: radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px),radial-gradient(rgba(0,0,0,.13) 1px,transparent 1px); background-position: 0 0,4px 4px; background-size: 8px 8px; box-shadow: inset 0 0 35px rgba(0,0,0,.35),7px 9px 0 rgba(0,0,0,.24); }
+.evidence-wall-route .caseboard-header { padding: 16px 18px; border: 1px solid #ad967b; background: #eee5d2; color: #292722; box-shadow: 4px 5px 0 rgba(0,0,0,.24); transform: rotate(-.15deg); }
+.evidence-wall-route .caseboard-header h1,.evidence-wall-route .caseboard-header p { color: #292722 !important; }
+.evidence-wall-route .caseboard-grid { gap: 22px; }
+.evidence-wall-route .caseboard-card { border-radius: 1px; border-color: #bbaa8d; background: #f3ead6; color: #292722; box-shadow: 4px 6px 0 rgba(0,0,0,.22); }
+.evidence-wall-route .caseboard-card:nth-child(3n+1){transform:rotate(-.45deg)}.evidence-wall-route .caseboard-card:nth-child(3n+2){transform:rotate(.35deg)}
+.evidence-wall-route .pin-title { color:#292722 }.evidence-wall-route .pin-preview,.evidence-wall-route .pin-connections { color:#5d584e }
+
+/* Topology — blueprint plotting table. */
+.topology-table-route { padding: 18px; border: 1px solid #274b62; background-color: #071d2b; background-image: linear-gradient(rgba(56,189,248,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.09) 1px,transparent 1px); background-size: 24px 24px; box-shadow: inset 0 0 45px rgba(0,0,0,.4),5px 6px 0 var(--nhf-border); }
+.topology-table-route .forensic-route-heading { background:#0b2637; border-color:#315c73; color:#d9f4ff }.topology-table-route .forensic-route-heading p{color:#9bc6d8 !important}
+.topology-table-route .graph-canvas-container { border: 2px solid #315c73; border-radius: 0; box-shadow: 0 0 24px rgba(56,189,248,.12) !important; }
+
+/* WHOIS — dot-matrix registry printout. */
+.whois-registry-route { max-width: 980px; }
+.whois-registry-route .forensic-route-heading { border-left-color: var(--nhf-accent-blue); }
+.whois-registry-route input { border-radius: 1px !important; border-bottom: 3px double var(--nhf-border-light) !important; }
+.whois-record-sheet { position: relative; overflow: hidden; border-radius: 1px !important; padding: clamp(22px,4vw,38px) !important; border-top: 8px solid var(--nhf-accent-blue) !important; box-shadow: 6px 7px 0 color-mix(in srgb,var(--nhf-border) 40%,transparent) !important; background-color: var(--nhf-bg-surface) !important; background-image: repeating-linear-gradient(0deg,transparent 0 25px,color-mix(in srgb,var(--nhf-border) 28%,transparent) 26px) !important; }
+.whois-record-sheet::after { content:"REGISTRY RETURN · DO NOT ALTER"; position:absolute; right:-55px; top:65px; transform:rotate(90deg); color:var(--nhf-text-muted); font:600 .53rem var(--font-mono); letter-spacing:.12em; }
+.whois-record-sheet.anomalous { border-top-color:var(--nhf-accent-crimson) !important; }
+
+/* Traceroute — continuous routing strip. */
+.route-strip-route { max-width: 1000px; }
+.route-strip-route .forensic-route-heading { border-left-color: var(--nhf-accent-amber); }
+.route-trace-sheet { position:relative; border-radius:1px !important; padding:clamp(22px,4vw,34px) !important; box-shadow:5px 6px 0 color-mix(in srgb,var(--nhf-border) 38%,transparent) !important; }
+.route-trace-sheet::before { content:"ROUTE TELEMETRY STRIP"; position:absolute; top:8px; right:14px; color:var(--nhf-text-muted); font:600 .5rem var(--font-mono); letter-spacing:.11em; }
+.route-hop { position:relative; border-radius:1px !important; padding-left:54px !important; }
+.route-hop::before { content:"HOP"; position:absolute; left:12px; top:50%; transform:translateY(-50%); color:var(--nhf-text-muted); font:700 .55rem var(--font-mono); }
+.route-hop::after { content:""; position:absolute; left:30px; bottom:-12px; height:12px; border-left:2px dotted var(--nhf-border-light); }
+.route-hop:last-child::after{display:none}.route-hop.anomalous{border-left:5px solid var(--nhf-accent-crimson) !important}
+
+/* Signal bench — oxidized lab chassis. */
+.carrier-bench-route { padding: 18px; border: 1px solid #485359; border-top: 8px solid #65747b; background: linear-gradient(105deg,#171d20,#252e32 48%,#151a1d); box-shadow: inset 0 1px #8b989d,7px 8px 0 rgba(0,0,0,.3); }
+.carrier-bench-route .forensic-route-heading { border-left-color:#10b981; background:#121a1d; }.carrier-bench-route .forensic-route-heading h1{color:#e8eeee !important}.carrier-bench-route .forensic-route-heading p{color:#a9b5b5 !important}
+.signal-bench-grid { grid-template-columns:minmax(0,1.25fr) minmax(280px,.75fr); gap:12px !important; }.signal-bench-grid>div{border-radius:1px !important; box-shadow:inset 0 0 18px rgba(0,0,0,.28)}
+
+/* Radio — rack-mounted receiver with chassis screws. */
+.radio-rack-route { position:relative; padding:16px; border-left:12px solid #252d32; border-right:12px solid #252d32; background:#11171b; box-shadow:inset 0 0 0 1px #59646a,7px 8px 0 rgba(0,0,0,.28); }
+.radio-rack-heading { border-left-color:var(--nhf-accent-blue) !important; background:#192125 !important; }
+.radio-chassis { position:relative; border-radius:2px !important; border:2px solid #59646a !important; box-shadow:inset 0 0 28px rgba(0,0,0,.65),0 3px 0 #050708 !important; }
+.radio-chassis::before,.radio-chassis::after { content:"⊕"; position:absolute; top:8px; color:#78848a; font-size:16px; }.radio-chassis::before{left:9px}.radio-chassis::after{right:9px}
+
+/* Packet console — clean hex-analysis station. */
+.packet-console-route { padding:18px; border:1px solid var(--nhf-border); border-top:8px double var(--nhf-accent-blue); background:color-mix(in srgb,var(--nhf-bg-surface) 82%,transparent); box-shadow:6px 7px 0 color-mix(in srgb,var(--nhf-border) 38%,transparent); }
+.packet-console-route .forensic-route-heading { border-left-color:var(--nhf-accent-blue); }
+.packet-console-route .responsive-grid-sidebar { gap:12px !important; }.packet-console-route .responsive-grid-sidebar>div{border-radius:1px !important}
+
+/* Aperture — sealed operations terminal. */
+.aperture-operations-route { position:relative; padding:18px; border:2px solid #6b2026; outline:1px solid #2b0d10; background:linear-gradient(120deg,#0b0d10,#161014); box-shadow:inset 0 0 38px rgba(127,29,29,.16),7px 8px 0 rgba(0,0,0,.35); }
+.aperture-operations-route::before { content:"ARCHIVIST OPERATIONS · AIR-GAPPED SESSION"; position:absolute; top:-10px; right:18px; padding:1px 8px; background:#6b2026; color:#fff; font:700 .52rem var(--font-mono); letter-spacing:.1em; }
+.aperture-heading { border-left-color:#ef4444 !important; background:#171014 !important; }.aperture-heading h1{color:#f8fafc !important}.aperture-heading p{color:#b8aeb1 !important}
+
+.theme-light .whois-record-sheet,.theme-light .route-trace-sheet,.theme-light .packet-console-route { background-color:#f8f1df !important; }
+@media(max-width:768px){.forensic-route-heading{padding:14px}.evidence-wall-route{border-width:6px;padding:12px}.evidence-wall-route .caseboard-card:nth-child(n){transform:none}.topology-table-route,.carrier-bench-route,.radio-rack-route,.packet-console-route,.aperture-operations-route{padding:10px}.signal-bench-grid{grid-template-columns:1fr}.radio-rack-route{border-left-width:6px;border-right-width:6px}.route-hop{padding-left:42px !important}.whois-record-sheet::after,.aperture-operations-route::before{display:none}}

@@ -339,9 +339,9 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
   };
 
   return (
-    <div className="terminal-cosmetic-surface" style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
+    <div className="terminal-cosmetic-surface forensic-route aperture-operations-route" style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
-      <div style={{
+      <div className="forensic-route-heading aperture-heading" style={{
         background: 'var(--nhf-bg-surface)',
         border: '1px solid var(--nhf-border)',
         borderRadius: 'var(--radius-md)',

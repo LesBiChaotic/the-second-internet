@@ -223,9 +223,9 @@ export const CarrierTunerTool: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '960px', margin: '0 auto', width: '100%' }}>
+    <div className="forensic-route carrier-bench-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '960px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
-      <div>
+      <div className="forensic-route-heading">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
           <Radio size={20} color="#10b981" />
           <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#10b981', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
@@ -241,7 +241,7 @@ export const CarrierTunerTool: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Grid: Oscilloscope Canvas + Control Dashboard */}
-      <div className="responsive-grid-sidebar" style={{ gap: '20px' }}>
+      <div className="responsive-grid-sidebar signal-bench-grid" style={{ gap: '20px' }}>
         {/* Left: Oscilloscope Screen */}
         <div style={{
           backgroundColor: '#03070d',
