@@ -257,6 +257,30 @@ export const afterhoursThreads: ForumThread[] = [
         content: 'I have never been to Marrow.net. But wintermute42 was registered here because the handle was waiting for me.'
       }
     ]
+  },
+  {
+    id: 'ah-th-care-package', siteId: 'afterhours', title: 'Night-shift care package exchange: coffee, tapes, tiny reasons to continue', category: 'The Night Country', createdDate: '2002-12-08', authorHandle: 'glasshouse', replyCount: 21, viewCount: 1688,
+    posts: [
+      { id: 'ah-p-care-1', authorHandle: 'glasshouse', authorTitle: 'Member', authorJoinDate: 'Jan 2002', authorPostCount: 440, timestamp: '2002-12-08 02:06', content: 'I mailed minor_key coffee and two rolls of film. Someone send weatherboy gloves before he freezes beside another radar dish. Post only what you are comfortable receiving; moderators can relay addresses privately.' },
+      { id: 'ah-p-care-2', authorHandle: 'lucidwitch', authorTitle: 'Senior Member', authorJoinDate: 'May 2001', authorPostCount: 890, timestamp: '2002-12-08 02:33', content: 'I can send tea, burned CDs, and the ugly knitted stars my aunt keeps producing. Janus, please accept one useful object without turning it into a philosophical crisis.' },
+      { id: 'ah-p-care-3', authorHandle: 'janus', authorTitle: 'Founder / Administrator', authorJoinDate: 'Mar 2001', authorPostCount: 1420, timestamp: '2002-12-08 03:01', content: 'Fine. Send the star. Room 4 has an aggressively bare wall.' }
+    ]
+  },
+  {
+    id: 'ah-th-moderation-fight', siteId: 'afterhours', title: 'Can we stop diagnosing strangers because they post at 4 AM?', category: 'The Night Country', createdDate: '2003-03-11', authorHandle: 'minor_key', replyCount: 32, viewCount: 2910,
+    posts: [
+      { id: 'ah-p-modfight-1', authorHandle: 'minor_key', authorTitle: 'Member', authorJoinDate: 'Jun 2001', authorPostCount: 310, timestamp: '2003-03-11 04:02', content: 'A new member deleted her introduction after three replies tried to diagnose her. Insomnia is not consent to be psychoanalyzed. Talk to people, not over them.' },
+      { id: 'ah-p-modfight-2', authorHandle: 'janus', authorTitle: 'Founder / Administrator', authorJoinDate: 'Mar 2001', authorPostCount: 1420, timestamp: '2003-03-11 04:19', content: 'Agreed. I removed the replies and added a rule: no unsolicited diagnosis, no demanding private details, and no treating distress as entertainment.' },
+      { id: 'ah-p-modfight-3', authorHandle: 'somnambulist', authorTitle: 'Poet in Residence', authorJoinDate: 'Apr 2001', authorPostCount: 612, timestamp: '2003-03-11 04:44', content: 'Thank you. Some of us come here because explaining ourselves elsewhere already costs too much.' }
+    ]
+  },
+  {
+    id: 'ah-th-star-gift', siteId: 'afterhours', title: 'The knitted star arrived with an extra cassette I did not request', category: 'Static & Interference', createdDate: '2003-01-04', authorHandle: 'janus', replyCount: 15, viewCount: 2441, isAnomalous: true,
+    posts: [
+      { id: 'ah-p-star-1', authorHandle: 'janus', authorTitle: 'Founder / Administrator', authorJoinDate: 'Mar 2001', authorPostCount: 1420, timestamp: '2003-01-04 03:12', content: 'Noemi’s package arrived. The star is hideous and therefore perfect. There was also an unlabeled cassette. It contains eleven minutes of Room 4 ambience recorded while I was at work.' },
+      { id: 'ah-p-star-2', authorHandle: 'lucidwitch', authorTitle: 'Senior Member', authorJoinDate: 'May 2001', authorPostCount: 890, timestamp: '2003-01-04 03:18', content: 'I did not put a cassette in that box. The post office receipt says the package weighed less when I mailed it than when you received it.' },
+      { id: 'ah-p-star-3', authorHandle: 'wintermute42', authorTitle: 'Member', timestamp: '2003-01-04 03:25', authorPostCount: 88, content: 'Play the reverse side after October.', isAnomalous: true }
+    ]
   }
 ];
 

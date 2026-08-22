@@ -14,47 +14,45 @@ import { ArchiveSettingsModal } from './components/common/ArchiveSettingsModal';
 
 // Foundation Views
 import { FoundationDashboard } from './components/foundation/FoundationDashboard';
-import { CollectionsView } from './components/foundation/CollectionsView';
-import { PeopleView } from './components/foundation/PeopleView';
-import { CommunityView } from './components/foundation/CommunityView';
-import { TimelineView } from './components/foundation/TimelineView';
-import { ResearchPapersView } from './components/foundation/ResearchPapersView';
-import { CaseboardView } from './components/foundation/CaseboardView';
-import { NetworkGraphView } from './components/foundation/NetworkGraphView';
-import { WhoisLookupView } from './components/foundation/WhoisLookupView';
-import { RouteVisualizerView } from './components/foundation/RouteVisualizerView';
-import { EmailArchiveView } from './components/foundation/EmailArchiveView';
-import { ChatArchiveView } from './components/foundation/ChatArchiveView';
-import { PhysicalDocsView } from './components/foundation/PhysicalDocsView';
-import { StaffRosterView } from './components/foundation/StaffRosterView';
-import { RestrictedVaultView } from './components/foundation/RestrictedVaultView';
-
-// Interactive Tools & Diagnostics
-import { LostWebQuizView } from './components/interactive/LostWebQuizView';
-import { FieldGuideView } from './components/foundation/FieldGuideView';
-import { FieldNotebookView } from './components/interactive/FieldNotebookView';
-import { StationNullRadioTool } from './components/tools/StationNullRadioTool';
-import { ApertureTerminalView } from './components/tools/ApertureTerminalView';
-import { Room4MonitorView } from './components/interactive/Room4MonitorView';
-import { DirectMessagesView } from './components/interactive/DirectMessagesView';
-import { CarrierTunerTool } from './components/tools/CarrierTunerTool';
-import { PacketTerminalView } from './components/tools/PacketTerminalView';
-
-// Reconstructed Historical Sites
-import { MarrowNetSite } from './components/historical/MarrowNetSite';
-import { AfterHoursSite } from './components/historical/AfterHoursSite';
-import { CandleRoomSite } from './components/historical/CandleRoomSite';
-import { GreylineIspSite } from './components/historical/GreylineIspSite';
-import { BlueWindowSite } from './components/historical/BlueWindowSite';
-import { PalisadeSocialSite } from './components/historical/PalisadeSocialSite';
-import { Terminal21Site } from './components/historical/Terminal21Site';
-import { WebringHubSite } from './components/historical/WebringHubSite';
-
-// TRACE Community & Second Internet
-import { TraceCommunityView } from './components/trace/TraceCommunityView';
-import { SecondInternetHub } from './components/secondInternet/SecondInternetHub';
 import { SubstrateErrorView } from './components/common/SubstrateErrorView';
 import { soundEngine } from './state/useAudioEngine';
+
+const lazyNamed = (loader: () => Promise<Record<string, unknown>>, exportName: string) =>
+  React.lazy(async () => ({ default: (await loader())[exportName] as React.ComponentType<any> }));
+
+const CollectionsView = lazyNamed(() => import('./components/foundation/CollectionsView'), 'CollectionsView');
+const PeopleView = lazyNamed(() => import('./components/foundation/PeopleView'), 'PeopleView');
+const CommunityView = lazyNamed(() => import('./components/foundation/CommunityView'), 'CommunityView');
+const TimelineView = lazyNamed(() => import('./components/foundation/TimelineView'), 'TimelineView');
+const ResearchPapersView = lazyNamed(() => import('./components/foundation/ResearchPapersView'), 'ResearchPapersView');
+const CaseboardView = lazyNamed(() => import('./components/foundation/CaseboardView'), 'CaseboardView');
+const NetworkGraphView = lazyNamed(() => import('./components/foundation/NetworkGraphView'), 'NetworkGraphView');
+const WhoisLookupView = lazyNamed(() => import('./components/foundation/WhoisLookupView'), 'WhoisLookupView');
+const RouteVisualizerView = lazyNamed(() => import('./components/foundation/RouteVisualizerView'), 'RouteVisualizerView');
+const EmailArchiveView = lazyNamed(() => import('./components/foundation/EmailArchiveView'), 'EmailArchiveView');
+const ChatArchiveView = lazyNamed(() => import('./components/foundation/ChatArchiveView'), 'ChatArchiveView');
+const PhysicalDocsView = lazyNamed(() => import('./components/foundation/PhysicalDocsView'), 'PhysicalDocsView');
+const StaffRosterView = lazyNamed(() => import('./components/foundation/StaffRosterView'), 'StaffRosterView');
+const RestrictedVaultView = lazyNamed(() => import('./components/foundation/RestrictedVaultView'), 'RestrictedVaultView');
+const LostWebQuizView = lazyNamed(() => import('./components/interactive/LostWebQuizView'), 'LostWebQuizView');
+const FieldGuideView = lazyNamed(() => import('./components/foundation/FieldGuideView'), 'FieldGuideView');
+const FieldNotebookView = lazyNamed(() => import('./components/interactive/FieldNotebookView'), 'FieldNotebookView');
+const StationNullRadioTool = lazyNamed(() => import('./components/tools/StationNullRadioTool'), 'StationNullRadioTool');
+const ApertureTerminalView = lazyNamed(() => import('./components/tools/ApertureTerminalView'), 'ApertureTerminalView');
+const Room4MonitorView = lazyNamed(() => import('./components/interactive/Room4MonitorView'), 'Room4MonitorView');
+const DirectMessagesView = lazyNamed(() => import('./components/interactive/DirectMessagesView'), 'DirectMessagesView');
+const CarrierTunerTool = lazyNamed(() => import('./components/tools/CarrierTunerTool'), 'CarrierTunerTool');
+const PacketTerminalView = lazyNamed(() => import('./components/tools/PacketTerminalView'), 'PacketTerminalView');
+const MarrowNetSite = lazyNamed(() => import('./components/historical/MarrowNetSite'), 'MarrowNetSite');
+const AfterHoursSite = lazyNamed(() => import('./components/historical/AfterHoursSite'), 'AfterHoursSite');
+const CandleRoomSite = lazyNamed(() => import('./components/historical/CandleRoomSite'), 'CandleRoomSite');
+const GreylineIspSite = lazyNamed(() => import('./components/historical/GreylineIspSite'), 'GreylineIspSite');
+const BlueWindowSite = lazyNamed(() => import('./components/historical/BlueWindowSite'), 'BlueWindowSite');
+const PalisadeSocialSite = lazyNamed(() => import('./components/historical/PalisadeSocialSite'), 'PalisadeSocialSite');
+const Terminal21Site = lazyNamed(() => import('./components/historical/Terminal21Site'), 'Terminal21Site');
+const WebringHubSite = lazyNamed(() => import('./components/historical/WebringHubSite'), 'WebringHubSite');
+const TraceCommunityView = lazyNamed(() => import('./components/trace/TraceCommunityView'), 'TraceCommunityView');
+const SecondInternetHub = lazyNamed(() => import('./components/secondInternet/SecondInternetHub'), 'SecondInternetHub');
 
 export function App() {
   const store = useArchiveStore();
@@ -164,7 +162,9 @@ export function App() {
           )}
           
           <main className="main-content-area" style={{ padding: isHistoricalOrSecondNet ? '0' : undefined }}>
-            {renderCurrentView()}
+            <React.Suspense fallback={<div className="route-loading" role="status"><span /> Reconstructing archive snapshot…</div>}>
+              {renderCurrentView()}
+            </React.Suspense>
           </main>
         </div>
 
