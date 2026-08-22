@@ -27,7 +27,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
   const { navigate, discoveredAnomalies, archiveIntegrity, clearanceLevel, userArchetype } = store;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+    <div className="archive-intake-dashboard" style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
       <CurrentInvestigationPanel store={store} />
       {/* Top Banner Stats */}
       <div className="stats-banner">
@@ -54,7 +54,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Hero Welcome Box */}
-      <div style={{
+      <section className="archive-mission-brief" style={{
         background: 'linear-gradient(135deg, var(--nhf-bg-surface), var(--nhf-bg-card))',
         border: '1px solid var(--nhf-border)',
         borderRadius: 'var(--radius-md)',
@@ -130,11 +130,12 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
             <span>Carrier Tuner</span>
           </button>
         </div>
-      </div>
+        <span className="accession-stamp" aria-hidden="true">ACCESSION<br />NHF–2017<br />PUBLIC COPY</span>
+      </section>
 
       {/* Featured Reconstructed Communities */}
-      <div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+      <section className="reconstruction-ledger">
+        <div className="archive-section-heading" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
           <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: 'var(--nhf-text-primary)' }}>
             Featured Reconstructed Communities
           </h2>
@@ -244,12 +245,12 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Foundation Research & Announcements */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
+      <section className="archive-desk-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
         {/* Recent Publications */}
-        <div style={{ background: 'var(--nhf-bg-surface)', border: '1px solid var(--nhf-border)', borderRadius: 'var(--radius-md)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: 'var(--shadow-subtle)' }}>
+        <div className="archive-desk-panel publications-dossier" style={{ background: 'var(--nhf-bg-surface)', border: '1px solid var(--nhf-border)', borderRadius: 'var(--radius-md)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: 'var(--shadow-subtle)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--nhf-text-primary)' }}>
               Foundation Research & Blog
@@ -265,7 +266,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {foundationArticles.slice(0, 3).map((art) => (
-              <div 
+              <div className="dossier-entry"
                 key={art.id}
                 style={{
                   background: 'var(--nhf-bg-card)',
@@ -297,7 +298,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Live System Diagnostics & Anomaly Counter */}
-        <div style={{ background: 'var(--nhf-bg-surface)', border: '1px solid var(--nhf-border)', borderRadius: 'var(--radius-md)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: 'var(--shadow-subtle)' }}>
+        <div className="archive-desk-panel diagnostic-sheet" style={{ background: 'var(--nhf-bg-surface)', border: '1px solid var(--nhf-border)', borderRadius: 'var(--radius-md)', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', boxShadow: 'var(--shadow-subtle)' }}>
           <h3 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--nhf-text-primary)' }}>
             Archival Ingest Diagnostics
           </h3>
@@ -336,7 +337,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
             </button>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
