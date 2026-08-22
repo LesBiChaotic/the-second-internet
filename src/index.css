@@ -253,6 +253,19 @@ button, [role="button"], a { touch-action: manipulation; }
 .investigation-progress-copy { display: block; margin-top: 8px; color: var(--nhf-text-muted); font-size: 0.78rem; }
 .chapter-track { grid-area: track; display: flex; gap: 8px; color: var(--nhf-text-muted); justify-content: flex-end; }
 .chapter-track .complete { color: var(--nhf-accent-emerald); }
+.objective-list { display: grid; gap: 6px; margin-top: 14px; }
+.objective { width: 100%; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--nhf-border); border-radius: 6px; background: color-mix(in srgb, var(--nhf-bg-surface) 82%, transparent); color: var(--nhf-text-secondary); text-align: left; cursor: pointer; }
+.objective:hover { border-color: var(--nhf-accent-blue); color: var(--nhf-text-primary); }
+.objective.done { color: var(--nhf-accent-emerald); text-decoration: line-through; }
+.chapter-consequence { margin-top: 12px; padding-left: 10px; border-left: 2px solid var(--nhf-accent-amber); font-size: 0.8rem; }
+.side-case { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; border: 0; background: transparent; color: #a78bfa; font: 600 0.76rem var(--font-mono); cursor: pointer; }
+.side-case.done { color: var(--nhf-accent-emerald); }
+.nav-lock { margin-left: auto; display: inline-flex; align-items: center; gap: 3px; color: var(--nhf-text-muted); font: 600 0.56rem var(--font-mono); }
+.access-gate { max-width: 680px; margin: clamp(24px, 8vh, 90px) auto; padding: clamp(24px, 5vw, 48px); text-align: center; border: 1px solid var(--nhf-border); border-top: 4px solid var(--nhf-accent-amber); border-radius: var(--radius-md); background: var(--nhf-bg-surface); box-shadow: var(--shadow-subtle); }
+.access-gate > svg { color: var(--nhf-accent-amber); }
+.access-gate h1 { margin: 8px 0 12px; color: var(--nhf-text-primary); }
+.access-gate p { color: var(--nhf-text-secondary); line-height: 1.65; }
+.access-gate-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .investigation-action { grid-area: action; align-self: end; white-space: nowrap; }
 
 .archive-settings-modal { max-width: 720px; }

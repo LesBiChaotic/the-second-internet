@@ -195,7 +195,7 @@ const PUZZLE_SPOILERS: SpoilerItem[] = [
     whereToFind: 'Field Guide Dossiers / Personal Caseboard / Exhibit Omega',
     nudge: 'How do all 150 years of telecommunications anomalies (1877-2026) connect into a single answer?',
     clue: 'The Second Internet is the physical standing wave memory of the global wire mesh. Alden Corliss and Dr. Van Houten are living hosts maintaining the parallel web.',
-    solution: 'Click the "View Grand Synthesis Dossier" button above or attain Clearance Level OMEGA to view Exhibit Omega: The Standing Wave Revelation.',
+    solution: 'Click the "View Grand Synthesis Dossier" button above to record Exhibit Omega: The Standing Wave Revelation. This resolves the case without changing keycard clearance.',
     actionView: 'FIELD_GUIDE'
   },
   {

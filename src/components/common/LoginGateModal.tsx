@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const LoginGateModal: React.FC<Props> = ({ store }) => {
-  const { isGateOpen, setIsGateOpen, clearanceLevel, setClearanceLevel, discoverAnomaly } = store;
+  const { isGateOpen, setIsGateOpen, clearanceLevel, authenticateClearance, discoverAnomaly } = store;
   const [activeTab, setActiveTab] = useState<'VISITOR' | 'STAFF'>('VISITOR');
   const [badgeId, setBadgeId] = useState('');
   const [passcode, setPasscode] = useState('');
@@ -31,7 +31,7 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
 
   const handleVisitorEnter = () => {
     soundEngine.playClick(800);
-    setClearanceLevel('VISITOR');
+    authenticateClearance('VISITOR');
     setIsGateOpen(false);
   };
 
@@ -45,31 +45,31 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
     const pass = passcode.trim().toLowerCase();
 
     if ((user === 'c.szilard' || user === 'clara') && (pass === 'topology1997' || pass === 'mendez' || pass === 'szilard')) {
-      setClearanceLevel('RESEARCHER');
+      authenticateClearance('RESEARCHER');
       setSuccessMsg('AUTHENTICATED: Dr. Clara Szilard (Chief Archivist) — Clearance Level 3 (RESEARCHER) Granted.');
       soundEngine.playClearanceChime('RESEARCHER');
       discoverAnomaly('login-szilard');
       setTimeout(() => setIsGateOpen(false), 1400);
     } else if ((user === 'd.vanhouten' || user === 'douglas') && (pass === 'milwaukee98' || pass === 'rack4' || pass === 'vanhouten')) {
-      setClearanceLevel('ARCHIVIST');
+      authenticateClearance('ARCHIVIST');
       setSuccessMsg('AUTHENTICATED: Dr. Douglas K. Van Houten (Co-Founder) — Clearance Level 4 (ARCHIVIST / RESTRICTED VAULT) Granted.');
       soundEngine.playClearanceChime('ARCHIVIST');
       discoverAnomaly('login-vanhouten');
       setTimeout(() => setIsGateOpen(false), 1400);
     } else if ((user === 'janus' || user === 'alden' || user === 'corliss') && (pass === 'october14' || pass === 'afterhours' || pass === 'behind')) {
-      setClearanceLevel('LEVEL_NULL');
+      authenticateClearance('LEVEL_NULL');
       setSuccessMsg('CRITICAL OVERRIDE: Alden Corliss (Host 0.0.0.0) — [LEVEL: NULL / SECOND BUS] Permeability Active.');
       soundEngine.playClearanceChime('LEVEL_NULL');
       discoverAnomaly('login-janus-null');
       setTimeout(() => setIsGateOpen(false), 1800);
     } else if (user === 'root' && (pass === '0.0.0.0' || pass === 'station_null')) {
-      setClearanceLevel('LEVEL_NULL');
+      authenticateClearance('LEVEL_NULL');
       setSuccessMsg('SYSTEM OVERRIDE: STATION NULL KEYCARD RECOGNIZED.');
       soundEngine.playClearanceChime('LEVEL_NULL');
       discoverAnomaly('login-station-null');
       setTimeout(() => setIsGateOpen(false), 1800);
     } else if (user === 'corbin_k' && pass === 'perl1998') {
-      setClearanceLevel('CONTRIBUTOR');
+      authenticateClearance('CONTRIBUTOR');
       setSuccessMsg('AUTHENTICATED: Corbin Keller (Marrow.net Admin) — Clearance Level 2 (CONTRIBUTOR) Granted.');
       soundEngine.playClearanceChime('CONTRIBUTOR');
       setTimeout(() => setIsGateOpen(false), 1400);
