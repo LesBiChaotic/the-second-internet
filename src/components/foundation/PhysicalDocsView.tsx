@@ -126,19 +126,185 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
                 fontFamily: 'var(--font-mono)'
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #222', paddingBotw_=ÚÚ$z{-®éÜj×[™ÈÜˆ[Y\Ý[\Y]Y]HÙ\È›ÝX]Ú\ÚXØ[™X[]Y\Ë‚ˆÜÜ[‚ˆÙ]‚ˆ
-_BˆØ\XÛO‚ˆ
-NÂˆJ_BˆÙš[\™YØÜË›[™ÝOOH	‰ˆ
-ˆ]ˆÝ[O^ÞÈY[™Îˆ	Í	Ë^[YÛŽˆ	ØÙ[\‰ËÛÛÜŽˆ	Ý˜\ŠK[š‹]^[]]Y
-IÈ_O‚ˆ›ÈØÝ[Y[È›Ý[™[ˆ\ÈØ]YÛÜžK‚ˆÙ]‚ˆ
-_BˆÙ]‚‚ˆËÊˆ[ØÜ™Y[ˆ[XYÙH›ÛÛH[Ù[
-‹ßBˆÞ›ÛÛYY[XYÙH	‰ˆ
-ˆ]ˆÛ\ÜÓ˜[YOH›[Ù[X˜XÚÙ›ÜˆÛÛXÚÏ^Ê
-HOˆÙ]›ÛÛYY[XYÙJ[
-_O‚ˆ]ˆÝ[O^ÞÈÜÚ][ÛŽˆ	Ü™[]]™IËX^ÚYˆ	ÎLÉËX^ZYÚˆ	ÎLš	È_HÛÛXÚÏ^ÊJHOˆKœÝÜ›ÜYØ][ÛŠ
-_O‚ˆ]Û‚ˆÛÛXÚÏ^Ê
-HOˆÙ]›ÛÛYY[XYÙJ[
-_BˆÝ[O^ÞÂˆÜÚ][ÛŽˆ	ØXœÛÛ]IËˆÜˆ	ËLÍœ	ËˆšYÚˆ	Ì	Ëˆ˜XÚÙÜ›Ý[™ˆ	Ü™Ø˜JMKMKMKŒŠIËˆ›Ü™\Žˆ	Û›Û™IËˆÛÛÜŽˆ	ÈÙ™™‰ËˆY[™Îˆ	Íœ	Ëˆ›Ü™\”˜Y]\Îˆ	ÍL	IËˆÝ\œÛÜŽˆ	ÜÚ[\‰Ëˆ\Ü^Nˆ	Ù›^	Ëˆ[YÛ’][\Îˆ	ØÙ[\‰Ëˆ\ÝYžPÛÛ[ˆ	ØÙ[\‰Âˆ_Bˆ‚ˆÚ^™O^ÌŒHÏ‚ˆØ]Û‚ˆ[YÈˆÜ˜Ï^Þ›ÛÛYY[XYÙ_Hˆ[H–›ÛÛYY]šY[˜ÙHˆˆÝ[O^ÞÈˆX^ÚYˆ	ÌL	IËˆX^ZYÚˆ	Î]š	ËˆØš™XÝš]ˆ	ØÛÛZ[‰Ëˆ›Ü™\”˜Y]\Îˆ	Í	Ëˆ›ÞÚYÝÎˆ	ÌL™Ø˜JŽ
-IËˆ›Ü™\Žˆ	Ì\ÛÛYÍ	Âˆ_HˆÏ‚ˆÙ]‚ˆÙ]‚ˆ
-_BˆÙ]‚ˆ
-NÂŸNÂ
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #222', paddingBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
+                <div>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#666', letterSpacing: '0.1em' }}>
+                    NET HISTORY FOUNDATION PHYSICAL ARCHIVES // DIGITIZED ARTIFACT
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '6px' }}>
+                    <span className="badge badge-gray" style={{ fontSize: '0.65rem' }}>{doc.docType}</span>
+                    <span style={{ fontSize: '0.75rem', color: '#555' }}>| {doc.date}</span>
+                  </div>
+                  <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111', marginTop: '8px' }}>
+                    {doc.title}
+                  </h2>
+                  <div style={{ fontSize: '0.75rem', color: '#555', marginTop: '4px' }}>
+                    Provenance: {doc.provenance} | Classification: {doc.classification}
+                  </div>
+                </div>
+
+                <button 
+                  className="btn btn-secondary"
+                  style={{ background: '#d5cdbd', color: '#111', borderColor: '#999' }}
+                  onClick={(e) => { e.stopPropagation(); handlePin(doc); }}
+                >
+                  <BookmarkPlus size={14} />
+                  <span>Pin Scan</span>
+                </button>
+              </div>
+
+              {/* Embedded Photograph if Available */}
+              {doc.imageUrl && (
+                <div style={{
+                  background: '#121417',
+                  border: '2px solid #333',
+                  borderRadius: '6px',
+                  overflow: 'hidden',
+                  boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
+                  position: 'relative'
+                }}>
+                  <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setZoomedImage(doc.imageUrl || null)}>
+                    <img
+                      src={doc.imageUrl}
+                      alt={doc.title}
+                      style={{
+                        width: '100%',
+                        maxHeight: '440px',
+                        objectFit: 'contain',
+                        display: 'block',
+                        backgroundColor: '#0a0d12'
+                      }}
+                    />
+                    <div style={{
+                      position: 'absolute',
+                      bottom: '10px',
+                      right: '10px',
+                      background: 'rgba(0,0,0,0.75)',
+                      padding: '4px 8px',
+                      borderRadius: '4px',
+                      color: '#fff',
+                      fontSize: '0.75rem',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '4px'
+                    }}>
+                      <ZoomIn size={14} />
+                      <span>Click to Enlarge</span>
+                    </div>
+                  </div>
+                  {doc.imageCaption && (
+                    <div style={{
+                      padding: '12px 16px',
+                      background: '#1a1e24',
+                      color: '#cbd5e1',
+                      fontSize: '0.8rem',
+                      lineHeight: '1.5',
+                      borderTop: '1px solid #2e3644'
+                    }}>
+                      ðŸ“¸ <em>{doc.imageCaption}</em>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Document Text Body */}
+              <div style={{
+                fontSize: '0.88rem',
+                lineHeight: '1.7',
+                whiteSpace: 'pre-wrap',
+                color: '#111',
+                background: 'rgba(255, 255, 255, 0.45)',
+                padding: '20px',
+                border: '1px solid #c0b49c'
+              }}>
+                {doc.content}
+              </div>
+
+              {/* Handwritten Sticky Notes */}
+              {doc.handwrittenAnnotations && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '0.75rem', fontWeight: 'bold', color: '#8b0000' }}>
+                    HANDWRITTEN MARGIN NOTES / ARCHIVIST STICKIES:
+                  </div>
+                  {doc.handwrittenAnnotations.map((note, idx) => (
+                    <div 
+                      key={idx} 
+                      style={{
+                        background: '#fef08a',
+                        color: '#713f12',
+                        padding: '10px 14px',
+                        borderRadius: '2px 2px 8px 2px',
+                        border: '1px solid #eab308',
+                        boxShadow: '2px 2px 6px rgba(0,0,0,0.1)',
+                        fontFamily: '"Comic Sans MS", cursive, sans-serif',
+                        fontSize: '0.82rem',
+                        transform: `rotate(${idx % 2 === 0 ? '-1deg' : '1.5deg'})`,
+                        maxWidth: '85%'
+                      }}
+                    >
+                      {note}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Anomalous Footnote Warning */}
+              {doc.isAnomalous && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', background: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.4)', borderRadius: '4px', color: '#b91c1c' }}>
+                  <ShieldAlert size={16} />
+                  <span style={{ fontSize: '0.75rem', fontWeight: 'bold' }}>
+                    NHF WARNING: Artifact demonstrates non-standard temporality. Carbon dating or timestamp metadata does not match physical realities.
+                  </span>
+                </div>
+              )}
+            </article>
+          );
+        })}
+        {filteredDocs.length === 0 && (
+          <div style={{ padding: '40px', textAlign: 'center', color: 'var(--nhf-text-muted)' }}>
+            No documents found in this category.
+          </div>
+        )}
+      </div>
+
+      {/* Fullscreen Image Zoom Modal */}
+      {zoomedImage && (
+        <div className="modal-backdrop" onClick={() => setZoomedImage(null)}>
+          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setZoomedImage(null)}
+              style={{
+                position: 'absolute',
+                top: '-36px',
+                right: '0',
+                background: 'rgba(255,255,255,0.2)',
+                border: 'none',
+                color: '#fff',
+                padding: '6px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+            >
+              <X size={20} />
+            </button>
+            <img 
+              src={zoomedImage} 
+              alt="Zoomed Evidence" 
+              style={{ 
+                maxWidth: '100%', 
+                maxHeight: '85vh', 
+                objectFit: 'contain',
+                borderRadius: '4px',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.8)',
+                border: '1px solid #444'
+              }} 
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
