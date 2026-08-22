@@ -12,7 +12,7 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
   const { discoverAnomaly } = store;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="human-archive-route personnel-registry-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <div>
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '4px' }}>
           Foundation Staff & Research Fellows
@@ -27,7 +27,7 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
           const isMissing = staff.status === 'Missing';
           const isUnverified = staff.status === 'Unverified';
           return (
-            <div
+            <div className={`personnel-file ${isMissing || isUnverified ? 'flagged' : ''}`}
               key={staff.id}
               style={{
                 background: isMissing || isUnverified ? 'rgba(239, 68, 68, 0.04)' : 'var(--nhf-bg-surface)',

@@ -67,7 +67,7 @@ export const DirectMessagesView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
+    <div className="human-archive-route correspondence-desk-route" style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '1000px', margin: '0 auto', width: '100%' }}>
       {/* Header Banner */}
       <div style={{
         background: 'var(--nhf-bg-surface)',

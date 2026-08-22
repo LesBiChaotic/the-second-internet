@@ -21,7 +21,7 @@ export const InvestigatorProfileView: React.FC<{ store: ArchiveState }> = ({ sto
     setEditing(false); store.notify('Investigator profile updated.', 'success');
   };
 
-  return <div className="profile-workspace">
+  return <div className="profile-workspace human-archive-route investigator-accession-route">
     <section className="profile-hero" style={{ '--profile-a': background?.colors[0], '--profile-b': background?.colors[1] } as React.CSSProperties}>
       <div className="profile-card-preview">
         <div className="profile-avatar" style={{ '--frame-a': frame?.colors[0], '--frame-b': frame?.colors[1] } as React.CSSProperties}><span>{avatar?.glyph || '◉'}</span></div>

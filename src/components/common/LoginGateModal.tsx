@@ -91,7 +91,7 @@ export const LoginGateModal: React.FC<Props> = ({ store }) => {
       onClick={() => setIsGateOpen(false)}
     >
       <div 
-        className="modal-card"
+        className="modal-card archive-login-gate"
         style={{
           maxWidth: '560px',
           maxHeight: '90vh',

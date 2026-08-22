@@ -46,7 +46,7 @@ export const EmailArchiveView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="human-archive-route mailroom-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       <style>{`
         .email-app-container {
           display: grid;

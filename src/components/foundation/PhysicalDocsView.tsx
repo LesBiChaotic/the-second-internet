@@ -34,7 +34,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+    <div className="human-archive-route conservation-table-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '4px' }}>
@@ -106,7 +106,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
       <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
         {filteredDocs.map((doc) => {
           return (
-            <article 
+            <article className="physical-record-sheet"
               key={doc.id}
               onClick={() => {
                 if (doc.isAnomalous) {

@@ -1,0 +1,160 @@
+/* Checkpoint 8 / Phase 4 — the people, correspondence, and identity wing. */
+.human-archive-route {
+  --human-accent: #b66d3d;
+  --human-ink: var(--nhf-text-primary);
+  position: relative;
+  isolation: isolate;
+}
+
+.human-archive-route::before {
+  content: "LIVING ARCHIVE / HUMAN RECORD";
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  margin-bottom: -10px;
+  color: var(--human-accent);
+  font: 700 .65rem/1 var(--font-mono);
+  letter-spacing: .16em;
+}
+
+.human-archive-route > div:first-of-type,
+.human-archive-route > section:first-of-type {
+  position: relative;
+}
+
+.mailroom-route { --human-accent: #3b82f6; }
+.transcript-reel-route { --human-accent: #10b981; }
+.correspondence-desk-route { --human-accent: #8b5cf6; }
+.personnel-registry-route { --human-accent: #d97706; }
+.trace-dispatch-route { --human-accent: #0284c7; }
+.investigator-accession-route { --human-accent: #a855f7; }
+
+.human-archive-route .email-list-pane,
+.human-archive-route .chat-list-pane,
+.human-archive-route .dm-thread-sidebar,
+.human-archive-route .dm-chat-pane,
+.personnel-file,
+.trace-dispatch-route .trace-post-card {
+  border-radius: 3px !important;
+  box-shadow: 3px 4px 0 color-mix(in srgb, var(--human-accent) 16%, transparent), var(--shadow-subtle) !important;
+}
+
+.mailroom-route .email-list-pane::before,
+.transcript-reel-route .chat-list-pane::before {
+  content: "INDEX TRAY / SELECT RECORD";
+  color: var(--human-accent);
+  font: 700 .62rem/1 var(--font-mono);
+  letter-spacing: .14em;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--nhf-border);
+}
+
+.mailroom-route .email-detail-pane {
+  border-radius: 3px;
+  border-top: 4px solid var(--human-accent);
+}
+
+.transcript-reel-route .chat-detail-pane {
+  border-radius: 3px;
+  border-top: 4px solid #10b981;
+}
+
+.conservation-table-route {
+  padding: clamp(10px, 2vw, 24px);
+  background: repeating-linear-gradient(90deg, transparent 0 47px, color-mix(in srgb, var(--nhf-border) 35%, transparent) 48px), var(--nhf-bg-card);
+  border: 1px solid var(--nhf-border);
+}
+
+.physical-record-sheet {
+  position: relative;
+  border-radius: 2px !important;
+  transform: rotate(-.12deg);
+}
+
+.physical-record-sheet:nth-child(even) { transform: rotate(.12deg); }
+.physical-record-sheet::after {
+  content: "OPTICAL COPY";
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  color: rgba(126, 53, 40, .48);
+  border: 2px solid rgba(126, 53, 40, .34);
+  padding: 4px 7px;
+  font: 800 .58rem/1 var(--font-mono);
+  letter-spacing: .12em;
+  transform: rotate(2deg);
+  pointer-events: none;
+}
+
+.personnel-file {
+  position: relative;
+  overflow: hidden;
+  border-top: 4px solid var(--human-accent) !important;
+}
+.personnel-file::after {
+  content: "ACTIVE FILE";
+  position: absolute;
+  right: -25px;
+  top: 17px;
+  width: 110px;
+  padding: 4px 0;
+  text-align: center;
+  background: color-mix(in srgb, var(--human-accent) 18%, var(--nhf-bg-card));
+  color: var(--nhf-text-primary);
+  font: 700 .56rem/1 var(--font-mono);
+  transform: rotate(45deg);
+}
+.personnel-file.flagged::after { content: "AUDIT HOLD"; background: #7f1d1d; color: #fff; }
+
+.trace-dispatch-route .trace-hero-header {
+  border-radius: 3px;
+  border-left: 5px solid var(--human-accent);
+}
+
+.investigator-accession-route .profile-hero,
+.investigator-accession-route .wardrobe-section {
+  border-radius: 3px;
+}
+.investigator-accession-route .profile-hero::after {
+  content: "ACCESSION ID / SELF-REPORTED";
+  position: absolute;
+  right: 18px;
+  bottom: 12px;
+  color: color-mix(in srgb, var(--nhf-text-primary) 45%, transparent);
+  font: 700 .58rem/1 var(--font-mono);
+  letter-spacing: .12em;
+  pointer-events: none;
+}
+
+.archive-search-modal,
+.archive-settings-modal,
+.archive-login-gate {
+  border-radius: 3px !important;
+  border-top: 4px solid #38bdf8 !important;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .55), 5px 6px 0 rgba(56, 189, 248, .16) !important;
+}
+.archive-search-modal::before,
+.archive-settings-modal::before,
+.archive-login-gate::before {
+  content: "FOUNDATION DESK TERMINAL";
+  display: block;
+  padding: 6px 12px;
+  background: #07111d;
+  color: #7dd3fc;
+  border-bottom: 1px solid #1e3a52;
+  font: 700 .58rem/1 var(--font-mono);
+  letter-spacing: .16em;
+}
+
+@media (max-width: 768px) {
+  .human-archive-route::before { margin-bottom: -4px; letter-spacing: .1em; }
+  .conservation-table-route { padding: 10px; }
+  .physical-record-sheet { padding: 22px 18px !important; transform: none !important; }
+  .physical-record-sheet::after { position: static; align-self: flex-end; }
+  .investigator-accession-route .profile-hero::after { display: none; }
+  .archive-search-modal, .archive-settings-modal, .archive-login-gate { width: calc(100vw - 16px) !important; max-height: calc(100dvh - 16px) !important; }
+}
+
+.theme-light .personnel-file [style*="color: #fbbf24"] { color: #92400e !important; }
+.theme-light .archive-search-modal,
+.theme-light .archive-settings-modal { box-shadow: 0 24px 70px rgba(15, 23, 42, .22), 5px 6px 0 rgba(2, 132, 199, .14) !important; }
