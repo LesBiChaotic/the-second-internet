@@ -125,7 +125,10 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
       {mobileOpen && (
         <div 
           className="sidebar-mobile-backdrop"
-          onClick={onCloseMobile}
+          onPointerDown={(event) => {
+            event.preventDefault();
+            onCloseMobile();
+          }}
           role="button"
           tabIndex={0}
           aria-label="Close navigation menu"
