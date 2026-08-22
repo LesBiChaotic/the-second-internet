@@ -136,7 +136,17 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
         />
       )}
 
-      <aside ref={sidebarRef} className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`} aria-label="Primary archive navigation">
+      <aside
+        ref={sidebarRef}
+        className={`foundation-sidebar ${mobileOpen ? 'mobile-open' : ''}`}
+        aria-label="Primary archive navigation"
+        onPointerDown={(event) => {
+          if (!mobileOpen) return;
+          const target = event.target as HTMLElement;
+          if (target.closest('.sidebar-nav-item, button, input, select, textarea, a, [role="button"]')) return;
+          onCloseMobile();
+        }}
+      >
         {/* Institutional Brand Header in Sidebar */}
         <div 
           style={{
