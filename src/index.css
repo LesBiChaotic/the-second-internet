@@ -2,16 +2,16 @@
 
 :root, .theme-dark {
   /* Foundation Dark Academic / Archival Palette */
-  --nhf-bg-primary: #090d16;
-  --nhf-bg-surface: #0f1623;
-  --nhf-bg-card: #141c2b;
-  --nhf-bg-card-hover: #1b263b;
-  --nhf-border: #1e293b;
-  --nhf-border-light: #334155;
+  --nhf-bg-primary: #0b0e11;
+  --nhf-bg-surface: #12171a;
+  --nhf-bg-card: #182024;
+  --nhf-bg-card-hover: #202b30;
+  --nhf-border: #334047;
+  --nhf-border-light: #536169;
   
   --nhf-text-primary: #f8fafc;
-  --nhf-text-secondary: #94a3b8;
-  --nhf-text-muted: #64748b;
+  --nhf-text-secondary: #b2bab8;
+  --nhf-text-muted: #7f8a88;
   
   --nhf-accent-blue: #38bdf8;
   --nhf-accent-cobalt: #2563eb;
@@ -31,35 +31,35 @@
   --font-display: 'Cinzel', serif;
   
   /* Layout & Elevations */
-  --sidebar-width: 280px;
-  --header-height: 56px;
+  --sidebar-width: 292px;
+  --header-height: 64px;
   --wrapper-bar-height: 46px;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --shadow-subtle: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --shadow-subtle: 0 8px 22px rgba(0, 0, 0, 0.26);
   --shadow-elevated: 0 12px 36px rgba(0, 0, 0, 0.6);
 }
 
 /* Light Archival Academic Theme */
 .theme-light {
-  --nhf-bg-primary: #f1f5f9;
-  --nhf-bg-surface: #ffffff;
-  --nhf-bg-card: #f8fafc;
-  --nhf-bg-card-hover: #e2e8f0;
-  --nhf-border: #cbd5e1;
-  --nhf-border-light: #94a3b8;
+  --nhf-bg-primary: #e9e4d8;
+  --nhf-bg-surface: #f7f3e9;
+  --nhf-bg-card: #eee8dc;
+  --nhf-bg-card-hover: #e3dccd;
+  --nhf-border: #b8ad99;
+  --nhf-border-light: #8f826d;
   
-  --nhf-text-primary: #0f172a;
-  --nhf-text-secondary: #334155;
-  --nhf-text-muted: #64748b;
+  --nhf-text-primary: #242824;
+  --nhf-text-secondary: #4d554f;
+  --nhf-text-muted: #716f66;
   
   --nhf-accent-blue: #0284c7;
   --nhf-accent-cobalt: #1d4ed8;
   --nhf-accent-amber: #d97706;
   --nhf-accent-emerald: #059669;
   --nhf-accent-crimson: #dc2626;
-  --nhf-paper-beige: #fdfbf7;
+  --nhf-paper-beige: #fbf6e8;
 
   --nhf-glass-bg: rgba(255, 255, 255, 0.95);
   --nhf-glass-border: rgba(2, 132, 199, 0.25);
