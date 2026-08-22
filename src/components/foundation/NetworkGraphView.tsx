@@ -181,8 +181,8 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+    <div className="forensic-route topology-table-route" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="forensic-route-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
         <div>
           <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '4px' }}>
             Cross-Network Topology Graph

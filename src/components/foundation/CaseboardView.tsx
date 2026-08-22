@@ -46,7 +46,7 @@ export const CaseboardView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div className="caseboard-container">
+    <div className="caseboard-container forensic-route evidence-wall-route">
       {/* Header */}
       <div className="caseboard-header">
         <div>

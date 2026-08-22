@@ -41,8 +41,8 @@ export const WhoisLookupView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div>
+    <div className="forensic-route whois-registry-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="forensic-route-heading">
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '4px' }}>
           InterNIC & Registry WHOIS Query Tool
         </h1>
@@ -92,7 +92,7 @@ export const WhoisLookupView: React.FC<Props> = ({ store }) => {
 
       {/* Result Display */}
       {activeRecord ? (
-        <div style={{
+        <div className={`whois-record-sheet ${activeRecord.isAnomalous ? 'anomalous' : ''}`} style={{
           background: activeRecord.isAnomalous ? 'rgba(239, 68, 68, 0.04)' : 'var(--nhf-bg-surface)',
           border: '1px solid',
           borderColor: activeRecord.isAnomalous ? 'rgba(239, 68, 68, 0.3)' : 'var(--nhf-border)',

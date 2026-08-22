@@ -227,9 +227,9 @@ export const StationNullRadioTool: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
+    <div className="forensic-route radio-rack-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
-      <div style={{
+      <div className="forensic-route-heading radio-rack-heading" style={{
         background: 'var(--nhf-bg-surface)',
         border: '1px solid var(--nhf-border)',
         borderRadius: 'var(--radius-md)',
@@ -265,7 +265,7 @@ export const StationNullRadioTool: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Radio Tuner Chassis */}
-      <div style={{
+      <div className="radio-chassis" style={{
         background: '#0a0e17',
         border: '2px solid #1e293b',
         borderRadius: '12px',

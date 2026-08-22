@@ -123,9 +123,9 @@ export const PacketTerminalView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div className="terminal-cosmetic-surface" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '960px', margin: '0 auto', width: '100%' }}>
+    <div className="terminal-cosmetic-surface forensic-route packet-console-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '960px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
-      <div>
+      <div className="forensic-route-heading">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
           <Cpu size={20} color="#38bdf8" />
           <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)', color: '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>

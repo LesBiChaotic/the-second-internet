@@ -37,8 +37,8 @@ export const RouteVisualizerView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      <div>
+    <div className="forensic-route route-strip-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      <div className="forensic-route-heading">
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '4px' }}>
           Packet Route & BGP Topology Tracer
         </h1>
@@ -70,7 +70,7 @@ export const RouteVisualizerView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Trace Route Display */}
-      <div style={{
+      <div className={`route-trace-sheet ${activeRecord.isAnomalous ? 'anomalous' : ''}`} style={{
         background: activeRecord.isAnomalous ? 'rgba(239, 68, 68, 0.04)' : 'var(--nhf-bg-surface)',
         border: '1px solid',
         borderColor: activeRecord.isAnomalous ? 'rgba(239, 68, 68, 0.3)' : 'var(--nhf-border)',
@@ -106,6 +106,7 @@ export const RouteVisualizerView: React.FC<Props> = ({ store }) => {
             const isAnom = step.status === 'ANOMALOUS' || step.status === 'IMPOSSIBLE';
             return (
               <div
+                className={`route-hop ${isAnom ? 'anomalous' : ''}`}
                 key={step.hop}
                 style={{
                   background: isAnom ? 'rgba(239, 68, 68, 0.1)' : 'var(--nhf-bg-card)',
