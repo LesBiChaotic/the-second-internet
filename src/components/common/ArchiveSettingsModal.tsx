@@ -9,6 +9,7 @@ const resetOptions: Array<{ scope: ResetScope; title: string; detail: string }> 
   { scope: 'messages', title: 'Reset messages', detail: 'Restore every simulated conversation to its opening state.' },
   { scope: 'caseboard', title: 'Reset caseboard', detail: 'Remove custom pins and restore the three starting records.' },
   { scope: 'appearance', title: 'Reset appearance', detail: 'Return theme and font preferences to automatic defaults.' },
+  { scope: 'profile', title: 'Reset profile & wardrobe', detail: 'Restore the visitor identity and default equipped cosmetics. Earned unlocks remain tied to case progress.' },
   { scope: 'all', title: 'Factory reset everything', detail: 'Erase all investigation, message, caseboard and appearance data.' }
 ];
 
