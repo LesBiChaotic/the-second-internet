@@ -175,7 +175,16 @@ export function App() {
             />
           )}
           
-          <main id="archive-main" ref={mainContentRef} className="main-content-area" style={{ padding: isHistoricalOrSecondNet ? '0' : undefined }} tabIndex={-1}>
+          <main
+            id="archive-main"
+            ref={mainContentRef}
+            className="main-content-area"
+            style={{ padding: isHistoricalOrSecondNet ? '0' : undefined }}
+            tabIndex={-1}
+            onPointerDown={() => {
+              if (mobileMenuOpen) setMobileMenuOpen(false);
+            }}
+          >
             <React.Suspense fallback={<div className="route-loading" role="status"><span /> Reconstructing archive snapshot…</div>}>
               {renderCurrentView()}
             </React.Suspense>
