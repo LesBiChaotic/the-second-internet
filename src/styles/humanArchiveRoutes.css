@@ -115,6 +115,42 @@
 .investigator-accession-route .wardrobe-section {
   border-radius: 3px;
 }
+
+/* The profile contains several nested grids and one horizontal tab rail. Keep
+   their intrinsic widths from enlarging the app shell on narrow screens. */
+.investigator-accession-route,
+.investigator-accession-route > *,
+.investigator-accession-route .profile-card-preview,
+.investigator-accession-route .profile-identity,
+.investigator-accession-route .rank-panel,
+.investigator-accession-route .wardrobe-heading,
+.investigator-accession-route .cosmetic-grid,
+.investigator-accession-route .cosmetic-card,
+.investigator-accession-route .cosmetic-copy,
+.investigator-accession-route .xp-explainer > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.investigator-accession-route .profile-identity h1,
+.investigator-accession-route .profile-identity p,
+.investigator-accession-route .profile-nameplate,
+.investigator-accession-route .equipped-badge,
+.investigator-accession-route .rank-panel,
+.investigator-accession-route .wardrobe-heading,
+.investigator-accession-route .cosmetic-copy,
+.investigator-accession-route .xp-explainer {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.investigator-accession-route .cosmetic-tabs {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
 .investigator-accession-route .profile-hero::after {
   content: "ACCESSION ID / SELF-REPORTED";
   position: absolute;
@@ -153,6 +189,54 @@
   .physical-record-sheet::after { position: static; align-self: flex-end; }
   .investigator-accession-route .profile-hero::after { display: none; }
   .archive-search-modal, .archive-settings-modal, .archive-login-gate { width: calc(100vw - 16px) !important; max-height: calc(100dvh - 16px) !important; }
+}
+
+@media (max-width: 540px) {
+  .investigator-accession-route {
+    width: 100%;
+    overflow-x: clip;
+  }
+
+  .investigator-accession-route .profile-hero,
+  .investigator-accession-route .wardrobe-section,
+  .investigator-accession-route .profile-editor,
+  .investigator-accession-route .xp-explainer {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .investigator-accession-route .profile-avatar {
+    width: min(96px, 42vw);
+  }
+
+  .investigator-accession-route .profile-editor input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .investigator-accession-route .cosmetic-tabs {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .investigator-accession-route .cosmetic-card {
+    width: 100%;
+    grid-template-columns: 42px minmax(0, 1fr);
+  }
+
+  .investigator-accession-route .cosmetic-swatch {
+    width: 42px;
+    height: 42px;
+  }
+
+  .investigator-accession-route .xp-explainer {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .investigator-accession-route .xp-explainer > svg:last-child {
+    display: none;
+  }
 }
 
 .theme-light .personnel-file [style*="color: #fbbf24"] { color: #92400e !important; }
