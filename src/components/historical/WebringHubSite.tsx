@@ -10,7 +10,8 @@ interface Props {
 
 export const WebringHubSite: React.FC<Props> = ({ store }) => {
   const { currentSubId, discoverAnomaly, navigate } = store;
-  const [currentSiteIndex, setCurrentSiteIndex] = useState<number>(0);
+  const initialSiteIndex = Math.max(0, webringSites.findIndex(site => site.id === currentSubId));
+  const [currentSiteIndex, setCurrentSiteIndex] = useState<number>(initialSiteIndex);
 
   const activeSite: WebringSite = webringSites[currentSiteIndex] || webringSites[0];
 

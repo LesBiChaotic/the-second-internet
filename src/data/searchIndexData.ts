@@ -11,6 +11,9 @@ import { tracePosts } from './traceFeedData';
 import { emailsData } from './emailsData';
 import { physicalDocsData } from './physicalDocsData';
 import { whoisDatabase } from './whoisAndRoutesData';
+import { palisadeProfiles } from './palisadeData';
+import { webringSites } from './webringData';
+import { chatLogsData } from './chatLogsData';
 
 export const buildGlobalSearchIndex = (): SearchResultItem[] => {
   const index: SearchResultItem[] = [];
@@ -224,6 +227,51 @@ export const buildGlobalSearchIndex = (): SearchResultItem[] => {
     });
   });
 
+  // Palisade social profiles
+  palisadeProfiles.forEach(profile => {
+    index.push({
+      id: `sr-pal-${profile.id}`,
+      title: `[Palisade] ${profile.name} (${profile.handle})`,
+      type: 'PERSON',
+      collection: 'Collection 15: Palisade Social Graph',
+      date: profile.statusDate,
+      snippet: `${profile.headline}. ${profile.recentStatus}`,
+      targetView: 'SITE_PALISADE',
+      targetId: profile.id,
+      isAnomalous: profile.isAnomalous
+    });
+  });
+
+  // Other Side webring
+  webringSites.forEach(site => {
+    index.push({
+      id: `sr-webring-${site.id}`,
+      title: `[Other Side Webring] ${site.title}`,
+      type: 'WEB_PAGE',
+      collection: 'Collection 04: Early Webring Guilds',
+      date: String(site.year),
+      snippet: site.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160) + '...',
+      targetView: 'SITE_WEBRING',
+      targetId: site.id,
+      isAnomalous: site.isAnomalous
+    });
+  });
+
+  // Recovered chat spools
+  chatLogsData.forEach(chat => {
+    index.push({
+      id: `sr-chat-${chat.id}`,
+      title: `[IRC] ${chat.channel} — ${chat.date}`,
+      type: 'CHAT',
+      collection: 'Recovered IRC & Chat Spools',
+      date: chat.date,
+      snippet: chat.description,
+      targetView: 'CHATS',
+      targetId: chat.id,
+      isAnomalous: chat.messages.some(message => message.isAnomalous)
+    });
+  });
+
   // TRACE Posts
   tracePosts.forEach(tp => {
     index.push({
@@ -316,4 +364,3 @@ export const buildGlobalSearchIndex = (): SearchResultItem[] => {
 
   return index;
 };
-

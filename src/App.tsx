@@ -4,7 +4,6 @@ import { FoundationHeader } from './components/common/FoundationHeader';
 import { FoundationSidebar } from './components/common/FoundationSidebar';
 import { ForensicAnalyzerDrawer } from './components/common/ForensicAnalyzerDrawer';
 import { SourceViewerModal } from './components/common/SourceViewerModal';
-import { OmniboxSearchModal } from './components/common/OmniboxSearch';
 import { LoginGateModal } from './components/common/LoginGateModal';
 import { PhoneDialerModal } from './components/common/PhoneDialerModal';
 import { GuestbookSignModal } from './components/interactive/GuestbookSignModal';
@@ -20,6 +19,7 @@ import { soundEngine } from './state/useAudioEngine';
 const lazyNamed = (loader: () => Promise<Record<string, unknown>>, exportName: string) =>
   React.lazy(async () => ({ default: (await loader())[exportName] as React.ComponentType<any> }));
 
+const OmniboxSearchModal = lazyNamed(() => import('./components/common/OmniboxSearch'), 'OmniboxSearchModal');
 const CollectionsView = lazyNamed(() => import('./components/foundation/CollectionsView'), 'CollectionsView');
 const PeopleView = lazyNamed(() => import('./components/foundation/PeopleView'), 'PeopleView');
 const CommunityView = lazyNamed(() => import('./components/foundation/CommunityView'), 'CommunityView');
@@ -217,10 +217,12 @@ export function App() {
 
         {/* Omnibox Global Search Modal */}
         {searchOpen && (
-          <OmniboxSearchModal
-            store={store}
-            onClose={() => setSearchOpen(false)}
-          />
+          <React.Suspense fallback={<div className="modal-backdrop"><div className="route-loading" role="status"><span /> Indexing archive records…</div></div>}>
+            <OmniboxSearchModal
+              store={store}
+              onClose={() => setSearchOpen(false)}
+            />
+          </React.Suspense>
         )}
         <ArchiveSettingsModal store={store} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
         <NotificationViewport store={store} />
