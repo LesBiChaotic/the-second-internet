@@ -79,5 +79,11 @@
 .theme-light .topology-table-route .forensic-route-heading h1 { color:#17384a !important; }
 .theme-light .topology-table-route .forensic-route-heading p { color:#476575 !important; }
 .theme-light .topology-table-route .graph-canvas-container { border-color:#6f93a6; }
+.topology-table-route .mobile-node-browser label,
+.topology-table-route .mobile-node-detail strong { color:var(--nhf-text-primary) !important; }
+.theme-light .topology-table-route .mobile-node-browser { color:#17384a; background:#f8faf7; }
+.theme-light .topology-table-route .mobile-node-browser label,
+.theme-light .topology-table-route .mobile-node-detail strong { color:#17384a !important; }
+.theme-light .topology-table-route .mobile-node-detail p { color:#476575 !important; }
 @media(max-width:768px){.forensic-route-heading{padding:14px}.evidence-wall-route{border-width:6px;padding:12px}.evidence-wall-route .caseboard-card:nth-child(n){transform:none}.topology-table-route,.carrier-bench-route,.radio-rack-route,.packet-console-route,.aperture-operations-route{padding:10px}.signal-bench-grid{grid-template-columns:1fr}.radio-rack-route{border-left-width:6px;border-right-width:6px}.route-hop{padding-left:42px !important}.whois-record-sheet::after,.aperture-operations-route::before{display:none}.restricted-vault-route{overflow-x:clip}.restricted-vault-route>div:first-child{padding:18px 16px !important}.restricted-vault-route>div:first-child>div:first-child{min-width:0}.vault-workspace{width:100%}.vault-sidebar-list{width:100%}.vault-sidebar-item{min-width:min(240px,82vw)!important}.vault-exhibit-viewer{padding:18px 16px!important}.vault-exhibit-actions{width:100%}.vault-exhibit-actions .btn{flex:1 1 150px;justify-content:center}.aperture-window-bar{gap:8px}.aperture-window-identity{flex:1}.aperture-command-bar{flex-wrap:wrap}.aperture-command-bar>span{max-width:100%;overflow-wrap:anywhere}.aperture-command-bar input{flex:1 1 150px}.aperture-command-bar .btn{flex:0 0 auto}}
 @media(max-width:380px){.restricted-vault-route>div:first-child>div:first-child{align-items:flex-start!important}.restricted-vault-route>div:first-child>div:first-child>div:first-child{width:38px!important;height:38px!important}.aperture-command-bar .btn{width:100%;justify-content:center}.topology-table-route{padding:7px}}
