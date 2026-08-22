@@ -41,19 +41,16 @@ interface VaultExhibit {
 export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
   const { 
     clearanceLevel, 
-    setClearanceLevel, 
     discoverAnomaly, 
     pinToCaseboard, 
-    navigate,
-    discoveredAnomalies
+    navigate
   } = store;
 
   const [passcode, setPasscode] = useState('');
   const [unlocked, setUnlocked] = useState(
     clearanceLevel === 'ARCHIVIST' || 
     clearanceLevel === 'LEVEL_NULL' || 
-    clearanceLevel === 'LEVEL_OMEGA' ||
-    discoveredAnomalies.length >= 6
+    clearanceLevel === 'LEVEL_OMEGA'
   );
   const [errorMsg, setErrorMsg] = useState('');
   const [activeExhibitId, setActiveExhibitId] = useState('ex-q01');
@@ -147,7 +144,6 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
       cleaned === 'milwaukee98'
     ) {
       soundEngine.playDialupChirp();
-      setClearanceLevel('ARCHIVIST');
       setUnlocked(true);
       discoverAnomaly('vault-unlocked');
     } else {
@@ -277,7 +273,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
               Archivist Clearance Required
             </h2>
             <p style={{ fontSize: '0.86rem', color: 'var(--nhf-text-secondary)', lineHeight: 1.6 }}>
-              This repository contains non-standard topologies, future timestamps, and physical relics. Enter an override passkey or discover 6+ anomalies across the archive to bypass.
+              This repository contains non-standard topologies, future timestamps, and physical relics. Present an Archivist keycard at entry, or enter a scoped Collection 17 override below.
             </p>
           </div>
 

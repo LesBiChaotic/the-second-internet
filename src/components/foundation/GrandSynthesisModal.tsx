@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const GrandSynthesisModal: React.FC<Props> = ({ store, isOpen, onClose }) => {
-  const { setClearanceLevel, discoverAnomaly, navigate } = store;
+  const { discoverAnomaly, navigate } = store;
 
   // Lock background body scroll when modal is open
   useEffect(() => {
@@ -40,7 +40,6 @@ export const GrandSynthesisModal: React.FC<Props> = ({ store, isOpen, onClose })
 
   const handleClaimOmegaClearance = () => {
     soundEngine.playClearanceChime('LEVEL_NULL');
-    setClearanceLevel('LEVEL_OMEGA');
     discoverAnomaly('grand-synthesis-unlocked');
     onClose();
   };
@@ -258,7 +257,7 @@ export const GrandSynthesisModal: React.FC<Props> = ({ store, isOpen, onClose })
                 Investigator Synthesis Complete
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--nhf-text-secondary)', marginTop: '2px' }}>
-                Grant yourself Clearance Level: OMEGA / LIVING ARCHIVE.
+                Record Exhibit Omega as the final living-archive hypothesis.
               </div>
             </div>
 
@@ -275,7 +274,7 @@ export const GrandSynthesisModal: React.FC<Props> = ({ store, isOpen, onClose })
               }}
             >
               <Award size={16} />
-              <span>Attain Clearance Level OMEGA</span>
+              <span>Record the Omega Synthesis</span>
             </button>
           </div>
         </div>

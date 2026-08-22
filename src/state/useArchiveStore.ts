@@ -12,6 +12,7 @@ export interface ArchiveState {
   activeUrl: string;
   snapshotYear: number;
   clearanceLevel: ClearanceLevel;
+  accessRoute: 'VISITOR' | 'KEYCARD';
   networkStatus: NetworkStatus;
   archiveIntegrity: number;
   discoveredAnomalies: string[];
@@ -58,7 +59,7 @@ export interface ArchiveState {
   closeFieldGuideWarning: () => void;
   confirmOpenFieldGuide: () => void;
   setSnapshotYear: (year: number) => void;
-  setClearanceLevel: (level: ClearanceLevel) => void;
+  authenticateClearance: (level: ClearanceLevel) => void;
   discoverAnomaly: (anomalyId: string) => void;
   pinToCaseboard: (pin: Omit<CaseboardPin, 'id' | 'timestamp'>) => void;
   removeCaseboardPin: (pinId: string) => void;
@@ -212,6 +213,7 @@ const getSystemTheme = (): 'dark' | 'light' => {
 const SAVE_VERSION = 2;
 const SAVE_KEYS = [
   'nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance',
+  'nhf_access_route',
   'nhf_anomalies', 'nhf_caseboard', 'nhf_gate_entered', 'nhf_archetype',
   'nhf_theme_mode', 'nhf_use_device_font', 'nhf_dm_threads', 'nhf_dm_indices',
   'nhf_skip_field_guide_warning'
@@ -240,13 +242,15 @@ export function useArchiveStore(): ArchiveState {
   const [snapshotYear, setSnapshotYearState] = useState<number>(2026);
 
   // Clearance and anomalies persistence
-  const savedClearance = typeof window !== 'undefined' ? (localStorage.getItem('nhf_clearance') as ClearanceLevel) : null;
+  const savedAccessRoute = typeof window !== 'undefined' ? localStorage.getItem('nhf_access_route') : null;
+  const savedClearance = typeof window !== 'undefined' && savedAccessRoute === 'KEYCARD' ? (localStorage.getItem('nhf_clearance') as ClearanceLevel) : null;
   const savedAnomalies = typeof window !== 'undefined' ? localStorage.getItem('nhf_anomalies') : null;
   const savedCaseboard = typeof window !== 'undefined' ? localStorage.getItem('nhf_caseboard') : null;
   const savedGateEntered = typeof window !== 'undefined' ? localStorage.getItem('nhf_gate_entered') : null;
   const savedArchetype = typeof window !== 'undefined' ? localStorage.getItem('nhf_archetype') : null;
 
   const [clearanceLevel, setClearanceLevelState] = useState<ClearanceLevel>(savedClearance || 'VISITOR');
+  const [accessRoute, setAccessRoute] = useState<'VISITOR' | 'KEYCARD'>(savedAccessRoute === 'KEYCARD' ? 'KEYCARD' : 'VISITOR');
   const [networkStatus, setNetworkStatus] = useState<NetworkStatus>('INTERNET');
   const [archiveIntegrity, setArchiveIntegrity] = useState<number>(99.74);
   const [discoveredAnomalies, setDiscoveredAnomalies] = useState<string[]>(safeParse(savedAnomalies, []));
@@ -318,7 +322,7 @@ export function useArchiveStore(): ArchiveState {
     "Dr. Van Houten discovered that the Milwaukee router was routing packets through an unallocated BGP subnet labeled '0.0.0.0/room'. He realized the physical fiber was storing human communications inductively. He took the binders home to prevent the board from purging the evidence.",
     "If you open the Carrier Tuner tool, slide the dial to 58.4Hz on a Sine wave. That's the cathode ray flyback frequency of Alden's ViewSonic monitor from 2003. When held at that frequency, the carrier loop transmits live telemetry from Room 4.",
     "Launch the Aperture UNIX Terminal and try typing 'cat /var/log/breach.log' or 'finger janus@afterhours.org'. You can also test residual sockets using 'telnet station-null:1014'.",
-    "Collection 17 can be unlocked with clearance tokens like 'caisson1998', 'optics-46f', 'living-archive', or by discovering 6 anomalies across the archive. Inside, make sure to click 'Optical Unredact' to reveal the classified blocks.",
+    "Collection 17 requires an Archivist keycard, though scoped exhibit tokens like 'caisson1998', 'optics-46f', or 'living-archive' can open that collection without changing your global clearance. Inside, click 'Optical Unredact' to reveal the classified blocks.",
     "Both the 1877 Glasgow submarine cable and the 1933 Chicago Exchange #47 recorded spontaneous text and voice pulses with no power connected. The Second Internet is the physical standing wave memory of the global wire mesh across 150 years.",
     "The 2034 Wireshark dump in Collection 17 confirms that even in the future, the mesh stays active. The caretakers are protecting human memory from modern automated spiders."
   ];
@@ -509,7 +513,7 @@ export function useArchiveStore(): ArchiveState {
     window.setTimeout(() => dismissNotification(id), 4200);
   }, [dismissNotification]);
 
-  // Auto-mutate network status and clearance based on discoveries
+  // Discoveries mutate the fiction, never the user's institutional authorization.
   useEffect(() => {
     // Do not auto-escalate clearance if the user is still at the login gate
     if (isGateOpen) return;
@@ -520,23 +524,17 @@ export function useArchiveStore(): ArchiveState {
     if (count >= 1 && count < 3) {
       setArchiveIntegrity(99.52);
       setNetworkStatus('FIRST INTERNET');
-      if (clearanceLevel === 'VISITOR') setClearanceLevelState('CONTRIBUTOR');
     } else if (count >= 3 && count < 6) {
       setArchiveIntegrity(97.08);
       setNetworkStatus('FIRST INTERNET / LOCAL');
-      if (clearanceLevel === 'CONTRIBUTOR' || clearanceLevel === 'VISITOR') {
-        setClearanceLevelState('RESEARCHER');
-      }
     } else if (count >= 6 && count < 9) {
       setArchiveIntegrity(91.40);
       setNetworkStatus('OUTSIDE');
-      setClearanceLevelState('ARCHIVIST');
     } else if (count >= 9) {
       setArchiveIntegrity(84.19);
       setNetworkStatus('HOME');
-      setClearanceLevelState('LEVEL_NULL');
     }
-  }, [discoveredAnomalies, clearanceLevel, isGateOpen]);
+  }, [discoveredAnomalies, isGateOpen]);
 
   const toggleTheme = () => {
     setThemeMode(prev => {
@@ -687,10 +685,12 @@ export function useArchiveStore(): ArchiveState {
     setSnapshotYearState(year);
   };
 
-  const setClearanceLevel = (level: ClearanceLevel) => {
+  const authenticateClearance = (level: ClearanceLevel) => {
     setClearanceLevelState(level);
+    setAccessRoute(level === 'VISITOR' ? 'VISITOR' : 'KEYCARD');
     if (typeof window !== 'undefined') {
       localStorage.setItem('nhf_clearance', level);
+      localStorage.setItem('nhf_access_route', level === 'VISITOR' ? 'VISITOR' : 'KEYCARD');
     }
   };
 
@@ -781,11 +781,12 @@ export function useArchiveStore(): ArchiveState {
 
   const resetProgress = (scope: ResetScope) => {
     if (scope === 'investigation' || scope === 'all') {
-      ['nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance', 'nhf_anomalies', 'nhf_gate_entered', 'nhf_archetype', 'nhf_skip_field_guide_warning'].forEach(key => localStorage.removeItem(key));
+      ['nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance', 'nhf_access_route', 'nhf_anomalies', 'nhf_gate_entered', 'nhf_archetype', 'nhf_skip_field_guide_warning'].forEach(key => localStorage.removeItem(key));
       setCurrentView('DASHBOARD');
       setCurrentSubId(undefined);
       setActiveUrl('https://nethistoryfoundation.org/');
       setClearanceLevelState('VISITOR');
+      setAccessRoute('VISITOR');
       setNetworkStatus('INTERNET');
       setArchiveIntegrity(99.74);
       setDiscoveredAnomalies([]);
@@ -841,6 +842,7 @@ export function useArchiveStore(): ArchiveState {
     activeUrl,
     snapshotYear,
     clearanceLevel,
+    accessRoute,
     networkStatus,
     archiveIntegrity,
     discoveredAnomalies,
@@ -879,7 +881,7 @@ export function useArchiveStore(): ArchiveState {
     closeFieldGuideWarning,
     confirmOpenFieldGuide,
     setSnapshotYear,
-    setClearanceLevel,
+    authenticateClearance,
     discoverAnomaly,
     pinToCaseboard,
     removeCaseboardPin,

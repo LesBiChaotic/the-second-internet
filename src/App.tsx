@@ -15,6 +15,8 @@ import { ArchiveSettingsModal } from './components/common/ArchiveSettingsModal';
 import { FoundationDashboard } from './components/foundation/FoundationDashboard';
 import { SubstrateErrorView } from './components/common/SubstrateErrorView';
 import { soundEngine } from './state/useAudioEngine';
+import { AccessGate } from './components/common/AccessGate';
+import { canAccessView } from './state/accessControl';
 
 const lazyNamed = (loader: () => Promise<Record<string, unknown>>, exportName: string) =>
   React.lazy(async () => ({ default: (await loader())[exportName] as React.ComponentType<any> }));
@@ -92,6 +94,9 @@ export function App() {
   }, [store.currentView, store.currentSubId]);
 
   const renderCurrentView = () => {
+    if (store.currentView !== 'RESTRICTED_VAULT' && !canAccessView(store.currentView, store.clearanceLevel)) {
+      return <AccessGate store={store} view={store.currentView} />;
+    }
     switch (store.currentView) {
       case 'DASHBOARD': return <FoundationDashboard store={store} />;
       case 'COLLECTIONS': return <CollectionsView store={store} />;

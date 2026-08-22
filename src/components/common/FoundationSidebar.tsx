@@ -40,6 +40,7 @@ import {
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
 import { TOTAL_ANOMALIES_COUNT } from '../../types';
+import { canAccessView, requiredClearanceFor } from '../../state/accessControl';
 
 interface Props {
   store: ArchiveState;
@@ -83,6 +84,10 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
     setIsPhoneDialerOpen(true);
     if (onCloseMobile) onCloseMobile();
   };
+
+  const lockBadge = (view: string) => !canAccessView(view, clearanceLevel) ? (
+    <span className="nav-lock" title={`Requires ${requiredClearanceFor(view)} clearance`}><Lock size={12} /> {requiredClearanceFor(view)}</span>
+  ) : null;
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
@@ -413,6 +418,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           >
             <BookOpen size={16} color="#f59e0b" />
             <span style={{ color: '#f59e0b', fontWeight: 600 }}>Van Houten's Field Journal</span>
+            {lockBadge('NOTEBOOK')}
           </div>
         </div>
 
@@ -437,6 +443,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           >
             <Radio size={16} color="#38bdf8" />
             <span style={{ color: '#38bdf8', fontWeight: 600 }}>Station Null SDR Receiver</span>
+            {lockBadge('RADIO_SPECTROGRAPH')}
           </div>
 
           <div 
@@ -445,6 +452,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           >
             <Terminal size={16} color="#a78bfa" />
             <span style={{ color: '#a78bfa', fontWeight: 600 }}>Aperture UNIX Terminal</span>
+            {lockBadge('APERTURE_TERMINAL')}
           </div>
 
           <div 
@@ -453,6 +461,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           >
             <Cpu size={16} color="#38bdf8" />
             <span>Rack #4 Hex Disassembler</span>
+            {lockBadge('PACKET_TERMINAL')}
           </div>
 
           <div 
@@ -579,6 +588,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
           >
             <Tv size={16} color="#10b981" />
             <span style={{ color: '#10b981', fontWeight: 600 }}>"Room 4" CRT Monitor (2003)</span>
+            {lockBadge('ROOM4_MONITOR')}
           </div>
 
           <div 
