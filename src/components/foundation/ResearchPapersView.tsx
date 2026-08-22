@@ -33,8 +33,8 @@ export const ResearchPapersView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
-      <div>
+    <div className="research-reading-route institutional-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '900px', margin: '0 auto', width: '100%' }}>
+      <div className="institutional-route-heading">
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '6px' }}>
           Foundation Research Papers & Oral Histories
         </h1>
@@ -44,7 +44,7 @@ export const ResearchPapersView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Category Dropdown Filter */}
-      <div style={{ 
+      <div className="reading-room-filter" style={{
         display: 'flex', 
         alignItems: 'center', 
         gap: '12px', 
@@ -83,10 +83,11 @@ export const ResearchPapersView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Vertical Feed of Articles */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+      <div className="research-paper-stack" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
         {filteredArticles.map((art) => {
           return (
             <article 
+              className={`research-paper-sheet ${art.isAnomalous ? 'anomalous' : ''}`}
               key={art.id}
               onClick={() => {
                 if (art.isAnomalous) {

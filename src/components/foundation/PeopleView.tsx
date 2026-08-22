@@ -37,9 +37,9 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="people-registry-route institutional-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
-      <div>
+      <div className="institutional-route-heading">
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '6px' }}>
           Historical Personae, Photographic Scans & Entity Directory
         </h1>
@@ -49,9 +49,9 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
       </div>
 
       {/* Main Split Layout: Left Roster, Right Dossier */}
-      <div className="responsive-grid-sidebar" style={{ minHeight: '600px' }}>
+      <div className="responsive-grid-sidebar biographical-registry" style={{ minHeight: '600px' }}>
         {/* Left Character List */}
-        <div style={{
+        <div className="registry-index" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
@@ -118,7 +118,7 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
         </div>
 
         {/* Right Dossier Detail */}
-        <div style={{
+        <div className="registry-dossier" style={{
           background: 'var(--nhf-bg-surface)',
           border: '1px solid var(--nhf-border)',
           borderRadius: 'var(--radius-md)',
@@ -200,7 +200,7 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
               {selectedChar.aliases.map((a, idx) => (
                 <div key={idx} style={{ background: 'var(--nhf-bg-card)', padding: '10px 12px', borderRadius: '4px', border: '1px solid var(--nhf-border)' }}>
                   <div style={{ fontSize: '0.7rem', color: '#60a5fa', fontFamily: 'var(--font-mono)' }}>{a.platform}</div>
-                  <div style={{ fontWeight: 600, fontSize: '0.88rem', color: '#f1f5f9' }}>{a.handle}</div>
+                  <div style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--nhf-text-primary)' }}>{a.handle}</div>
                   <div style={{ fontSize: '0.72rem', color: 'var(--nhf-text-muted)' }}>{a.era}</div>
                 </div>
               ))}

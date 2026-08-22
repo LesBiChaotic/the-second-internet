@@ -37,9 +37,9 @@ export const CollectionsView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="collections-catalog-route institutional-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="institutional-route-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '6px' }}>
             Curated Archival Collections
@@ -92,11 +92,12 @@ export const CollectionsView: React.FC<Props> = ({ store }) => {
       </>
 
       {/* Collections Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
+      <div className="collection-drawer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 360px), 1fr))', gap: '20px' }}>
         {filtered.map((col) => {
           const isQuarantined = col.status === 'Quarantined';
           return (
             <div
+              className={`collection-catalog-card ${isQuarantined ? 'quarantined' : ''}`}
               key={col.id}
               style={{
                 background: isQuarantined ? 'rgba(239, 68, 68, 0.05)' : 'var(--nhf-bg-surface)',
