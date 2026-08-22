@@ -44,6 +44,8 @@
 /* Radio — rack-mounted receiver with chassis screws. */
 .radio-rack-route { position:relative; padding:16px; border-left:12px solid #252d32; border-right:12px solid #252d32; background:#11171b; box-shadow:inset 0 0 0 1px #59646a,7px 8px 0 rgba(0,0,0,.28); }
 .radio-rack-heading { border-left-color:var(--nhf-accent-blue) !important; background:#192125 !important; }
+.radio-rack-heading h1 { color:#f8fafc !important; }
+.radio-rack-heading p { color:#cbd5e1 !important; }
 .radio-chassis { position:relative; border-radius:2px !important; border:2px solid #59646a !important; box-shadow:inset 0 0 28px rgba(0,0,0,.65),0 3px 0 #050708 !important; }
 .radio-chassis::before,.radio-chassis::after { content:"⊕"; position:absolute; top:8px; color:#78848a; font-size:16px; }.radio-chassis::before{left:9px}.radio-chassis::after{right:9px}
 
