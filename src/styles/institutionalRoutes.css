@@ -1,0 +1,57 @@
+/* Checkpoint 8 Phase 2 — each institutional route gets a distinct archival job. */
+.institutional-route { width: min(100%,1220px); margin: 0 auto; }
+.institutional-route-heading { position: relative; padding: 4px 0 18px 22px; border-left: 6px solid var(--nhf-accent-blue); border-bottom: 3px double var(--nhf-border); }
+.institutional-route-heading::after { content: "NHF · CONTROLLED READING COPY"; position: absolute; right: 0; bottom: 4px; color: var(--nhf-text-muted); font: 600 .55rem var(--font-mono); letter-spacing: .09em; }
+.institutional-route-heading h1 { font-family: var(--font-serif); font-size: clamp(1.75rem,3vw,2.65rem) !important; font-weight: 500 !important; letter-spacing: -.02em; }
+.institutional-route .filter-desktop { display: flex; padding: 8px 0 10px !important; border-bottom: 1px solid var(--nhf-border); }
+.institutional-route .filter-desktop .btn { border-radius: 1px; box-shadow: 2px 2px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent); }
+
+/* Collections — horizontal catalog drawers and accession tabs. */
+.collection-drawer-grid { grid-template-columns: repeat(2,minmax(0,1fr)) !important; gap: 13px !important; counter-reset: collection-card; }
+.collection-catalog-card { position: relative; min-height: 205px; border-radius: 1px !important; padding: 22px 22px 18px 76px !important; box-shadow: 4px 4px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent); background-image: linear-gradient(90deg,color-mix(in srgb,var(--nhf-bg-card) 75%,transparent) 54px,transparent 54px) !important; counter-increment: collection-card; }
+.collection-catalog-card::before { content: "DRAWER\A" counter(collection-card,decimal-leading-zero); white-space: pre; position: absolute; inset: 0 auto 0 0; width: 54px; padding-top: 22px; border-right: 1px solid var(--nhf-border); color: var(--nhf-text-muted); font: 700 .58rem/1.6 var(--font-mono); text-align: center; }
+.collection-catalog-card::after { content: ""; position: absolute; left: 12px; bottom: 18px; width: 28px; height: 7px; border: 1px solid var(--nhf-border-light); background: var(--nhf-bg-primary); }
+.collection-catalog-card:hover { transform: translate(2px,2px) !important; box-shadow: 2px 2px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent); }
+.collection-catalog-card.quarantined { border-left: 5px solid var(--nhf-accent-crimson) !important; background-image: repeating-linear-gradient(-45deg,rgba(239,68,68,.035) 0 8px,transparent 8px 16px) !important; }
+
+/* People — index drawer beside a full biographical dossier. */
+.biographical-registry { grid-template-columns: minmax(250px,315px) minmax(0,1fr); gap: 12px; }
+.registry-index { border-radius: 1px !important; padding: 18px 12px !important; border-top: 7px solid var(--nhf-accent-blue) !important; box-shadow: 3px 4px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent); background: var(--nhf-bg-surface) !important; }
+.registry-index > div:not(:first-child) { border-radius: 0 !important; border-left: 3px solid transparent !important; }
+.registry-dossier { position: relative; overflow: hidden; border-radius: 1px !important; padding: clamp(20px,4vw,38px) !important; border-top: 7px double var(--nhf-border-light) !important; box-shadow: 6px 7px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent) !important; background: var(--nhf-bg-surface) !important; }
+.registry-dossier::before { content: "BIOGRAPHICAL AUTHORITY FILE"; position: absolute; right: -39px; top: 37px; transform: rotate(90deg); color: var(--nhf-text-muted); font: 600 .52rem var(--font-mono); letter-spacing: .13em; }
+.registry-dossier h2 { font-family: var(--font-serif); font-size: 2rem !important; font-weight: 500 !important; }
+.registry-dossier h4 { padding-bottom: 5px; border-bottom: 1px solid var(--nhf-border); letter-spacing: .1em; }
+
+/* Community — institutional membership cards pinned to a roster board. */
+.community-registry-grid { grid-template-columns: repeat(3,minmax(0,1fr)) !important; gap: 16px !important; align-items: start; }
+.community-registry-card { position: relative; min-width: 0; border-radius: 2px !important; padding: 24px 18px 18px !important; box-shadow: 3px 5px 0 color-mix(in srgb,var(--nhf-border) 40%,transparent); background: var(--nhf-bg-surface) !important; }
+.community-registry-card::before { content: "MEMBER RECORD"; position: absolute; top: 7px; right: 12px; color: var(--nhf-text-muted); font: 600 .5rem var(--font-mono); letter-spacing: .1em; }
+.community-registry-card:nth-child(3n+2) { transform: translateY(18px) rotate(.15deg); }
+.community-registry-card:nth-child(3n) { transform: rotate(-.12deg); }
+.community-registry-card:hover { transform: translate(2px,2px) !important; }
+.community-registry-card.anomalous { border-top: 6px solid var(--nhf-accent-crimson) !important; background: repeating-linear-gradient(-45deg,rgba(239,68,68,.04) 0 7px,var(--nhf-bg-surface) 7px 14px) !important; }
+
+/* Timeline — a physical chronology rail with attached event slips. */
+.timeline-ledger-route { max-width: 1080px; }
+.chronology-stream { gap: 12px !important; padding-left: 76px; counter-reset: chronology-entry; }
+.chronology-stream::before { content: ""; position: absolute; left: 29px; top: 0; bottom: 0; width: 4px; background: repeating-linear-gradient(0deg,var(--nhf-border-light) 0 16px,transparent 16px 24px); }
+.chronology-entry { position: relative; border-radius: 1px !important; padding: 22px 24px !important; box-shadow: 4px 4px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent); background: var(--nhf-bg-surface) !important; counter-increment: chronology-entry; }
+.chronology-entry::before { content: counter(chronology-entry,decimal-leading-zero); position: absolute; left: -76px; top: 22px; width: 58px; padding: 5px 0; border: 1px solid var(--nhf-border); background: var(--nhf-bg-card); color: var(--nhf-text-muted); font: 700 .65rem var(--font-mono); text-align: center; }
+.chronology-entry::after { content: ""; position: absolute; left: -49px; top: 54px; width: 49px; border-top: 1px solid var(--nhf-border); }
+.chronology-entry.anomalous { border-left: 6px solid var(--nhf-accent-crimson) !important; background: linear-gradient(90deg,rgba(239,68,68,.07),var(--nhf-bg-surface) 32%) !important; }
+.chronology-entry h3 { font-family: var(--font-serif); font-size: 1.4rem !important; }
+
+/* Research — papers stacked on a reading-room desk. */
+.research-reading-route { max-width: 980px !important; }
+.reading-room-filter { border-radius: 1px !important; border-top: 5px solid var(--nhf-accent-blue) !important; box-shadow: 3px 4px 0 color-mix(in srgb,var(--nhf-border) 35%,transparent) !important; }
+.research-paper-stack { gap: 24px !important; counter-reset: research-sheet; }
+.research-paper-sheet { position: relative; border-radius: 1px !important; padding: clamp(24px,5vw,46px) !important; box-shadow: 7px 8px 0 color-mix(in srgb,var(--nhf-border) 40%,transparent) !important; background: var(--nhf-bg-surface) !important; counter-increment: research-sheet; }
+.research-paper-sheet:nth-child(even) { transform: translateX(12px) rotate(.1deg); }
+.research-paper-sheet::before { content: "NHF/RP-" counter(research-sheet,decimal-leading-zero); position: absolute; right: 20px; bottom: 13px; color: var(--nhf-text-muted); font: 600 .56rem var(--font-mono); letter-spacing: .08em; }
+.research-paper-sheet h2 { font-family: var(--font-serif); font-size: clamp(1.45rem,3vw,2rem) !important; font-weight: 500 !important; }
+.research-paper-sheet.anomalous { border-top: 7px double var(--nhf-accent-crimson) !important; }
+
+.theme-light .collection-catalog-card,.theme-light .registry-index,.theme-light .registry-dossier,.theme-light .community-registry-card,.theme-light .chronology-entry,.theme-light .research-paper-sheet { background-color: #f8f1df !important; background-image: linear-gradient(rgba(88,76,55,.05) 1px,transparent 1px) !important; background-size: 100% 27px !important; }
+@media (max-width:1050px) { .community-registry-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}.community-registry-card:nth-child(n){transform:none}.collection-drawer-grid{grid-template-columns:1fr !important} }
+@media (max-width:768px) { .institutional-route-heading{padding-left:14px}.institutional-route-heading::after{position:static;display:block;margin-top:8px}.biographical-registry{grid-template-columns:1fr}.registry-index{max-height:360px;overflow-y:auto}.community-registry-grid{grid-template-columns:1fr !important}.chronology-stream{padding-left:54px}.chronology-stream::before{left:18px}.chronology-entry{padding:18px 16px !important}.chronology-entry::before{left:-54px;width:38px}.chronology-entry::after{left:-35px;width:35px}.research-paper-sheet:nth-child(n){transform:none}.collection-catalog-card{padding:18px 16px 18px 64px !important} }

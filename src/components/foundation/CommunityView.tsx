@@ -79,9 +79,9 @@ export const CommunityView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="community-roster-route institutional-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+      <div className="institutional-route-heading" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
             <Award size={24} color="#38bdf8" />
@@ -159,11 +159,12 @@ export const CommunityView: React.FC<Props> = ({ store }) => {
       </>
 
       {/* Members Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', gap: '20px' }}>
+      <div className="community-registry-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))', gap: '20px' }}>
         {filteredMembers.map((m) => {
           const isAnom = m.category === 'ANOMALOUS' || m.status === 'UNRECOGNIZED_NETWORK';
           return (
             <div
+              className={`community-registry-card ${isAnom ? 'anomalous' : ''}`}
               key={m.id}
               style={{
                 background: isAnom ? 'rgba(239, 68, 68, 0.04)' : 'var(--nhf-bg-surface)',
@@ -256,7 +257,7 @@ export const CommunityView: React.FC<Props> = ({ store }) => {
               </div>
 
               {/* Live Activity Status Box */}
-              <div style={{ background: 'var(--nhf-bg-card)', border: '1px solid var(--nhf-border)', borderRadius: '4px', padding: '8px 12px', fontSize: '0.75rem', color: '#94a3b8', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ background: 'var(--nhf-bg-card)', border: '1px solid var(--nhf-border)', borderRadius: '4px', padding: '8px 12px', fontSize: '0.75rem', color: 'var(--nhf-text-secondary)', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <Radio size={12} color="#38bdf8" />
                 <span>{m.statusText}</span>
               </div>

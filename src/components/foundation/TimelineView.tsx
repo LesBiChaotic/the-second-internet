@@ -42,9 +42,9 @@ export const TimelineView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+    <div className="timeline-ledger-route institutional-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
       {/* Header */}
-      <div>
+      <div className="institutional-route-heading">
         <h1 style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--nhf-text-primary)', marginBottom: '6px' }}>
           Universal Communicative Timeline (1877–2031)
         </h1>
@@ -102,10 +102,11 @@ export const TimelineView: React.FC<Props> = ({ store }) => {
       </>
 
       {/* Timeline Stream */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
+      <div className="chronology-stream" style={{ display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative' }}>
         {filteredEvents.map((ev, idx) => {
           return (
             <div
+              className={`chronology-entry ${ev.isAnomalous ? 'anomalous' : ''}`}
               key={ev.id}
               style={{
                 background: ev.isAnomalous ? 'rgba(239, 68, 68, 0.04)' : 'var(--nhf-bg-surface)',

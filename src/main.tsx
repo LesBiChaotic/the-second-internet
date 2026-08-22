@@ -9,6 +9,7 @@ import './styles/trace.css';
 import './styles/graph.css';
 import './styles/crt.css';
 import './styles/livingArchive.css';
+import './styles/institutionalRoutes.css';
 import { ArchiveErrorBoundary } from './components/common/ArchiveErrorBoundary';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
