@@ -14,6 +14,12 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
   const [query, setQuery] = useState('');
   const [selectedFilter, setSelectedFilter] = useState<string>('ALL');
 
+  React.useEffect(() => {
+    const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [onClose]);
+
   const allItems = useMemo(() => buildGlobalSearchIndex(), []);
 
   const filteredResults = useMemo(() => {
@@ -61,9 +67,12 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div className="modal-backdrop" role="presentation" onClick={onClose}>
       <div 
         className="modal-card" 
+        role="dialog"
+        aria-modal="true"
+        aria-label="Search the Net History Foundation archive"
         style={{ maxWidth: '720px', maxHeight: '80vh' }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -83,10 +92,11 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
               outline: 'none'
             }}
             placeholder="Search 14,803,201 indexed items (e.g. wintermute42, October 14, 0.0.0.0, Naomi)..."
+            aria-label="Search archive records"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button className="btn btn-secondary" style={{ padding: '4px 6px' }} onClick={onClose}>
+          <button type="button" className="btn btn-secondary" style={{ padding: '4px 6px' }} onClick={onClose} aria-label="Close archive search">
             <X size={16} />
           </button>
         </div>

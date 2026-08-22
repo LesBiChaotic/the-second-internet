@@ -130,6 +130,7 @@ export const FoundationHeader: React.FC<Props> = ({
     <header className="foundation-header">
       {/* Mobile Hamburger Menu Button (Only visible on mobile ≤ 768px) */}
       <button 
+        type="button"
         className="btn btn-secondary show-on-mobile mobile-menu-btn"
         style={{ padding: '8px', marginRight: '4px', minWidth: '40px', minHeight: '40px', justifyContent: 'center' }}
         onClick={() => {
@@ -137,6 +138,8 @@ export const FoundationHeader: React.FC<Props> = ({
           onToggleMobileMenu();
         }}
         title="Toggle Mobile Navigation Drawer"
+        aria-label={mobileMenuOpen ? 'Close archive navigation' : 'Open archive navigation'}
+        aria-expanded={mobileMenuOpen}
       >
         {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
       </button>
@@ -180,9 +183,11 @@ export const FoundationHeader: React.FC<Props> = ({
       <div className="header-status-group">
         {/* Theme Toggle — Hidden on mobile (moved to sidebar) */}
         <button
+          type="button"
           className="btn btn-secondary hide-on-mobile-header"
           style={{ padding: '5px 8px', fontSize: '0.75rem' }}
           onClick={handleThemeToggle}
+          aria-label={`Theme: ${themeMode === 'system' ? `automatic, currently ${theme}` : theme}. Change theme`}
           title={
             themeMode === 'system' 
               ? `Auto / System Theme Active (${theme.toUpperCase()}) — Click to switch to Dark` 
@@ -205,6 +210,7 @@ export const FoundationHeader: React.FC<Props> = ({
 
         {/* Font Toggle — Hidden on mobile (moved to sidebar) */}
         <button
+          type="button"
           className="btn btn-secondary hide-on-mobile-header"
           style={{
             padding: '5px 8px',
@@ -213,6 +219,7 @@ export const FoundationHeader: React.FC<Props> = ({
             color: useDeviceFont ? '#38bdf8' : undefined
           }}
           onClick={handleFontToggle}
+          aria-pressed={useDeviceFont}
           title={useDeviceFont ? 'Device System Font Active (Click for Archival Fonts)' : 'Click to use your device system font (Mobile friendly)'}
         >
           <Type size={14} />
@@ -221,6 +228,7 @@ export const FoundationHeader: React.FC<Props> = ({
 
         {/* CRT Toggle — Hidden on mobile (moved to sidebar) */}
         <button
+          type="button"
           className="btn btn-secondary hide-on-mobile-header"
           style={{
             padding: '5px 8px',
@@ -233,6 +241,7 @@ export const FoundationHeader: React.FC<Props> = ({
             onToggleCrt();
           }}
           title="Toggle CRT Screen Scanlines & Phosphor Glow"
+          aria-pressed={isCrtActive}
         >
           <Tv size={14} />
           <span className="hide-on-mobile">CRT</span>
@@ -240,20 +249,26 @@ export const FoundationHeader: React.FC<Props> = ({
 
         {/* Ambient Hum — Hidden on mobile (moved to sidebar) */}
         <button 
+          type="button"
           className="btn btn-secondary hide-on-mobile-header" 
           style={{ padding: '5px 8px', fontSize: '0.75rem' }}
           onClick={handleHumToggle}
           title="Toggle 58.4Hz Carrier Hum"
+          aria-label="Toggle 58.4 hertz carrier hum"
+          aria-pressed={ambientHumEnabled}
         >
           <Radio size={14} color={ambientHumEnabled ? '#38bdf8' : '#64748b'} />
         </button>
 
         {/* Mute Audio — Always visible */}
         <button 
+          type="button"
           className="btn btn-secondary" 
           style={{ padding: '5px 8px' }}
           onClick={handleSoundToggle}
           title={audioMuted ? 'Unmute Audio' : 'Mute Audio'}
+          aria-label={audioMuted ? 'Unmute archive audio' : 'Mute archive audio'}
+          aria-pressed={audioMuted}
         >
           {audioMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
         </button>
@@ -267,7 +282,8 @@ export const FoundationHeader: React.FC<Props> = ({
         </div>
 
         {/* Clearance Level Pill / Login Switcher Trigger — Always visible */}
-        <div 
+        <button
+          type="button"
           className="clearance-pill" 
           onClick={() => {
             soundEngine.playClick(700);
@@ -275,10 +291,11 @@ export const FoundationHeader: React.FC<Props> = ({
           }}
           style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
           title="Click to Switch Clearance Level or Enter Staff Keycard"
+          aria-label={`Current clearance ${clearanceLevel}. Open clearance login`}
         >
           <Shield size={12} />
           <span>{clearanceLevel}</span>
-        </div>
+        </button>
       </div>
     </header>
   );
