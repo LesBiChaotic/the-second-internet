@@ -243,7 +243,7 @@ button, [role="button"], input, select, textarea, a { outline-offset: 3px; }
 .current-investigation { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "copy track" "copy action"; gap: 12px 24px; padding: clamp(18px, 3vw, 28px); border: 1px solid rgba(245, 158, 11, 0.38); border-left: 5px solid var(--nhf-accent-amber); border-radius: var(--radius-md); background: linear-gradient(120deg, rgba(245, 158, 11, 0.09), var(--nhf-bg-surface) 65%); box-shadow: var(--shadow-subtle); }
 .investigation-copy { grid-area: copy; min-width: 0; }
 .investigation-kicker { font: 700 0.7rem/1.4 var(--font-mono); color: var(--nhf-accent-amber); letter-spacing: 0.08em; }
-.current-investigation h2 { margin: 5px 0 6px; font-size: 1.35rem; }
+.current-investigation h2 { margin: 5px 0 6px; font-size: 1.35rem; color: var(--nhf-text-primary); }
 .current-investigation p { color: var(--nhf-text-secondary); max-width: 720px; }
 .investigation-progress-copy { display: block; margin-top: 8px; color: var(--nhf-text-muted); font-size: 0.78rem; }
 .chapter-track { grid-area: track; display: flex; gap: 8px; color: var(--nhf-text-muted); justify-content: flex-end; }
@@ -263,6 +263,9 @@ button, [role="button"], input, select, textarea, a { outline-offset: 3px; }
 .reset-confirm-actions { display: flex; gap: 8px; }
 .sidebar-button { width: 100%; background: transparent; text-align: left; border: 1px solid transparent; font-family: inherit; }
 .mobile-node-browser { display: none; }
+.route-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--nhf-text-secondary); font: 600 0.82rem var(--font-mono); }
+.route-loading span { width: 14px; height: 14px; border: 2px solid var(--nhf-border-light); border-top-color: var(--nhf-accent-blue); border-radius: 50%; animation: route-spin 0.8s linear infinite; }
+@keyframes route-spin { to { transform: rotate(360deg); } }
 
 .btn-primary {
   background-color: var(--nhf-accent-blue);

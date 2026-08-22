@@ -304,6 +304,30 @@ export const marrowThreads: ForumThread[] = [
         content: 'Brian Eno - Music for Airports. Music that exists in the background of empty places. I am thinking of building a new board specifically for nocturnal thoughts. A place called AfterHours.'
       }
     ]
+  },
+  {
+    id: 'mw-th-laundry-truce', siteId: 'marrow', title: 'Dorm laundry theft amnesty thread (return the red sweater)', category: 'General Discussion', createdDate: '1998-10-02', authorHandle: 'nyxgirl', replyCount: 9, viewCount: 488,
+    posts: [
+      { id: 'mw-p-laundry-1', authorHandle: 'nyxgirl', authorTitle: 'Ringmaster', authorJoinDate: 'Nov 1997', authorPostCount: 142, timestamp: '1998-10-02 19:08', content: 'Someone took my red wool sweater from dryer three in Chadbourne. Return it to the front desk and I will ask no questions. It was my mother’s and it shrank perfectly.' },
+      { id: 'mw-p-laundry-2', authorHandle: 'cassia_m', authorTitle: 'Member', authorJoinDate: 'May 1998', authorPostCount: 67, timestamp: '1998-10-02 19:31', content: 'Not me, but dryer three runs hot enough to open a portal to Wisconsin hell. I lost two socks and a Cure shirt there.' },
+      { id: 'mw-p-laundry-3', authorHandle: 'corliss_a', authorTitle: 'Member', authorJoinDate: 'Feb 1998', authorPostCount: 94, timestamp: '1998-10-02 23:17', content: 'Found it folded on the basement telephone shelf. Nobody was down there, but the payphone receiver was off the hook. I left the sweater with the desk attendant.' }
+    ]
+  },
+  {
+    id: 'mw-th-zine-night', siteId: 'marrow', title: 'Friday photocopy zine night — bring scissors and terrible poetry', category: 'Music & Arts', createdDate: '1998-10-09', authorHandle: 'cassia_m', replyCount: 13, viewCount: 704,
+    posts: [
+      { id: 'mw-p-zine-1', authorHandle: 'cassia_m', authorTitle: 'Member', authorJoinDate: 'May 1998', authorPostCount: 67, timestamp: '1998-10-09 16:22', content: 'Student union basement at eight. I have glue sticks, old magazines, and exactly twelve dollars of copy credit. Theme is “places you only visit at night.”' },
+      { id: 'mw-p-zine-2', authorHandle: 'nyxgirl', authorTitle: 'Ringmaster', authorJoinDate: 'Nov 1997', authorPostCount: 142, timestamp: '1998-10-09 17:02', content: 'I’m bringing the photos Corbin took of the server room. The fluorescent lights made all of us look already archived.' },
+      { id: 'mw-p-zine-3', authorHandle: 'pixelpunk', authorTitle: 'Webmaster / Admin', authorJoinDate: 'Oct 1997', authorPostCount: 388, timestamp: '1998-10-10 01:48', content: 'Good night. Whoever slipped the page reading “ROOM 4 MISSES ALDEN” into the master copy: funny once, unsettling after thirty duplicate sheets.' }
+    ]
+  },
+  {
+    id: 'mw-th-phone-bill', siteId: 'marrow', title: 'Mystery 11-minute calls on dorm phone bills', category: 'Tech Support & Bugs', createdDate: '1998-11-27', authorHandle: 'corliss_a', replyCount: 10, viewCount: 1329, isAnomalous: true,
+    posts: [
+      { id: 'mw-p-bill-1', authorHandle: 'corliss_a', authorTitle: 'Member', authorJoinDate: 'Feb 1998', authorPostCount: 94, timestamp: '1998-11-27 00:14', content: 'Check your November statements. Mine shows an outgoing call at 03:14 every Tuesday, always exactly eleven minutes, destination listed only as EXT 0047. I am awake then and I have never placed it.' },
+      { id: 'mw-p-bill-2', authorHandle: 'pixelpunk', authorTitle: 'Webmaster / Admin', authorJoinDate: 'Oct 1997', authorPostCount: 388, timestamp: '1998-11-27 00:42', content: 'Same charge on the CS lab line and it is not attached to our campus PBX. I’ll ask Greyline whether their modem pool is seizing the voice circuit.' },
+      { id: 'mw-p-bill-3', authorHandle: 'wintermute42', authorTitle: 'Member', timestamp: '1998-11-27 03:14', authorPostCount: 19, content: 'The call is not outgoing.', isAnomalous: true }
+    ]
   }
 ];
 

@@ -222,5 +222,33 @@ export const tracePosts: TracePost[] = [
         content: 'Our acoustics lab at the Foundation is currently analyzing the ground loop harmonics on that 1933 cylinder. The temporal echo matches the 1998 Milwaukee caisson frequency within 0.03Hz.'
       }
     ]
+  },
+  {
+    id: 'trace-p-10-sweater', author: 'archive_moth', tag: 'ARCHIVE FIND', timestamp: '35 mins ago', upvotes: 184,
+    title: 'A mundane Marrow laundry thread verifies the first Exchange #47 billing event',
+    content: `I thought the red-sweater thread was ordinary campus chatter. Then I checked the university telephone statements attached to Collection 09. Alden found Noemi’s sweater on the basement payphone shelf on October 2, 1998. The first unexplained eleven-minute charge on that exact payphone began twenty minutes later.\n\nThe archive keeps training us to ignore ordinary posts, but those are where location and timing survive.`,
+    comments: [
+      { id: 'trace-c-10-1', author: 'patchnotes', timestamp: '22 mins ago', upvotes: 61, content: 'This is actually solid methodology: mundane details provide independent anchors that anomaly-focused testimony does not.' },
+      { id: 'trace-c-10-2', author: 'candle_keeper', timestamp: '11 mins ago', upvotes: 97, content: 'The sweater appears in Noemi’s 2026 interview. She remembers getting it back but not Alden finding it.' }
+    ]
+  },
+  {
+    id: 'trace-p-11-community', author: 'investigator_kai', tag: 'QUESTION', timestamp: '1 hour ago', upvotes: 226,
+    title: 'Research check-in: what ordinary detail made these people feel real to you?',
+    content: `We spend so much time on impossible packets that the archive can become a monster encyclopedia. Post one small, non-anomalous detail you noticed about a person in the records. The point is to remember who was living around the evidence—not only what happened to them.`,
+    comments: [
+      { id: 'trace-c-11-1', author: 'analogghost', timestamp: '48 mins ago', upvotes: 88, content: 'Van Houten labeled every engineering binder in perfect block capitals but doodled tiny sailboats on meeting agendas.' },
+      { id: 'trace-c-11-2', author: 'mara_net', timestamp: '39 mins ago', upvotes: 73, content: 'Cassia kept mailing burned CDs to people who said they could not sleep.' },
+      { id: 'trace-c-11-3', author: 'wintermute_42', timestamp: '3 mins ago', upvotes: 190, content: 'Alden hated raisins and always left the desk lamp on.' }
+    ]
+  },
+  {
+    id: 'trace-p-12-moderation', author: 'mod_overseer', tag: 'FOUNDATION RESPONSE', timestamp: '2 hours ago', upvotes: 143,
+    title: 'Moderation note: do not contact people named in recovered personal archives',
+    content: `A reminder that historical visibility is not present-day consent. Do not locate relatives, send screenshots to private accounts, demand explanations from surviving community members, or publish addresses found in billing records. Discuss evidence here using archive handles and redacted documents. Violations will be removed.`,
+    comments: [
+      { id: 'trace-c-12-1', author: 'investigator_kai', timestamp: '1 hour ago', upvotes: 129, content: 'Pinned. Investigation does not entitle us to turn someone else’s grief into an interactive clue.' },
+      { id: 'trace-c-12-2', author: 'patchnotes', timestamp: '52 mins ago', upvotes: 94, content: 'Also stop posting “I know where you live” jokes under anomalous threads. They are not funny merely because wintermute says worse things.' }
+    ]
   }
 ];

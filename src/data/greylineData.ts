@@ -59,6 +59,12 @@ export const greylineServerLogs: GreylineLog[] = [
     sourceIp: '216.239.38.10',
     destIp: 'SOURCE (SELF)',
     protocol: 'HTTP/1.1'
+  },
+  {
+    id: 'gl-log-06', timestamp: '1998-11-27 03:14:00', serverNode: 'MSN-PBX-BRIDGE', severity: 'WARN', message: 'Eleven-minute voice sessions initiated from 14 campus extensions without off-hook signal.', sourceIp: 'VOICE/PBX', destIp: 'EXCHANGE-47', protocol: 'V.90/VOICE'
+  },
+  {
+    id: 'gl-log-07', timestamp: '1998-11-27 03:25:00', serverNode: 'MKE-CORE-04', severity: 'ANOMALOUS', message: 'Remote peer terminated all voice sessions with ASCII payload: THE CALL IS INCOMING FROM 2003.', sourceIp: '0.0.0.0/room', destIp: 'MSN-PBX-BRIDGE', protocol: 'UNKNOWN'
   }
 ];
 
@@ -80,5 +86,14 @@ export const greylineMemos = [
     to: 'Board of Directors, Greyline Communications',
     content: `Summary of Tuesday morning outage:\n\n1. At 03:14 AM, our primary BGP session with Sprint dropped.\n2. Inbound traffic was automatically redirected through a peering route discovered in our routing table under the identifier "EXCHANGE-47".\n3. For 11 minutes, customer web requests did not hit physical origin servers. Instead, they hit mirrored pages containing real-time surveillance of user locations.\n4. Seventeen active customer modem connections in Wisconsin and Illinois dropped simultaneously at 03:25 AM. We have been unable to establish telephone contact with nine of those account holders.\n5. We are recommending the immediate destruction of Milwaukee switch rack #4 and total dissolution of our regional dialup leasing agreements.`,
     isAnomalous: true
+  },
+  {
+    id: 'gl-memo-customer-care',
+    title: 'CUSTOMER CARE BULLETIN: Late-Night Campus Billing Complaints',
+    date: '1998-11-30',
+    author: 'Maribel Ortiz, Customer Operations Supervisor',
+    to: 'Madison Dialup Support & Billing',
+    content: `Please stop forwarding every disputed eleven-minute call to Engineering without first checking the ordinary causes. We have students frightened that their roommates are using the phones, parents accusing them of calling strangers, and one residence adviser asking whether our modems can dial while nobody is home.\n\nUse billing code G-47 to waive the charge. Do not tell customers the destination field reads "ADJACENT NETWORK." Engineering has requested that phrase remain internal until they determine which vendor inserted it.\n\nAlso: whoever left three coffees outside Rack #4, thank you. Night operations has been living on vending-machine crackers.`,
+    isAnomalous: false
   }
 ];
