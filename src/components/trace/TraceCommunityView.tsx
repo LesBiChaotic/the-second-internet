@@ -197,7 +197,7 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div className="trace-container">
+    <div className="trace-container human-archive-route trace-dispatch-route">
       {/* Hero Header */}
       <div className="trace-hero-header">
         <div className="trace-title-group">

@@ -55,7 +55,7 @@ export const ChatArchiveView: React.FC<Props> = ({ store }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
+    <div className="human-archive-route transcript-reel-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', height: '100%' }}>
       <style>{`
         .chat-app-container {
           display: grid;
