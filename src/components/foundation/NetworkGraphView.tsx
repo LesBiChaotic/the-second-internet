@@ -234,7 +234,7 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
 
         {/* Selected Node Details Box Overlay */}
         {selectedNode && (
-          <div style={{
+          <div className="graph-node-detail-overlay" style={{
             position: 'absolute',
             top: '16px',
             left: '16px',

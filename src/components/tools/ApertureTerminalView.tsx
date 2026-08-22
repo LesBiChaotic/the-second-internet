@@ -377,7 +377,7 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
       </div>
 
       {/* Retro UNIX Terminal Frame */}
-      <div style={{
+      <div className="aperture-terminal-frame" style={{
         background: '#04070d',
         border: '2px solid #1e293b',
         borderRadius: '10px',
@@ -387,7 +387,7 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
         flexDirection: 'column'
       }}>
         {/* Terminal Window Header */}
-        <div style={{
+        <div className="aperture-window-bar" style={{
           background: '#0a0f1d',
           borderBottom: '1px solid #1e293b',
           padding: '10px 16px',
@@ -395,7 +395,7 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div className="aperture-window-identity" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#ef4444' }} />
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#f59e0b' }} />
             <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#10b981' }} />
@@ -458,7 +458,7 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
         </div>
 
         {/* Command Input Bar */}
-        <form
+        <form className="aperture-command-bar"
           onSubmit={handleCommandSubmit}
           style={{
             borderTop: '1px solid #1e293b',

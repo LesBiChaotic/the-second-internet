@@ -187,7 +187,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
   const isCurrentUnredacted = unredactedMap[activeExhibit.id];
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1050px', margin: '0 auto', width: '100%' }}>
+    <div className="restricted-vault-route" style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '1050px', margin: '0 auto', width: '100%' }}>
       {/* Red Alert Header Banner */}
       <div style={{
         background: 'rgba(239, 68, 68, 0.08)',
@@ -311,7 +311,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
         </div>
       ) : (
         /* Unlocked Classified Workspace */
-        <div className="responsive-grid-sidebar" style={{ minHeight: '620px' }}>
+        <div className="responsive-grid-sidebar vault-workspace" style={{ minHeight: '620px' }}>
           <style>{`
             .vault-sidebar {
               background: var(--nhf-bg-surface);
@@ -407,7 +407,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
           </div>
 
           {/* Right Exhibit Viewer */}
-          <div style={{
+          <div className="vault-exhibit-viewer" style={{
             background: 'var(--nhf-bg-surface)',
             border: '1px solid var(--nhf-border)',
             borderRadius: 'var(--radius-md)',
@@ -442,7 +442,7 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
                 </div>
               </div>
 
-              <div style={{ display: 'flex', gap: '8px' }}>
+              <div className="vault-exhibit-actions" style={{ display: 'flex', gap: '8px' }}>
                 <button
                   className="btn btn-secondary"
                   onClick={() => handleToggleUnredact(activeExhibit.id)}
