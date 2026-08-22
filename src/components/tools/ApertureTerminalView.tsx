@@ -339,7 +339,7 @@ THE WIRES BUILT THE SECOND INTERNET TO REMEMBER US ACROSS TIME."
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
+    <div className="terminal-cosmetic-surface" style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '950px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
       <div style={{
         background: 'var(--nhf-bg-surface)',

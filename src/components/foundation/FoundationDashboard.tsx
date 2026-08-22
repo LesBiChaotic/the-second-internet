@@ -91,6 +91,10 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
             <span>Explore Collections (01–17)</span>
           </button>
 
+          <button className="btn btn-secondary" onClick={() => { soundEngine.playClick(800); navigate('PROFILE'); }} style={{ color: '#a78bfa', borderColor: 'rgba(167, 139, 250, 0.35)' }}>
+            <Users size={16} /><span>Profile & Wardrobe · Rank {store.archiveRank}</span>
+          </button>
+
           <button 
             className="btn btn-secondary"
             onClick={() => {

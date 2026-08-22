@@ -55,6 +55,7 @@ const Terminal21Site = lazyNamed(() => import('./components/historical/Terminal2
 const WebringHubSite = lazyNamed(() => import('./components/historical/WebringHubSite'), 'WebringHubSite');
 const TraceCommunityView = lazyNamed(() => import('./components/trace/TraceCommunityView'), 'TraceCommunityView');
 const SecondInternetHub = lazyNamed(() => import('./components/secondInternet/SecondInternetHub'), 'SecondInternetHub');
+const InvestigatorProfileView = lazyNamed(() => import('./components/foundation/InvestigatorProfileView'), 'InvestigatorProfileView');
 
 export function App() {
   const store = useArchiveStore();
@@ -103,6 +104,7 @@ export function App() {
       case 'PEOPLE': return <PeopleView store={store} />;
       case 'COMMUNITY': return <CommunityView store={store} />;
       case 'QUIZ': return <LostWebQuizView store={store} />;
+      case 'PROFILE': return <InvestigatorProfileView store={store} />;
       case 'FIELD_GUIDE': return <FieldGuideView store={store} />;
       case 'TIMELINE': return <TimelineView store={store} />;
       case 'RESEARCH': return <ResearchPapersView store={store} />;
@@ -145,7 +147,7 @@ export function App() {
   const isHistoricalOrSecondNet = store.currentView.startsWith('SITE_') || store.currentView === 'SECOND_NET';
 
   return (
-    <div className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
+    <div data-palette={store.investigatorProfile.equipped.PALETTE} data-effect={store.investigatorProfile.equipped.EFFECT} data-terminal={store.investigatorProfile.equipped.TERMINAL} className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
       <a className="skip-link" href="#archive-main">Skip to archive content</a>
       <div className="app-container">
         {/* Institutional Top Header */}

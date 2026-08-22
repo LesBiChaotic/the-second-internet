@@ -5,6 +5,15 @@ import {
   ForensicMetadata, 
   CaseboardPin 
 } from '../types';
+import { ARCHIVE_RANKS, CosmeticCategory, cosmeticsCatalog, rankForXp } from '../data/cosmeticsData';
+
+export interface InvestigatorProfile {
+  handle: string;
+  displayName: string;
+  pronouns: string;
+  status: string;
+  equipped: Partial<Record<CosmeticCategory, string>>;
+}
 
 export interface ArchiveState {
   currentView: string;
@@ -24,6 +33,11 @@ export interface ArchiveState {
   notifications: ArchiveNotification[];
   investigationChapter: number;
   canEnterSecondInternet: boolean;
+  investigatorProfile: InvestigatorProfile;
+  archiveXp: number;
+  archiveRank: number;
+  archiveRankTitle: string;
+  unlockedCosmeticIds: string[];
   
   // Theme & Visual Customization State
   themeMode: 'system' | 'dark' | 'light';
@@ -81,9 +95,11 @@ export interface ArchiveState {
   resetProgress: (scope: ResetScope) => void;
   exportSave: () => string;
   importSave: (serialized: string) => boolean;
+  updateInvestigatorProfile: (patch: Partial<Omit<InvestigatorProfile, 'equipped'>>) => void;
+  equipCosmetic: (category: CosmeticCategory, cosmeticId: string) => void;
 }
 
-export type ResetScope = 'investigation' | 'messages' | 'caseboard' | 'appearance' | 'all';
+export type ResetScope = 'investigation' | 'messages' | 'caseboard' | 'appearance' | 'profile' | 'all';
 
 export interface ArchiveNotification {
   id: string;
@@ -210,13 +226,15 @@ const getSystemTheme = (): 'dark' | 'light' => {
   return 'light';
 };
 
-const SAVE_VERSION = 2;
+const SAVE_VERSION = 3;
 const SAVE_KEYS = [
   'nhf_currentView', 'nhf_currentSubId', 'nhf_activeUrl', 'nhf_clearance',
   'nhf_access_route',
   'nhf_anomalies', 'nhf_caseboard', 'nhf_gate_entered', 'nhf_archetype',
   'nhf_theme_mode', 'nhf_use_device_font', 'nhf_dm_threads', 'nhf_dm_indices',
   'nhf_skip_field_guide_warning'
+  ,'nhf_investigator_profile'
+  ,'nhf_cosmetics_seen_count'
 ] as const;
 
 const safeParse = <T,>(value: string | null, fallback: T): T => {
@@ -248,6 +266,7 @@ export function useArchiveStore(): ArchiveState {
   const savedCaseboard = typeof window !== 'undefined' ? localStorage.getItem('nhf_caseboard') : null;
   const savedGateEntered = typeof window !== 'undefined' ? localStorage.getItem('nhf_gate_entered') : null;
   const savedArchetype = typeof window !== 'undefined' ? localStorage.getItem('nhf_archetype') : null;
+  const savedProfile = typeof window !== 'undefined' ? localStorage.getItem('nhf_investigator_profile') : null;
 
   const [clearanceLevel, setClearanceLevelState] = useState<ClearanceLevel>(savedClearance || 'VISITOR');
   const [accessRoute, setAccessRoute] = useState<'VISITOR' | 'KEYCARD'>(savedAccessRoute === 'KEYCARD' ? 'KEYCARD' : 'VISITOR');
@@ -260,6 +279,8 @@ export function useArchiveStore(): ArchiveState {
   const [audioMuted, setAudioMuted] = useState<boolean>(false);
   const [ambientHumEnabled, setAmbientHumEnabled] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<ArchiveNotification[]>([]);
+  const defaultProfile: InvestigatorProfile = { handle: 'visitor_01', displayName: '', pronouns: '', status: 'Cataloguing what the first internet forgot.', equipped: { AVATAR: 'avatar-1', FRAME: 'frame-1', BADGE: 'badge-1', NAMEPLATE: 'nameplate-1', PALETTE: 'palette-1', TERMINAL: 'terminal-1', BACKGROUND: 'background-1', EFFECT: 'effect-1' } };
+  const [investigatorProfile, setInvestigatorProfile] = useState<InvestigatorProfile>(safeParse(savedProfile, defaultProfile));
 
   // Theme Mode ('system' | 'dark' | 'light')
   const savedThemeMode = (typeof window !== 'undefined' ? localStorage.getItem('nhf_theme_mode') : null) as 'system' | 'dark' | 'light' | null;
@@ -502,6 +523,23 @@ export function useArchiveStore(): ArchiveState {
       : discoveredAnomalies.length >= 3 ? 3
         : discoveredAnomalies.length >= 1 ? 2 : 1;
   const canEnterSecondInternet = investigationChapter >= 5 || clearanceLevel === 'LEVEL_NULL' || clearanceLevel === 'LEVEL_OMEGA';
+  const curatedDiscoveryXp = discoveredAnomalies.filter(id => [
+    'greyline-memo-read','ah-thread-oct14-read','pal-frost-anomaly','candle-article-read','wintermute-live-reply',
+    'graph-reveal-second-net','route-room-source','webring-labyrinth','webring-unmarked-door','si-room-direct',
+    'grand-synthesis-unlocked','crt-room4-reflection','terminal-cat-breach-log','trace-uncensored-read','mw-below-direct',
+    'mw-below-tab','bw-impossible-date','t21-koren-anomaly','webring-random-door','radio-buzzer-4625',
+    'radio-sstv-14230','radio-vlf-584','radio-am-120','terminal-finger-janus','terminal-telnet-null','terminal-traceroute-sub',
+    'anom-future-snap','tl-future-era','trace-user-commented','vault-direct-portal','notebook-cipher-page6'
+  ].includes(id)).length * 40;
+  const sideCaseXp = discoveredAnomalies.some(id => id.startsWith('webring-')) ? 60 : 0;
+  const quizXp = userArchetype ? 100 : 0;
+  const chapterXp = Math.max(0, investigationChapter - 1) * 350;
+  const synthesisXp = discoveredAnomalies.includes('grand-synthesis-unlocked') ? 500 : 0;
+  const caseboardXp = Math.min(200, caseboardPins.reduce((sum, pin) => sum + (pin.connectedTo?.length || 0) * 25, 0));
+  const archiveXp = curatedDiscoveryXp + sideCaseXp + quizXp + chapterXp + synthesisXp + caseboardXp;
+  const archiveRank = rankForXp(archiveXp);
+  const archiveRankTitle = ARCHIVE_RANKS[archiveRank - 1];
+  const unlockedCosmeticIds = cosmeticsCatalog.filter(item => item.rank <= archiveRank).map(item => item.id);
 
   const dismissNotification = useCallback((id: string) => {
     setNotifications(prev => prev.filter(item => item.id !== id));
@@ -512,6 +550,16 @@ export function useArchiveStore(): ArchiveState {
     setNotifications(prev => [...prev.slice(-3), { id, message, tone }]);
     window.setTimeout(() => dismissNotification(id), 4200);
   }, [dismissNotification]);
+
+  useEffect(() => {
+    if (isGateOpen || typeof window === 'undefined') return;
+    const seen = Number(localStorage.getItem('nhf_cosmetics_seen_count') || 0);
+    if (unlockedCosmeticIds.length > seen) {
+      const gained = unlockedCosmeticIds.length - seen;
+      notify(`${gained} cosmetic object${gained === 1 ? '' : 's'} unlocked at Archive Rank ${archiveRank}.`, 'success');
+      localStorage.setItem('nhf_cosmetics_seen_count', String(unlockedCosmeticIds.length));
+    }
+  }, [archiveRank, isGateOpen, notify, unlockedCosmeticIds.length]);
 
   // Discoveries mutate the fiction, never the user's institutional authorization.
   useEffect(() => {
@@ -571,6 +619,25 @@ export function useArchiveStore(): ArchiveState {
     }
   };
 
+  const persistProfile = (profile: InvestigatorProfile) => {
+    setInvestigatorProfile(profile);
+    localStorage.setItem('nhf_investigator_profile', JSON.stringify(profile));
+  };
+
+  const updateInvestigatorProfile = (patch: Partial<Omit<InvestigatorProfile, 'equipped'>>) => {
+    persistProfile({ ...investigatorProfile, ...patch });
+  };
+
+  const equipCosmetic = (category: CosmeticCategory, cosmeticId: string) => {
+    const cosmetic = cosmeticsCatalog.find(item => item.id === cosmeticId && item.category === category);
+    if (!cosmetic || !unlockedCosmeticIds.includes(cosmeticId)) {
+      notify('COSMETIC SEALED: increase Archive Rank through curated casework.', 'warning');
+      return;
+    }
+    persistProfile({ ...investigatorProfile, equipped: { ...investigatorProfile.equipped, [category]: cosmeticId } });
+    notify(`${cosmetic.name} equipped. No institutional privileges were altered.`, 'success');
+  };
+
   const setIsGateOpen = (open: boolean) => {
     setIsGateOpenState(open);
     if (!open && typeof window !== 'undefined') {
@@ -624,6 +691,7 @@ export function useArchiveStore(): ArchiveState {
       else if (view === 'PEOPLE') calculatedUrl = `https://nethistoryfoundation.org/people${subId ? '/' + subId : ''}`;
       else if (view === 'COMMUNITY') calculatedUrl = 'https://nethistoryfoundation.org/community';
       else if (view === 'QUIZ') calculatedUrl = 'https://nethistoryfoundation.org/community/personality-archetype-quiz';
+      else if (view === 'PROFILE') calculatedUrl = 'https://nethistoryfoundation.org/investigator/profile';
       else if (view === 'FIELD_GUIDE') calculatedUrl = 'https://nethistoryfoundation.org/manuals/archaeology-field-guide';
       else if (view === 'TIMELINE') calculatedUrl = 'https://nethistoryfoundation.org/timeline';
       else if (view === 'RESEARCH') calculatedUrl = `https://nethistoryfoundation.org/research${subId ? '/' + subId : ''}`;
@@ -809,6 +877,11 @@ export function useArchiveStore(): ArchiveState {
       setThemeMode('system');
       setUseDeviceFont(isMobileDevice);
     }
+    if (scope === 'profile' || scope === 'all') {
+      localStorage.removeItem('nhf_investigator_profile');
+      localStorage.removeItem('nhf_cosmetics_seen_count');
+      setInvestigatorProfile(defaultProfile);
+    }
     notify(scope === 'all' ? 'Archive workstation restored to factory state.' : `${scope[0].toUpperCase() + scope.slice(1)} data reset.`, 'success');
   };
 
@@ -854,6 +927,11 @@ export function useArchiveStore(): ArchiveState {
     notifications,
     investigationChapter,
     canEnterSecondInternet,
+    investigatorProfile,
+    archiveXp,
+    archiveRank,
+    archiveRankTitle,
+    unlockedCosmeticIds,
     themeMode,
     theme,
     useDeviceFont,
@@ -903,5 +981,7 @@ export function useArchiveStore(): ArchiveState {
     resetProgress,
     exportSave,
     importSave
+    ,updateInvestigatorProfile,
+    equipCosmetic
   };
 }

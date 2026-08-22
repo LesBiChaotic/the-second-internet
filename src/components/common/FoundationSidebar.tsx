@@ -3,6 +3,7 @@ import {
   Home, 
   Layers, 
   Users, 
+  User,
   UserCheck,
   Clock, 
   FileText, 
@@ -692,6 +693,12 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             <HelpCircle size={16} color="#f43f5e" />
             <span>Archivist Personality Quiz</span>
           </div>
+
+          <div className={`sidebar-nav-item ${currentView === 'PROFILE' ? 'active' : ''}`} onClick={() => handleNav('PROFILE')} style={{ marginTop: '6px' }}>
+            <User size={16} color="#a78bfa" />
+            <span>Profile & Wardrobe</span>
+            <span className="badge badge-purple" style={{ marginLeft: 'auto', fontSize: '0.6rem', background: '#7c3aed', color: '#fff' }}>RANK {store.archiveRank}</span>
+          </div>
         </div>
 
         {/* Clearance and Integrity Status Widget */}
@@ -713,6 +720,11 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
               {clearanceLevel}
             </span>
           </div>
+
+          <button className="sidebar-profile-chip" onClick={() => handleNav('PROFILE')}>
+            <span>{store.investigatorProfile.displayName || `@${store.investigatorProfile.handle}`}</span>
+            <small>{store.archiveRankTitle}</small>
+          </button>
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.72rem', fontFamily: 'var(--font-mono)' }}>
             <span style={{ color: 'var(--nhf-text-muted)' }}>ANOMALIES</span>
