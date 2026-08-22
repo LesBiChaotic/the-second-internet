@@ -8,9 +8,20 @@ import './styles/secondInternet.css';
 import './styles/trace.css';
 import './styles/graph.css';
 import './styles/crt.css';
+import { ArchiveErrorBoundary } from './components/common/ArchiveErrorBoundary';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <App />
+    <ArchiveErrorBoundary>
+      <App />
+    </ArchiveErrorBoundary>
   </React.StrictMode>
 );
+
+if ('serviceWorker' in navigator && !['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(error => {
+      console.warn('Archive offline worker registration failed', error);
+    });
+  });
+}
