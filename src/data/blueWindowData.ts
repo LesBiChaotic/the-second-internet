@@ -105,5 +105,68 @@ export const blueWindowBlogs: BlogPost[] = [
         content: 'Throw the carpet away, Noemi. Buy a rug with red flowers. Change the geometry.'
       }
     ]
+  },
+  {
+    id: 'bw-post-rowan-05', authorHandle: 'rowanglass', authorName: 'Rowan Glass', date: '2004-05-02', year: 2004, title: 'The laundromat at 2 AM', mood: 'sleepy', music: 'Broadcast - The Noise Made by People',
+    content: `Three dryers, two students studying anatomy, one elderly man folding sheets with military precision, and me photographing the lost-sock shelf like it is a cathedral.\n\nThere was a red sweater nobody claimed. The attendant says it has been there since before he started. Noemi swears it looks like one stolen from her dorm in 1998. It is probably the most mass-produced sweater in America. I photographed the label anyway.`,
+    comments: [
+      { id: 'bw-c-05-1', author: 'noemi_c', date: '2004-05-03', content: 'Mine had a crooked repair under the left arm. Do not tell me yours does too.' },
+      { id: 'bw-c-05-2', author: 'rowanglass', date: '2004-05-03', content: 'I will tell you it is a different sweater and then mail you a photo in an opaque envelope.' }
+    ]
+  },
+  {
+    id: 'bw-post-noemi-02', authorHandle: 'noemi_c', authorName: 'Noemi Castille', date: '2004-07-08', year: 2004, title: 'Chicago apartment inventory', mood: 'determined', music: 'PJ Harvey - Stories from the City, Stories from the Sea',
+    content: `One mattress, four mugs, seven boxes of books, a basil plant already negotiating its death, and no beige carpet.\n\nI found a coffee place near Clark where the owner remembers everyone’s order after one visit. Mine is iced even when it is cold outside. I am writing this down because ordinary memory deserves records too.`,
+    comments: [
+      { id: 'bw-c-n02-1', author: 'cassia_r', date: '2004-07-08', content: 'The basil needs more sun and less dramatic narration.' },
+      { id: 'bw-c-n02-2', author: 'rowanglass', date: '2004-07-09', content: 'Please archive the mug rankings after one month.' }
+    ]
+  },
+  {
+    id: 'bw-post-rowan-06', authorHandle: 'rowanglass', authorName: 'Rowan Glass', date: '2005-02-18', year: 2005, title: 'Eleven minutes missing from the contact sheet', mood: 'uneasy', music: 'Low - California',
+    content: `Photographed the bus station payphones from 02:50 to 03:30. The negatives jump from frame 19 at 03:13 to frame 20 at 03:25. Camera clock is correct in every other frame.\n\nFrame 20 shows a man inside the booth holding the receiver. I remember the booth being empty. His coat looks like Alden’s, but memory is a hungry pattern-making animal and I refuse to feed it certainty.`,
+    comments: [
+      { id: 'bw-c-06-1', author: 'noemi_c', date: '2005-02-19', content: 'Thank you for saying looks like instead of is. Send me the uncropped scan privately.' },
+      { id: 'bw-c-06-2', author: 'glasshouse', date: '2005-02-19', content: 'That is me, Noemi. New handle because strangers keep linking the old one.' }
+    ]
+  },
+  {
+    id: 'bw-post-cassia-01', authorHandle: 'cassia_r', authorName: 'Cassia Reed', date: '2005-09-11', year: 2005, title: 'Songs callers remember incorrectly', mood: 'curious', music: 'A mixtape with no track list',
+    content: `Radio callers keep requesting songs that do not exist. Not obscure songs—impossible ones. They can hum melodies, describe cover art, and argue about lyrics. Another caller usually remembers the same song.\n\nTonight three people requested “Clear Weather” by The Adjacent Rooms. Each described eleven minutes of instrumental static. I played silence for ten seconds and the request line lit up by itself.`,
+    comments: [
+      { id: 'bw-c-ca1', author: 'weatherboy', date: '2005-09-12', content: 'I have that cassette. Side B is tomorrow’s forecast.', isAnomalous: true },
+      { id: 'bw-c-ca2', author: 'noemi_c', date: '2005-09-12', content: 'Cassia, save the call log and do not call anyone back.' }
+    ]
+  },
+  {
+    id: 'bw-post-noemi-03', authorHandle: 'noemi_c', authorName: 'Noemi Castille', date: '2006-10-14', year: 2006, title: 'Three years, and the rule for today', mood: 'steady', music: 'Nina Simone - Here Comes the Sun',
+    content: `Today’s rule: nobody investigates alone. Rowan is calling at nine. Cassia is sending a radio recording by ordinary mail. Marcus has the laptop image locked away. Corbin has agreed not to “just test one route.”\n\nWe are also ordering too much food and watching something stupid. Survival cannot be made entirely from vigilance.`,
+    comments: [
+      { id: 'bw-c-n03-1', author: 'corbin_k', date: '2006-10-14', content: 'For the record, I agreed after several strongly worded messages.' },
+      { id: 'bw-c-n03-2', author: 'rowanglass', date: '2006-10-14', content: 'I chose the movie. It has one star and two haunted refrigerators.' }
+    ]
+  },
+  {
+    id: 'bw-post-rowan-07', authorHandle: 'rowanglass', authorName: 'Rowan Glass', date: '2007-06-20', year: 2007, title: 'Someone used Alden’s name on Palisade', mood: 'angry', music: 'None',
+    content: `Corbin got a wall post from an account using Alden’s name. Whether it is a prank, a stolen credential, or something stranger, do not reply. Screenshot, report, preserve headers, log off.\n\nGrief is not an authentication method. A sentence sounding like someone you miss does not earn access to you.`,
+    comments: [
+      { id: 'bw-c-07-1', author: 'noemi_c', date: '2007-06-20', content: 'Pinning this. Also: do not send the account photographs to “prove” anything.' },
+      { id: 'bw-c-07-2', author: 'marcus.corliss', date: '2007-06-21', content: 'Thank you. Our family has reported it.' }
+    ]
+  },
+  {
+    id: 'bw-post-rowan-08', authorHandle: 'rowanglass', authorName: 'Rowan Glass', date: '2007-12-14', year: 2007, title: 'Last ordinary entry before shutdown', mood: 'grateful', music: 'The Mountain Goats - This Year',
+    content: `For archival accuracy: today I burned toast, missed the bus, bought two rolls of film, argued with Noemi about whether pigeons recognize individual enemies, and finally returned a library book six weeks late.\n\nIf this site survives anywhere, let the record show our lives were not only the worst nights. We had terrible haircuts. We sent each other soup. We forgot passwords. We were here.`,
+    comments: [
+      { id: 'bw-c-08-1', author: 'noemi_c', date: '2007-12-14', content: 'Pigeons absolutely maintain dossiers. I love you. Save everything.' },
+      { id: 'bw-c-08-2', author: 'cassia_r', date: '2007-12-14', content: 'Recorded for posterity: Rowan owes the Madison library $4.50.' }
+    ]
+  },
+  {
+    id: 'bw-post-rowan-09', authorHandle: 'rowanglass', authorName: 'Rowan Glass', date: '2018-10-14', year: 2018, title: 'The city moved another block east', mood: 'lost', music: 'Clear Weather - The Adjacent Rooms', isImpossibleDate: true,
+    content: `The corner store is now where the laundromat used to be. The owner insists it has always been there. My apartment still has two windows, but the left one shows Portland in 2004 and the right one shows a street I do not recognize.\n\nThe red sweater is hanging over my chair. I never brought it home. Its label says MADE ADJACENT.`,
+    comments: [
+      { id: 'bw-c-09-1', author: 'janus_archive', date: '2018-10-14', content: 'Keep both curtains open. A remembered room needs two witnesses.', isAnomalous: true }
+    ]
   }
 ];

@@ -26,8 +26,8 @@ export const ChatArchiveView: React.FC<Props> = ({ store }) => {
     soundEngine.playClick(650);
     setSelectedChatId(chat.id);
     setViewMode('detail');
-    if (chat.id === 'chat-afterhours-03') {
-      discoverAnomaly('chat-oct14-irc');
+    if (chat.messages.some(message => message.isAnomalous)) {
+      discoverAnomaly(`chat-${chat.id}`);
     }
   };
 
