@@ -271,6 +271,10 @@ button, [role="button"], a { touch-action: manipulation; }
 .route-loading { min-height: 220px; display: flex; align-items: center; justify-content: center; gap: 10px; color: var(--nhf-text-secondary); font: 600 0.82rem var(--font-mono); }
 .route-loading span { width: 14px; height: 14px; border: 2px solid var(--nhf-border-light); border-top-color: var(--nhf-accent-blue); border-radius: 50%; animation: route-spin 0.8s linear infinite; }
 @keyframes route-spin { to { transform: rotate(360deg); } }
+.archive-search-modal { overflow: hidden !important; }
+.archive-search-header, .archive-search-filters { flex: 0 0 auto; }
+.archive-search-filters { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-gutter: stable; }
+.archive-search-results { min-height: 0; overflow-y: auto !important; }
 
 .btn-primary {
   background-color: var(--nhf-accent-blue);

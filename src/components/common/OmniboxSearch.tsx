@@ -69,7 +69,7 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
   return (
     <div className="modal-backdrop" role="presentation" onClick={onClose}>
       <div 
-        className="modal-card" 
+        className="modal-card archive-search-modal"
         role="dialog"
         aria-modal="true"
         aria-label="Search the Net History Foundation archive"
@@ -77,7 +77,7 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search Input Bar */}
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--nhf-border)', background: 'var(--nhf-bg-card)', display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div className="archive-search-header" style={{ padding: '16px 20px', borderBottom: '1px solid var(--nhf-border)', background: 'var(--nhf-bg-card)', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <Search size={18} color="#38bdf8" />
           <input
             type="text"
@@ -102,7 +102,7 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
         </div>
 
         {/* Filter Pills */}
-        <div style={{ padding: '10px 20px', borderBottom: '1px solid var(--nhf-border)', display: 'flex', gap: '8px', overflowX: 'auto', background: 'var(--nhf-bg-surface)' }}>
+        <div className="archive-search-filters" style={{ padding: '10px 20px', borderBottom: '1px solid var(--nhf-border)', display: 'flex', gap: '8px', overflowX: 'auto', background: 'var(--nhf-bg-surface)' }}>
           {['ALL', 'PEOPLE', 'DOMAINS', 'POSTS', 'DOCUMENTS', 'EMAILS', 'ANOMALIES'].map((flt) => (
             <button
               key={flt}
@@ -129,7 +129,7 @@ export const OmniboxSearchModal: React.FC<Props> = ({ store, onClose }) => {
         </div>
 
         {/* Results List */}
-        <div className="modal-body" style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div className="modal-body archive-search-results" style={{ padding: '12px 16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           {filteredResults.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--nhf-text-muted)' }}>
               No cataloged records match "{query}". Try checking alternate handles or dates.
