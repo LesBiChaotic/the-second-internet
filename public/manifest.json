@@ -1,6 +1,7 @@
 {
   "name": "The Net History Foundation | Lost Web Archive",
   "short_name": "NHF Archive",
+  "id": "./",
   "description": "Interactive digital preservation repository cataloging lost web communities and topological anomalies from 1994 to present.",
   "start_url": "./",
   "scope": "./",
@@ -10,11 +11,30 @@
   "orientation": "any",
   "icons": [
     {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "./favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["entertainment", "education", "books"]
+  "categories": ["entertainment", "education", "books"],
+  "shortcuts": [
+    {
+      "name": "Open Archive",
+      "short_name": "Archive",
+      "url": "./"
+    }
+  ]
 }

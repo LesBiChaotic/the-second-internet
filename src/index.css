@@ -275,6 +275,14 @@ button, [role="button"], a { touch-action: manipulation; }
 .archive-search-header, .archive-search-filters { flex: 0 0 auto; }
 .archive-search-filters { overflow-x: auto !important; overflow-y: hidden !important; scrollbar-gutter: stable; }
 .archive-search-results { min-height: 0; overflow-y: auto !important; }
+.archive-crash-screen { min-height: 100dvh; display: grid; place-items: center; padding: 24px; background: var(--nhf-bg-primary); color: var(--nhf-text-primary); }
+.archive-crash-card { width: min(620px, 100%); padding: clamp(24px, 6vw, 42px); border: 1px solid var(--nhf-border-light); border-left: 5px solid var(--nhf-accent-crimson); border-radius: var(--radius-md); background: var(--nhf-bg-surface); box-shadow: var(--shadow-elevated); }
+.archive-crash-card > svg { color: var(--nhf-accent-crimson); }
+.archive-crash-card h1 { margin: 8px 0 10px; font-size: clamp(1.5rem, 5vw, 2.2rem); }
+.archive-crash-card p { color: var(--nhf-text-secondary); }
+.archive-crash-actions { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0; }
+.archive-crash-card details { color: var(--nhf-text-muted); font: 0.78rem var(--font-mono); }
+.archive-crash-card code { display: block; margin-top: 8px; overflow-wrap: anywhere; }
 
 .btn-primary {
   background-color: var(--nhf-accent-blue);
