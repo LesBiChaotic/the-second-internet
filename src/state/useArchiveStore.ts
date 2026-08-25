@@ -236,6 +236,17 @@ const SAVE_KEYS = [
   ,'nhf_investigator_profile'
   ,'nhf_cosmetics_seen_count'
   ,'nhf_guestbook_entries'
+  ,'nhf_trace_posts'
+  ,'nhf_trace_uncensored'
+  ,'nhf_room4_messages'
+  ,'nhf_notebook_decoded'
+  ,'nhf_vault_unredacted'
+  ,'nhf_aperture_history'
+  ,'nhf_aperture_logs'
+  ,'nhf_dead_network_quizzes'
+  ,'nhf_vault_override'
+  ,'nhf_carrier_locked_signal'
+  ,'nhf_station_decoded_signal'
 ] as const;
 
 const safeParse = <T,>(value: string | null, fallback: T): T => {
@@ -871,6 +882,9 @@ export function useArchiveStore(): ArchiveState {
       localStorage.removeItem('nhf_dm_threads');
       localStorage.removeItem('nhf_dm_indices');
       localStorage.removeItem('nhf_guestbook_entries');
+      localStorage.removeItem('nhf_trace_posts');
+      localStorage.removeItem('nhf_trace_uncensored');
+      localStorage.removeItem('nhf_room4_messages');
       setDmThreads(initialDmThreads);
       setDmIndices({ 'dm-kai': 0, 'dm-wintermute': 0, 'dm-janus': 0 });
       setCustomGuestbookEntries([]);
@@ -889,6 +903,16 @@ export function useArchiveStore(): ArchiveState {
       localStorage.removeItem('nhf_investigator_profile');
       localStorage.removeItem('nhf_cosmetics_seen_count');
       setInvestigatorProfile(defaultProfile);
+    }
+    if (scope === 'investigation' || scope === 'all') {
+      localStorage.removeItem('nhf_notebook_decoded');
+      localStorage.removeItem('nhf_vault_unredacted');
+      localStorage.removeItem('nhf_aperture_history');
+      localStorage.removeItem('nhf_aperture_logs');
+      localStorage.removeItem('nhf_dead_network_quizzes');
+      localStorage.removeItem('nhf_vault_override');
+      localStorage.removeItem('nhf_carrier_locked_signal');
+      localStorage.removeItem('nhf_station_decoded_signal');
     }
     notify(scope === 'all' ? 'Archive workstation restored to factory state.' : `${scope[0].toUpperCase() + scope.slice(1)} data reset.`, 'success');
   };

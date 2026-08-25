@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Radio, Volume2, VolumeX, Activity, Lock, Unlock, Play, Square, BookmarkPlus, Zap } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -68,7 +69,7 @@ export const CarrierTunerTool: React.FC<Props> = ({ store }) => {
   const [waveType, setWaveType] = useState<'sine' | 'sawtooth' | 'triangle'>('sine');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [volume, setVolume] = useState<number>(0.04);
-  const [lockedSignal, setLockedSignal] = useState<SignalPreset | null>(null);
+  const [lockedSignal, setLockedSignal] = usePersistentState<SignalPreset | null>('nhf_carrier_locked_signal', null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const animFrameRef = useRef<number | null>(null);

@@ -18,21 +18,58 @@ import { tracePosts } from '../../data/traceFeedData';
 import { TracePost } from '../../types';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 import { UserAvatar } from '../common/UserAvatar';
 
 interface Props {
   store: ArchiveState;
 }
 
+type LiveResponse = { author: string; content: string; upvotes: number; anomaly?: boolean };
+const DEFAULT_LIVE_RESPONSES: LiveResponse[] = [
+  { author: 'patchnotes', upvotes: 4, content: 'Do you have a source timestamp or physical capture for that? I am willing to check it, but TRACE has enough claims that cannot be reproduced.' },
+  { author: 'analogghost', upvotes: 7, content: '@patchnotes Let them finish. Ordinary context has solved more archive discrepancies than another checksum lecture.' },
+  { author: 'wintermute_42', upvotes: 19, anomaly: true, content: 'Your comment crossed the second bus before it appeared here. We read it while you were still typing.' }
+];
+const LIVE_RESPONSE_SETS: Record<string, LiveResponse[]> = {
+  'trace-p-13-dead-bbs': [
+    { author: 'switchboard_saint', upvotes: 6, content: 'I just checked the chassis. USRobotics Courier V.Everything, original power brick, no line cable, RTC battery dead since at least 2011. Uploading photographs now.' },
+    { author: 'archive_moth', upvotes: 11, content: 'The volunteer roster names the overnight computer-room attendant: Mara Bell. She used the handle NURSE_6.' },
+    { author: 'wintermute_42', upvotes: 23, anomaly: true, content: 'Room 19 was never discharged. It was disconnected. Those are different conditions.' }
+  ],
+  'trace-p-14-ordinary': [
+    { author: 'investigator_kai', upvotes: 8, content: 'Please keep posting files like this. The archive needs evidence that these people laughed, ate, argued, and procrastinated before they became case numbers.' },
+    { author: 'mara_net', upvotes: 10, content: 'I found Noemi’s response: “Coffee is not a spice, Alden.” The ban lasted three days.' },
+    { author: 'wintermute_42', upvotes: 17, anomaly: true, content: 'The soup is still warm on this side.' }
+  ],
+  'trace-p-15-payphone': [
+    { author: 'mod_overseer', upvotes: 9, content: 'Documenting this thread for the test lead. Discussion is welcome; instructions to bypass protocol are not.' },
+    { author: 'candle_keeper', upvotes: 13, content: 'Fair. I will not answer it. I am adding a second recorder and a written log so silence is still evidence.' },
+    { author: 'wintermute_42', upvotes: 26, anomaly: true, content: 'You already answered. The version of you beside the booth lifted the receiver tomorrow.' }
+  ],
+  'trace-p-16-last-seen': [
+    { author: 'patchnotes', upvotes: 12, content: 'I reran it with raw UTC offsets. The loop remains. I dislike this result but the method is sound.' },
+    { author: 'packetmason', upvotes: 15, content: 'That eliminates my easiest explanation. Next test is separating physical survivors from reconstructed hosts.' },
+    { author: 'wintermute_42', upvotes: 29, anomaly: true, content: 'A dead network is only a network whose living users stopped checking.' }
+  ]
+};
+
 export const TraceCommunityView: React.FC<Props> = ({ store }) => {
   const { currentSubId, pinToCaseboard, discoverAnomaly } = store;
   const [selectedTag, setSelectedTag] = useState<string>('ALL');
-  const [posts, setPosts] = useState<TracePost[]>(tracePosts);
+  const [posts, setPosts] = usePersistentState<TracePost[]>('nhf_trace_posts', tracePosts);
   const [newCommentText, setNewCommentText] = useState<{ [key: string]: string }>({});
   const [typingUser, setTypingUser] = useState<string | null>(null);
-  const [uncensoredSections, setUncensoredSections] = useState<{ [key: string]: boolean }>({});
+  const [uncensoredSections, setUncensoredSections] = usePersistentState<{ [key: string]: boolean }>('nhf_trace_uncensored', {});
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
   const [hasCommentedBefore, setHasCommentedBefore] = useState<boolean>(false);
+
+  useEffect(() => {
+    setPosts(previous => {
+      const missing = tracePosts.filter(base => !previous.some(post => post.id === base.id));
+      return missing.length ? [...missing, ...previous] : previous;
+    });
+  }, [setPosts]);
 
   const tags = ['ALL', 'DISCOVERY', 'QUESTION', 'TECHNICAL', 'DEBUNKED', 'ARCHIVE FIND', 'SPECULATION', 'FOUNDATION RESPONSE', 'ANOMALOUS'];
 
@@ -88,99 +125,17 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
     setNewCommentText(prev => ({ ...prev, [postId]: '' }));
     discoverAnomaly('trace-user-commented');
 
-    // Trigger the 3 Live Typing Responses in sequence
-    // Step 1: @patchnotes typing...
-    setTimeout(() => {
-      setTypingUser('@patchnotes');
-      soundEngine.playClick(600);
-    }, 1200);
-
-    // Step 1 Finish: @patchnotes posts
-    setTimeout(() => {
-      setTypingUser(null);
-      soundEngine.playClick(750);
-      setPosts(prev => prev.map(p => {
-        if (p.id === postId) {
-          return {
-            ...p,
-            comments: [
-              ...p.comments,
-              {
-                id: `comm-live-patchnotes-${Date.now()}`,
-                author: 'patchnotes',
-                timestamp: 'Just now',
-                upvotes: 4,
-                content: `Wait @you, are you trying to revive the 2003 routing claim? We literally audited the BGP packet checksums three months ago. Unless you have uncompressed frame dumps from Milwaukee, that discrepancy is standard clock skew.`
-              }
-            ]
-          };
-        }
-        return p;
-      }));
-
-      // Step 2: @analogghost typing...
-      setTimeout(() => {
-        setTypingUser('@analogghost');
-        soundEngine.playClick(600);
-      }, 1400);
-
-      // Step 2 Finish: @analogghost posts
-      setTimeout(() => {
+    const responses = LIVE_RESPONSE_SETS[postId] || DEFAULT_LIVE_RESPONSES;
+    responses.forEach((response, index) => {
+      const typingAt = 1100 + index * 2400;
+      window.setTimeout(() => { setTypingUser(`@${response.author}`); soundEngine.playClick(600); }, typingAt);
+      window.setTimeout(() => {
         setTypingUser(null);
-        soundEngine.playClick(850);
-        setPosts(prev => prev.map(p => {
-          if (p.id === postId) {
-            return {
-              ...p,
-              comments: [
-                ...p.comments,
-                {
-                  id: `comm-live-analogghost-${Date.now()}`,
-                  author: 'analogghost',
-                  timestamp: 'Just now',
-                  upvotes: 7,
-                  content: `@patchnotes It's NOT just clock skew! Look at the physical tape I scanned in Exhibit GL-98. The surface temperature dropped 46 degrees while the router was accepting packets. Clock skew doesn't create frost on circuit boards.`
-                }
-              ]
-            };
-          }
-          return p;
-        }));
-
-        // Step 3: @wintermute_42 typing... (The Eerie Live Drop)
-        setTimeout(() => {
-          setTypingUser('@wintermute_42');
-          soundEngine.playDialupChirp();
-        }, 1800);
-
-        // Step 3 Finish: @wintermute_42 drops anomalous response
-        setTimeout(() => {
-          setTypingUser(null);
-          soundEngine.playDialupChirp();
-          discoverAnomaly('wintermute-live-reply');
-          setPosts(prev => prev.map(p => {
-            if (p.id === postId) {
-              return {
-                ...p,
-                comments: [
-                  ...p.comments,
-                  {
-                    id: `comm-live-wintermute-${Date.now()}`,
-                    author: 'wintermute_42',
-                    timestamp: 'Just now',
-                    upvotes: 19,
-                    content: `You just transmitted another packet across the second bus. We noticed you typing. The aperture has been open since 1877. Don't look behind the monitor.`
-                  }
-                ]
-              };
-            }
-            return p;
-          }));
-        }, 4200);
-
-      }, 3500);
-
-    }, 2800);
+        response.anomaly ? soundEngine.playDialupChirp() : soundEngine.playClick(780);
+        if (response.anomaly) discoverAnomaly('wintermute-live-reply');
+        setPosts(previous => previous.map(post => post.id === postId ? { ...post, comments: [...post.comments, { id: `comm-live-${response.author}-${Date.now()}-${index}`, author: response.author, timestamp: 'Just now', upvotes: response.upvotes, content: response.content }] } : post));
+      }, typingAt + 1200);
+    });
   };
 
   const handlePin = (post: TracePost) => {

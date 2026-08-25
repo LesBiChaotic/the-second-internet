@@ -104,7 +104,7 @@ export const FoundationDashboard: React.FC<Props> = ({ store }) => {
             style={{ borderColor: 'rgba(245, 158, 11, 0.4)', color: 'var(--nhf-accent-amber)' }}
           >
             <Sparkles size={16} />
-            <span>{userArchetype ? `Archetype: ${userArchetype}` : 'Archetype Quiz (1998)'}</span>
+            <span>{userArchetype ? `Quiz Lab · ${userArchetype}` : 'Archive Quiz Lab · 3 exercises'}</span>
           </button>
 
           <button 

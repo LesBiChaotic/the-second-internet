@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -47,14 +48,14 @@ export const RestrictedVaultView: React.FC<Props> = ({ store }) => {
   } = store;
 
   const [passcode, setPasscode] = useState('');
-  const [unlocked, setUnlocked] = useState(
+  const [unlocked, setUnlocked] = usePersistentState('nhf_vault_override',
     clearanceLevel === 'ARCHIVIST' || 
     clearanceLevel === 'LEVEL_NULL' || 
     clearanceLevel === 'LEVEL_OMEGA'
   );
   const [errorMsg, setErrorMsg] = useState('');
   const [activeExhibitId, setActiveExhibitId] = useState('ex-q01');
-  const [unredactedMap, setUnredactedMap] = useState<{ [id: string]: boolean }>({});
+  const [unredactedMap, setUnredactedMap] = usePersistentState<{ [id: string]: boolean }>('nhf_vault_unredacted', {});
   const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
 
   const exhibits: VaultExhibit[] = [

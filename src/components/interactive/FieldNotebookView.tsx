@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -191,7 +192,7 @@ const NOTEBOOK_PAGES: NotebookPage[] = [
 export const FieldNotebookView: React.FC<Props> = ({ store }) => {
   const { discoverAnomaly, pinToCaseboard } = store;
   const [currentPageIndex, setCurrentPageIndex] = useState<number>(0);
-  const [decodedCiphers, setDecodedCiphers] = useState<{ [pageIndex: number]: boolean }>({});
+  const [decodedCiphers, setDecodedCiphers] = usePersistentState<{ [pageIndex: number]: boolean }>('nhf_notebook_decoded', {});
   const [playingTape, setPlayingTape] = useState<boolean>(false);
 
   const page = NOTEBOOK_PAGES[currentPageIndex];

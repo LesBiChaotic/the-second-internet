@@ -30,6 +30,17 @@ export const buildGlobalSearchIndex = (): SearchResultItem[] => {
     isAnomalous: false
   });
 
+  index.push({
+    id: 'sr-tool-dead-network-quizzes',
+    title: 'Dead Network Diagnostics (Two Interactive Quizzes)',
+    type: 'DOCUMENT',
+    collection: 'Archival Diagnostics',
+    date: '1996–2026',
+    snippet: 'Decide what to do when a decommissioned network answers, then perform an ethical five-stage autopsy of an abandoned communications system.',
+    targetView: 'QUIZ',
+    isAnomalous: true
+  });
+
   // Dr. Van Houten's Missing Field Notebook
   index.push({
     id: 'sr-field-notebook',

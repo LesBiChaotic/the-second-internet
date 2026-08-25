@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -32,7 +33,7 @@ export const Room4MonitorView: React.FC<Props> = ({ store }) => {
   const [reflectionActive, setReflectionActive] = useState(false);
   const [clockTime, setClockTime] = useState('03:14:02');
 
-  const [messages, setMessages] = useState<IrcMessage[]>([
+  const [messages, setMessages] = usePersistentState<IrcMessage[]>('nhf_room4_messages', [
     { id: '1', sender: 'nyxgirl', time: '03:13:40', text: 'alden are you still compiling the new patch?' },
     { id: '2', sender: 'janus', time: '03:13:55', text: 'yeah. but the dialup connection is pulling packets with negative ping.' },
     { id: '3', sender: 'd_miller', time: '03:14:00', text: 'thats impossible. check your router config.' },
