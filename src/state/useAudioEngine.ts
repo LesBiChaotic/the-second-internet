@@ -199,7 +199,7 @@ class AudioSynthesizer {
 
   // Equippable archive ambience. Kept deliberately quiet so it colours a room
   // without competing with speech, music, or screen-reader output.
-  startAmbientHum(profileId = 'ambient-1') {
+  startAmbientHum(profileId = 'ambient-1', location = '', intensity: 'quiet' | 'standard' | 'full' = 'quiet') {
     try {
       this.init();
       if (!this.ctx || this.humOsc) return;
@@ -214,9 +214,11 @@ class AudioSynthesizer {
         'ambient-6': { type: 'sawtooth', frequency: 58.4, gain: 0.006 }
       };
       const profile = profiles[profileId] || profiles['ambient-1'];
+      const locationOffset = location === 'SITE_CANDLEROOM' ? -7 : location === 'SITE_BLUEWINDOW' ? 9 : location === 'SITE_GREYLINE' ? 2 : location === 'SECOND_NET' ? 13 : location === 'TRACE' ? 17 : location.startsWith('SITE_') ? 4 : 0;
+      const intensityGain = intensity === 'full' ? 1.25 : intensity === 'standard' ? 1 : .72;
       this.humOsc.type = profile.type;
-      this.humOsc.frequency.setValueAtTime(profile.frequency, this.ctx.currentTime);
-      this.humGain.gain.setValueAtTime(profile.gain, this.ctx.currentTime);
+      this.humOsc.frequency.setValueAtTime(profile.frequency + locationOffset, this.ctx.currentTime);
+      this.humGain.gain.setValueAtTime(profile.gain * intensityGain, this.ctx.currentTime);
       this.humOsc.connect(this.humGain);
       this.humGain.connect(this.ctx.destination);
       this.humOsc.start();
