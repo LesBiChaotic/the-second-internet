@@ -56,6 +56,7 @@ const WebringHubSite = lazyNamed(() => import('./components/historical/WebringHu
 const TraceCommunityView = lazyNamed(() => import('./components/trace/TraceCommunityView'), 'TraceCommunityView');
 const SecondInternetHub = lazyNamed(() => import('./components/secondInternet/SecondInternetHub'), 'SecondInternetHub');
 const InvestigatorProfileView = lazyNamed(() => import('./components/foundation/InvestigatorProfileView'), 'InvestigatorProfileView');
+const InvestigationLedgerView = lazyNamed(() => import('./components/foundation/InvestigationLedgerView'), 'InvestigationLedgerView');
 
 export function App() {
   const store = useArchiveStore();
@@ -100,6 +101,7 @@ export function App() {
     }
     switch (store.currentView) {
       case 'DASHBOARD': return <FoundationDashboard store={store} />;
+      case 'INVESTIGATION_LEDGER': return <InvestigationLedgerView store={store} />;
       case 'COLLECTIONS': return <CollectionsView store={store} />;
       case 'PEOPLE': return <PeopleView store={store} />;
       case 'COMMUNITY': return <CommunityView store={store} />;

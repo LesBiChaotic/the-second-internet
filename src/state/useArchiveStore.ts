@@ -700,6 +700,7 @@ export function useArchiveStore(): ArchiveState {
     if (!calculatedUrl) {
       // Synthesize URL based on view
       if (view === 'DASHBOARD') calculatedUrl = 'https://nethistoryfoundation.org/';
+      else if (view === 'INVESTIGATION_LEDGER') calculatedUrl = 'https://nethistoryfoundation.org/investigation/ledger';
       else if (view === 'COLLECTIONS') calculatedUrl = `https://nethistoryfoundation.org/collections${subId ? '/' + subId : ''}`;
       else if (view === 'PEOPLE') calculatedUrl = `https://nethistoryfoundation.org/people${subId ? '/' + subId : ''}`;
       else if (view === 'COMMUNITY') calculatedUrl = 'https://nethistoryfoundation.org/community';
