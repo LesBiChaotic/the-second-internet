@@ -241,6 +241,8 @@ const SAVE_KEYS = [
   ,'nhf_trace_posts'
   ,'nhf_trace_uncensored'
   ,'nhf_reacted_discoveries'
+  ,'nhf_ambient_events'
+  ,'nhf_route_visits'
   ,'nhf_room4_messages'
   ,'nhf_notebook_decoded'
   ,'nhf_vault_unredacted'
