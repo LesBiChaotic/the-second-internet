@@ -64,6 +64,7 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
   const [typingUser, setTypingUser] = useState<string | null>(null);
   const [uncensoredSections, setUncensoredSections] = usePersistentState<{ [key: string]: boolean }>('nhf_trace_uncensored', {});
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  useEffect(() => { if (!zoomedImage) return; const close = (event: KeyboardEvent) => event.key === 'Escape' && setZoomedImage(null); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [zoomedImage]);
   const [hasCommentedBefore, setHasCommentedBefore] = useState<boolean>(false);
 
   useEffect(() => {
@@ -426,21 +427,12 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
 
       {/* Enlarged Photo Modal */}
       {zoomedImage && (
-        <div className="modal-backdrop" onClick={() => setZoomedImage(null)}>
-          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" role="presentation" onClick={() => setZoomedImage(null)}>
+          <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged TRACE attachment" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setZoomedImage(null)}
-              style={{
-                position: 'absolute',
-                top: '-36px',
-                right: '0',
-                background: 'rgba(255,255,255,0.2)',
-                border: 'none',
-                color: '#fff',
-                padding: '6px',
-                borderRadius: '50%',
-                cursor: 'pointer'
-              }}
+              aria-label="Close enlarged attachment"
+              className="lightbox-close"
             >
               <X size={20} />
             </button>

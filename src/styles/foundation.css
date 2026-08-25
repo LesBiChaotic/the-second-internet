@@ -83,27 +83,6 @@
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
 }
 
-.foundation-title-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.foundation-org-name {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-  color: var(--nhf-text-primary);
-  white-space: nowrap;
-}
-
-.foundation-tagline {
-  font-size: 0.72rem;
-  color: var(--nhf-text-muted);
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
 .omnibox-container {
   flex: 1;
   max-width: 680px;
@@ -347,19 +326,11 @@
   display: none;
 }
 
-.show-on-mobile-only {
-  display: none;
-}
-
 @media (max-width: 768px) {
   .show-on-mobile {
     display: inline-flex;
   }
 
-  .show-on-mobile-only {
-    display: block;
-  }
-  
   .hide-on-mobile {
     display: none !important;
   }
@@ -579,9 +550,6 @@
     display: inline-flex;
   }
 
-  .show-on-mobile-only {
-    display: none !important;
-  }
 }
 
 /* --- Responsive Filter Utilities --- */

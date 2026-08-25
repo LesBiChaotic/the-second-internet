@@ -73,11 +73,11 @@ export const ArchiveWrapperBar: React.FC<Props> = ({
   return (
     <div className="archive-wrapper-bar">
       <div className="wrapper-nav-left">
-        <div className="wrapper-return-btn" onClick={handleReturn}>
+        <button type="button" className="wrapper-return-btn" onClick={handleReturn} aria-label="Return to Net History Foundation">
           <ArrowLeft size={14} />
           <span className="hide-on-mobile">RETURN TO FOUNDATION</span>
           <span className="show-on-mobile">EXIT</span>
-        </div>
+        </button>
 
         <span className="wrapper-site-badge">{siteName}</span>
 

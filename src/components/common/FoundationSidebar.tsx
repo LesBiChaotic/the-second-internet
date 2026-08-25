@@ -706,21 +706,21 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             </span>
           </div>
 
-          <div 
-            className={`sidebar-nav-item ${currentView === 'QUIZ' ? 'active' : ''}`}
+          <button type="button"
+            className={`sidebar-nav-item sidebar-button ${currentView === 'QUIZ' ? 'active' : ''}`}
             onClick={() => handleNav('QUIZ')}
             style={{ marginTop: '6px' }}
           >
             <HelpCircle size={16} color="#f43f5e" />
             <span>Archive Quiz Lab</span>
             <span className="badge badge-red" style={{ marginLeft: 'auto', fontSize: '0.58rem' }}>3 QUIZZES</span>
-          </div>
+          </button>
 
-          <div className={`sidebar-nav-item ${currentView === 'PROFILE' ? 'active' : ''}`} onClick={() => handleNav('PROFILE')} style={{ marginTop: '6px' }}>
+          <button type="button" className={`sidebar-nav-item sidebar-button ${currentView === 'PROFILE' ? 'active' : ''}`} onClick={() => handleNav('PROFILE')} style={{ marginTop: '6px' }}>
             <User size={16} color="#a78bfa" />
             <span>Profile & Wardrobe</span>
             <span className="badge badge-purple" style={{ marginLeft: 'auto', fontSize: '0.6rem', background: '#7c3aed', color: '#fff' }}>RANK {store.archiveRank}</span>
-          </div>
+          </button>
         </div>
 
         {/* Clearance and Integrity Status Widget */}

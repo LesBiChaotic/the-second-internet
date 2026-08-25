@@ -14,7 +14,6 @@ import { AmbientArchiveLayer } from './components/common/AmbientArchiveLayer';
 import { EnvironmentalEffectsLayer } from './components/common/EnvironmentalEffectsLayer';
 
 // Foundation Views
-import { FoundationDashboard } from './components/foundation/FoundationDashboard';
 import { SubstrateErrorView } from './components/common/SubstrateErrorView';
 import { soundEngine } from './state/useAudioEngine';
 import { AccessGate } from './components/common/AccessGate';
@@ -24,6 +23,7 @@ const lazyNamed = (loader: () => Promise<Record<string, unknown>>, exportName: s
   React.lazy(async () => ({ default: (await loader())[exportName] as React.ComponentType<any> }));
 
 const OmniboxSearchModal = lazyNamed(() => import('./components/common/OmniboxSearch'), 'OmniboxSearchModal');
+const FoundationDashboard = lazyNamed(() => import('./components/foundation/FoundationDashboard'), 'FoundationDashboard');
 const CollectionsView = lazyNamed(() => import('./components/foundation/CollectionsView'), 'CollectionsView');
 const PeopleView = lazyNamed(() => import('./components/foundation/PeopleView'), 'PeopleView');
 const CommunityView = lazyNamed(() => import('./components/foundation/CommunityView'), 'CommunityView');

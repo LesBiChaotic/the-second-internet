@@ -9,6 +9,7 @@ interface Props {
 
 export const SourceViewerModal: React.FC<Props> = ({ data, onClose }) => {
   const [copied, setCopied] = React.useState(false);
+  React.useEffect(() => { if (!data) return; const close = (event: KeyboardEvent) => event.key === 'Escape' && onClose(); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [data, onClose]);
 
   if (!data) return null;
 
@@ -20,13 +21,13 @@ export const SourceViewerModal: React.FC<Props> = ({ data, onClose }) => {
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
-      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+    <div className="modal-backdrop" role="presentation" onClick={onClose}>
+      <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="source-viewer-title" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <Code2 size={18} color="#38bdf8" />
-            <span style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--nhf-text-primary)' }}>
+            <span id="source-viewer-title" style={{ fontWeight: 600, fontSize: '0.95rem', color: 'var(--nhf-text-primary)' }}>
               {data.title}
             </span>
           </div>
@@ -43,6 +44,7 @@ export const SourceViewerModal: React.FC<Props> = ({ data, onClose }) => {
               className="btn btn-secondary" 
               style={{ padding: '4px 6px' }}
               onClick={onClose}
+              aria-label="Close source viewer"
             >
               <X size={16} />
             </button>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BookmarkCheck, Plus, Trash2, Link2, ExternalLink, ShieldAlert, Sparkles } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { CaseboardPin } from '../../types';
@@ -15,6 +15,7 @@ export const CaseboardView: React.FC<Props> = ({ store }) => {
   const [newNoteTitle, setNewNoteTitle] = useState('');
   const [newNoteText, setNewNoteText] = useState('');
   const [showAddModal, setShowAddModal] = useState(false);
+  useEffect(() => { if (!showAddModal) return; const close = (event: KeyboardEvent) => event.key === 'Escape' && setShowAddModal(false); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [showAddModal]);
 
   const handleAddCustomNote = (e: React.FormEvent) => {
     e.preventDefault();
@@ -166,11 +167,11 @@ export const CaseboardView: React.FC<Props> = ({ store }) => {
 
       {/* Add Custom Note Modal */}
       {showAddModal && (
-        <div className="modal-backdrop" onClick={() => setShowAddModal(false)}>
-          <div className="modal-card" style={{ maxWidth: '500px' }} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" role="presentation" onClick={() => setShowAddModal(false)}>
+          <div className="modal-card" role="dialog" aria-modal="true" aria-labelledby="caseboard-note-title" style={{ maxWidth: '500px' }} onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <span style={{ fontWeight: 600 }}>Record Evidence Hypothesis</span>
-              <button className="btn btn-secondary" style={{ padding: '4px 6px' }} onClick={() => setShowAddModal(false)}>
+              <span id="caseboard-note-title" style={{ fontWeight: 600 }}>Record Evidence Hypothesis</span>
+              <button className="btn btn-secondary" style={{ padding: '4px 6px' }} onClick={() => setShowAddModal(false)} aria-label="Close evidence hypothesis form">
                 ✕
               </button>
             </div>
