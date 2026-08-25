@@ -105,7 +105,7 @@ export const CandleRoomSite: React.FC<Props> = ({ store }) => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                       {/* Render custom user entries */}
                       {store.customGuestbookEntries.filter(e => e.site === 'candle').map((gb) => (
-                        <div key={gb.id} style={{ background: '#2c1414', padding: '10px 12px', border: '1px solid #ff7733' }}>
+                        <div key={gb.id} className="user-comment-signature" style={{ background: '#2c1414', padding: '10px 12px', border: '1px solid #ff7733' }}>
                           <div style={{ fontSize: '0.75rem', color: '#ffaa55', marginBottom: '4px' }}>
                             <strong>{gb.name}</strong> — {gb.date} ({gb.location})
                           </div>

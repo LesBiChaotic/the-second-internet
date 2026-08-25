@@ -150,7 +150,7 @@ export function App() {
   const isHistoricalOrSecondNet = store.currentView.startsWith('SITE_') || store.currentView === 'SECOND_NET';
 
   return (
-    <div data-palette={store.investigatorProfile.equipped.PALETTE} data-effect={store.investigatorProfile.equipped.EFFECT} data-terminal={store.investigatorProfile.equipped.TERMINAL} className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
+    <div data-palette={store.investigatorProfile.equipped.PALETTE} data-effect={store.investigatorProfile.equipped.EFFECT} data-terminal={store.investigatorProfile.equipped.TERMINAL} data-stamp={store.investigatorProfile.equipped.STAMP} data-sidebar={store.investigatorProfile.equipped.SIDEBAR} data-omnibox={store.investigatorProfile.equipped.OMNIBOX} data-cursor={store.investigatorProfile.equipped.CURSOR} data-transition={store.investigatorProfile.equipped.TRANSITION} data-notification={store.investigatorProfile.equipped.NOTIFICATION} data-pinset={store.investigatorProfile.equipped.PINSET} data-idcard={store.investigatorProfile.equipped.IDCARD} data-signature={store.investigatorProfile.equipped.SIGNATURE} data-ambient={store.investigatorProfile.equipped.AMBIENT} data-haunted={store.investigatorProfile.equipped.HAUNTED} data-haunted-stage={store.investigationChapter} className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
       <a className="skip-link" href="#archive-main">Skip to archive content</a>
       <div className="app-container">
         {/* Institutional Top Header */}
@@ -189,7 +189,7 @@ export function App() {
             }}
           >
             <React.Suspense fallback={<div className="route-loading" role="status"><span /> Reconstructing archive snapshot…</div>}>
-              {renderCurrentView()}
+              <div key={`${store.currentView}-${store.currentSubId || ''}`} className="route-transition-stage">{renderCurrentView()}</div>
             </React.Suspense>
           </main>
         </div>

@@ -197,16 +197,26 @@ class AudioSynthesizer {
     }
   }
 
-  // Continuous low 58.4Hz telephone carrier / CRT monitor hum
-  startAmbientHum() {
+  // Equippable archive ambience. Kept deliberately quiet so it colours a room
+  // without competing with speech, music, or screen-reader output.
+  startAmbientHum(profileId = 'ambient-1') {
     try {
       this.init();
       if (!this.ctx || this.humOsc) return;
       this.humOsc = this.ctx.createOscillator();
       this.humGain = this.ctx.createGain();
-      this.humOsc.type = 'sine';
-      this.humOsc.frequency.setValueAtTime(58.4, this.ctx.currentTime);
-      this.humGain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+      const profiles: Record<string, { type: OscillatorType; frequency: number; gain: number }> = {
+        'ambient-1': { type: 'sine', frequency: 42, gain: 0.004 },
+        'ambient-2': { type: 'sine', frequency: 60, gain: 0.008 },
+        'ambient-3': { type: 'triangle', frequency: 48, gain: 0.009 },
+        'ambient-4': { type: 'sine', frequency: 72, gain: 0.006 },
+        'ambient-5': { type: 'sine', frequency: 58.4, gain: 0.015 },
+        'ambient-6': { type: 'sawtooth', frequency: 58.4, gain: 0.006 }
+      };
+      const profile = profiles[profileId] || profiles['ambient-1'];
+      this.humOsc.type = profile.type;
+      this.humOsc.frequency.setValueAtTime(profile.frequency, this.ctx.currentTime);
+      this.humGain.gain.setValueAtTime(profile.gain, this.ctx.currentTime);
       this.humOsc.connect(this.humGain);
       this.humGain.connect(this.ctx.destination);
       this.humOsc.start();

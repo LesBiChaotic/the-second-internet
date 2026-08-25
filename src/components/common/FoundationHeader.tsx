@@ -109,7 +109,7 @@ export const FoundationHeader: React.FC<Props> = ({
 
   const handleHumToggle = () => {
     if (!ambientHumEnabled) {
-      soundEngine.startAmbientHum();
+      soundEngine.startAmbientHum(store.investigatorProfile.equipped.AMBIENT);
     } else {
       soundEngine.stopAmbientHum();
     }
