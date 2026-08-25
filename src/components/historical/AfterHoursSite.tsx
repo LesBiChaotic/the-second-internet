@@ -60,9 +60,9 @@ export const AfterHoursSite: React.FC<Props> = ({ store }) => {
           {/* Header */}
           <div className="afterhours-header">
             <div>
-              <div className="afterhours-board-title" onClick={() => { soundEngine.playClick(600); setSelectedThreadId(null); }} style={{ cursor: 'pointer' }}>
+              <button type="button" className="afterhours-board-title interactive-card-reset" onClick={() => { soundEngine.playClick(600); setSelectedThreadId(null); }} aria-label="Return to the AfterHours thread index">
                 AFTERHOURS.ORG
-              </div>
+              </button>
               <div className="afterhours-tagline">
                 A sanctuary for nocturnal thoughts, late night frequencies, and insomniacs. (Est. 2001)
               </div>

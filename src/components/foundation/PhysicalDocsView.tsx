@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FileSearch, ShieldAlert, BookmarkPlus, Hash, FileText, Image as ImageIcon, ZoomIn, X, BookOpen, Filter } from 'lucide-react';
 import { physicalDocsData } from '../../data/physicalDocsData';
 import { PhysicalDoc } from '../../types';
@@ -13,6 +13,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
   const { pinToCaseboard, discoverAnomaly } = store;
   const [selectedType, setSelectedType] = useState<string>('All');
   const [zoomedImage, setZoomedImage] = useState<string | null>(null);
+  useEffect(() => { if (!zoomedImage) return; const close = (event: KeyboardEvent) => event.key === 'Escape' && setZoomedImage(null); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [zoomedImage]);
 
   const docTypes = ['All', ...Array.from(new Set(physicalDocsData.map(d => d.docType)))];
   
@@ -163,7 +164,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
                   boxShadow: '0 4px 16px rgba(0,0,0,0.4)',
                   position: 'relative'
                 }}>
-                  <div style={{ position: 'relative', cursor: 'pointer' }} onClick={() => setZoomedImage(doc.imageUrl || null)}>
+                  <button type="button" className="image-zoom-trigger" onClick={() => setZoomedImage(doc.imageUrl || null)} aria-label={`Enlarge ${doc.title}`}>
                     <img
                       src={doc.imageUrl}
                       alt={doc.title}
@@ -191,7 +192,7 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
                       <ZoomIn size={14} />
                       <span>Click to Enlarge</span>
                     </div>
-                  </div>
+                  </button>
                   {doc.imageCaption && (
                     <div style={{
                       padding: '12px 16px',
@@ -269,24 +270,12 @@ export const PhysicalDocsView: React.FC<Props> = ({ store }) => {
 
       {/* Fullscreen Image Zoom Modal */}
       {zoomedImage && (
-        <div className="modal-backdrop" onClick={() => setZoomedImage(null)}>
-          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" role="presentation" onClick={() => setZoomedImage(null)}>
+          <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged evidence" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setZoomedImage(null)}
-              style={{
-                position: 'absolute',
-                top: '-36px',
-                right: '0',
-                background: 'rgba(255,255,255,0.2)',
-                border: 'none',
-                color: '#fff',
-                padding: '6px',
-                borderRadius: '50%',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
+              aria-label="Close enlarged evidence"
+              className="lightbox-close"
             >
               <X size={20} />
             </button>

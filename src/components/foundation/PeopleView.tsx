@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Users, User, ShieldAlert, ArrowRight, BookmarkPlus, Calendar, Globe, AlertTriangle, ZoomIn, X } from 'lucide-react';
 import { charactersData } from '../../data/charactersData';
 import { ArchiveState } from '../../state/useArchiveStore';
@@ -12,6 +12,7 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
   const { currentSubId, navigate, pinToCaseboard, discoverAnomaly } = store;
   const [selectedCharId, setSelectedCharId] = useState<string>(currentSubId || charactersData[0].id);
   const [zoomedAvatar, setZoomedAvatar] = useState<string | null>(null);
+  useEffect(() => { if (!zoomedAvatar) return; const close = (event: KeyboardEvent) => event.key === 'Escape' && setZoomedAvatar(null); window.addEventListener('keydown', close); return () => window.removeEventListener('keydown', close); }, [zoomedAvatar]);
 
   const selectedChar = charactersData.find(c => c.id === selectedCharId) || charactersData[0];
 
@@ -236,21 +237,12 @@ export const PeopleView: React.FC<Props> = ({ store }) => {
 
       {/* Zoom Modal */}
       {zoomedAvatar && (
-        <div className="modal-backdrop" onClick={() => setZoomedAvatar(null)}>
-          <div style={{ position: 'relative', maxWidth: '90vw', maxHeight: '90vh' }} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" role="presentation" onClick={() => setZoomedAvatar(null)}>
+          <div className="image-lightbox" role="dialog" aria-modal="true" aria-label="Enlarged character scan" onClick={(e) => e.stopPropagation()}>
             <button
               onClick={() => setZoomedAvatar(null)}
-              style={{
-                position: 'absolute',
-                top: '-36px',
-                right: '0',
-                background: 'rgba(255,255,255,0.2)',
-                border: 'none',
-                color: '#fff',
-                padding: '6px',
-                borderRadius: '50%',
-                cursor: 'pointer'
-              }}
+              aria-label="Close enlarged character scan"
+              className="lightbox-close"
             >
               <X size={20} />
             </button>
