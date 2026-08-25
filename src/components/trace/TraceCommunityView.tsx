@@ -15,6 +15,7 @@ import {
   Send
 } from 'lucide-react';
 import { tracePosts } from '../../data/traceFeedData';
+import { ambientTracePosts } from '../../data/worldPopulationData';
 import { TracePost } from '../../types';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
@@ -53,11 +54,12 @@ const LIVE_RESPONSE_SETS: Record<string, LiveResponse[]> = {
     { author: 'wintermute_42', upvotes: 29, anomaly: true, content: 'A dead network is only a network whose living users stopped checking.' }
   ]
 };
+const POPULATED_TRACE_POSTS = [...tracePosts, ...ambientTracePosts];
 
 export const TraceCommunityView: React.FC<Props> = ({ store }) => {
   const { currentSubId, pinToCaseboard, discoverAnomaly } = store;
   const [selectedTag, setSelectedTag] = useState<string>('ALL');
-  const [posts, setPosts] = usePersistentState<TracePost[]>('nhf_trace_posts', tracePosts);
+  const [posts, setPosts] = usePersistentState<TracePost[]>('nhf_trace_posts', POPULATED_TRACE_POSTS);
   const [newCommentText, setNewCommentText] = useState<{ [key: string]: string }>({});
   const [typingUser, setTypingUser] = useState<string | null>(null);
   const [uncensoredSections, setUncensoredSections] = usePersistentState<{ [key: string]: boolean }>('nhf_trace_uncensored', {});
@@ -66,7 +68,7 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
 
   useEffect(() => {
     setPosts(previous => {
-      const missing = tracePosts.filter(base => !previous.some(post => post.id === base.id));
+      const missing = POPULATED_TRACE_POSTS.filter(base => !previous.some(post => post.id === base.id));
       return missing.length ? [...missing, ...previous] : previous;
     });
   }, [setPosts]);

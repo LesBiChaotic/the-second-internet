@@ -13,6 +13,7 @@ import {
   Clock
 } from 'lucide-react';
 import { communityMembers } from '../../data/communityData';
+import { ambientCommunityMembers } from '../../data/worldPopulationData';
 import { CommunityMember } from '../../types';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
@@ -35,7 +36,8 @@ export const CommunityView: React.FC<Props> = ({ store }) => {
     { id: 'ANOMALOUS', label: 'Anomalous Entities' }
   ];
 
-  const filteredMembers = communityMembers.filter((m) => {
+  const populatedMembers = [...communityMembers, ...ambientCommunityMembers];
+  const filteredMembers = populatedMembers.filter((m) => {
     if (selectedCategory !== 'ALL' && m.category !== selectedCategory) return false;
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();

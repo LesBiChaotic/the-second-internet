@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArchiveWrapperBar } from '../common/ArchiveWrapperBar';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { marrowMembers, marrowGuestbook, marrowThreads, marrowBelowContent } from '../../data/marrowData';
+import { ambientMarrowThreads } from '../../data/worldPopulationData';
 import { soundEngine } from '../../state/useAudioEngine';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const MarrowNetSite: React.FC<Props> = ({ store }) => {
+  const populatedThreads = [...marrowThreads, ...ambientMarrowThreads];
   const { currentSubId, navigate, discoverAnomaly } = store;
   const [activeTab, setActiveTab] = useState<'HOME' | 'FORUMS' | 'MEMBERS' | 'GUESTBOOK' | 'BELOW'>(
     currentSubId === 'below' ? 'BELOW' : 'HOME'
@@ -131,7 +133,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                     <div className="marrow-box">
                       <div className="marrow-box-title">Recent Forum Threads</div>
                       <ul style={{ paddingLeft: '20px', lineHeight: '1.8' }}>
-                        {marrowThreads.map((t) => (
+                        {populatedThreads.map((t) => (
                           <li key={t.id}>
                             <span 
                               style={{ color: '#80deea', textDecoration: 'underline', cursor: 'pointer' }}
@@ -162,7 +164,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                   <div>
                     {selectedThreadId ? (
                       (() => {
-                        const thread = marrowThreads.find(t => t.id === selectedThreadId) || marrowThreads[0];
+                        const thread = populatedThreads.find(t => t.id === selectedThreadId) || populatedThreads[0];
                         return (
                           <div className="marrow-box">
                             <div className="marrow-box-title">{thread.title}</div>
@@ -205,7 +207,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                             </tr>
                           </thead>
                           <tbody>
-                            {marrowThreads.map((t) => (
+                            {populatedThreads.map((t) => (
                               <tr key={t.id} style={{ borderBottom: '1px solid #004d4d' }}>
                                 <td style={{ padding: '8px' }}>
                                   <span 

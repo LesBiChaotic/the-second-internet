@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArchiveWrapperBar } from '../common/ArchiveWrapperBar';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { terminal21Threads } from '../../data/terminal21Data';
+import { ambientTerminalThreads } from '../../data/worldPopulationData';
 import { soundEngine } from '../../state/useAudioEngine';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const Terminal21Site: React.FC<Props> = ({ store }) => {
+  const populatedThreads = [...terminal21Threads, ...ambientTerminalThreads];
   const { currentSubId, discoverAnomaly } = store;
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(
     currentSubId && currentSubId !== 'terminal21' ? currentSubId : null
@@ -67,7 +69,7 @@ export const Terminal21Site: React.FC<Props> = ({ store }) => {
 
           {selectedThreadId ? (
             (() => {
-              const thread = terminal21Threads.find(t => t.id === selectedThreadId) || terminal21Threads[0];
+              const thread = populatedThreads.find(t => t.id === selectedThreadId) || populatedThreads[0];
               return (
                 <div>
                   <button
@@ -103,7 +105,7 @@ export const Terminal21Site: React.FC<Props> = ({ store }) => {
             })()
           ) : (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              {terminal21Threads.map((t) => (
+              {populatedThreads.map((t) => (
                 <div
                   key={t.id}
                   style={{ background: '#020702', border: '1px solid #1a5e2a', padding: '14px', cursor: 'pointer' }}
