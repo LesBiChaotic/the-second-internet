@@ -235,6 +235,7 @@ const SAVE_KEYS = [
   'nhf_skip_field_guide_warning'
   ,'nhf_investigator_profile'
   ,'nhf_cosmetics_seen_count'
+  ,'nhf_guestbook_entries'
 ] as const;
 
 const safeParse = <T,>(value: string | null, fallback: T): T => {
@@ -267,6 +268,7 @@ export function useArchiveStore(): ArchiveState {
   const savedGateEntered = typeof window !== 'undefined' ? localStorage.getItem('nhf_gate_entered') : null;
   const savedArchetype = typeof window !== 'undefined' ? localStorage.getItem('nhf_archetype') : null;
   const savedProfile = typeof window !== 'undefined' ? localStorage.getItem('nhf_investigator_profile') : null;
+  const savedGuestbookEntries = typeof window !== 'undefined' ? localStorage.getItem('nhf_guestbook_entries') : null;
 
   const [clearanceLevel, setClearanceLevelState] = useState<ClearanceLevel>(savedClearance || 'VISITOR');
   const [accessRoute, setAccessRoute] = useState<'VISITOR' | 'KEYCARD'>(savedAccessRoute === 'KEYCARD' ? 'KEYCARD' : 'VISITOR');
@@ -516,7 +518,7 @@ export function useArchiveStore(): ArchiveState {
   const [isGuestbookModalOpen, setIsGuestbookModalOpen] = useState<boolean>(false);
   const [isFieldGuideWarningOpen, setIsFieldGuideWarningOpen] = useState<boolean>(false);
   const [guestbookModalTarget, setGuestbookModalTarget] = useState<'marrow' | 'candle' | null>(null);
-  const [customGuestbookEntries, setCustomGuestbookEntries] = useState<any[]>([]);
+  const [customGuestbookEntries, setCustomGuestbookEntries] = useState<any[]>(safeParse(savedGuestbookEntries, []));
 
   const investigationChapter = discoveredAnomalies.length >= 9 ? 5
     : discoveredAnomalies.length >= 6 ? 4
@@ -844,7 +846,11 @@ export function useArchiveStore(): ArchiveState {
   };
 
   const addGuestbookEntry = (entry: any) => {
-    setCustomGuestbookEntries(prev => [entry, ...prev]);
+    setCustomGuestbookEntries(prev => {
+      const next = [entry, ...prev];
+      localStorage.setItem('nhf_guestbook_entries', JSON.stringify(next));
+      return next;
+    });
   };
 
   const resetProgress = (scope: ResetScope) => {
@@ -864,8 +870,10 @@ export function useArchiveStore(): ArchiveState {
     if (scope === 'messages' || scope === 'all') {
       localStorage.removeItem('nhf_dm_threads');
       localStorage.removeItem('nhf_dm_indices');
+      localStorage.removeItem('nhf_guestbook_entries');
       setDmThreads(initialDmThreads);
       setDmIndices({ 'dm-kai': 0, 'dm-wintermute': 0, 'dm-janus': 0 });
+      setCustomGuestbookEntries([]);
     }
     if (scope === 'caseboard' || scope === 'all') {
       localStorage.removeItem('nhf_caseboard');
