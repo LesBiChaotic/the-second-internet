@@ -10,6 +10,7 @@ import { GuestbookSignModal } from './components/interactive/GuestbookSignModal'
 import { FieldGuideWarningModal } from './components/common/FieldGuideWarningModal';
 import { NotificationViewport } from './components/common/NotificationViewport';
 import { ArchiveSettingsModal } from './components/common/ArchiveSettingsModal';
+import { AmbientArchiveLayer } from './components/common/AmbientArchiveLayer';
 
 // Foundation Views
 import { FoundationDashboard } from './components/foundation/FoundationDashboard';
@@ -243,6 +244,7 @@ export function App() {
           </React.Suspense>
         )}
         <ArchiveSettingsModal store={store} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+        <AmbientArchiveLayer store={store} />
         <NotificationViewport store={store} />
       </div>
     </div>
