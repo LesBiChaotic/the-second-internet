@@ -274,7 +274,7 @@ export const MarrowNetSite: React.FC<Props> = ({ store }) => {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                       {/* Render custom visitor entries */}
                       {store.customGuestbookEntries.filter(e => e.site === 'marrow').map((gb) => (
-                        <div key={gb.id} style={{ background: '#002626', border: '2px solid #80deea', padding: '12px' }}>
+                        <div key={gb.id} className="user-comment-signature" style={{ background: '#002626', border: '2px solid #80deea', padding: '12px' }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: '#80cbc4', borderBottom: '1px solid #004d4d', paddingBottom: '4px', marginBottom: '6px' }}>
                             <span style={{ fontWeight: 'bold', color: '#ffcc00' }}>{gb.name}</span>
                             <span>{gb.date} ({gb.location})</span>

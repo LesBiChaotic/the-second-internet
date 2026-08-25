@@ -297,8 +297,9 @@ export function useArchiveStore(): ArchiveState {
   const [audioMuted, setAudioMuted] = useState<boolean>(false);
   const [ambientHumEnabled, setAmbientHumEnabled] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<ArchiveNotification[]>([]);
-  const defaultProfile: InvestigatorProfile = { handle: 'visitor_01', displayName: '', pronouns: '', status: 'Cataloguing what the first internet forgot.', equipped: { AVATAR: 'avatar-1', FRAME: 'frame-1', BADGE: 'badge-1', NAMEPLATE: 'nameplate-1', PALETTE: 'palette-1', TERMINAL: 'terminal-1', BACKGROUND: 'background-1', EFFECT: 'effect-1' } };
-  const [investigatorProfile, setInvestigatorProfile] = useState<InvestigatorProfile>(safeParse(savedProfile, defaultProfile));
+  const defaultProfile: InvestigatorProfile = { handle: 'visitor_01', displayName: '', pronouns: '', status: 'Cataloguing what the first internet forgot.', equipped: { AVATAR: 'avatar-1', FRAME: 'frame-1', BADGE: 'badge-1', NAMEPLATE: 'nameplate-1', PALETTE: 'palette-1', STAMP: 'stamp-1', SIDEBAR: 'sidebar-1', OMNIBOX: 'omnibox-1', CURSOR: 'cursor-1', TRANSITION: 'transition-1', NOTIFICATION: 'notification-1', PINSET: 'pinset-1', IDCARD: 'idcard-1', SIGNATURE: 'signature-1', TERMINAL: 'terminal-1', AMBIENT: 'ambient-1', BACKGROUND: 'background-1', EFFECT: 'effect-1', HAUNTED: 'haunted-1' } };
+  const restoredProfile = safeParse(savedProfile, defaultProfile);
+  const [investigatorProfile, setInvestigatorProfile] = useState<InvestigatorProfile>({ ...restoredProfile, equipped: { ...defaultProfile.equipped, ...restoredProfile.equipped } });
 
   // Theme Mode ('system' | 'dark' | 'light')
   const savedThemeMode = (typeof window !== 'undefined' ? localStorage.getItem('nhf_theme_mode') : null) as 'system' | 'dark' | 'light' | null;

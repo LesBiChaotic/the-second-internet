@@ -3,14 +3,14 @@ import { Check, LockKeyhole, Pencil, Save, Shirt, Sparkles, Trophy } from 'lucid
 import { cosmeticsCatalog, CosmeticCategory, xpForRank } from '../../data/cosmeticsData';
 import { ArchiveState } from '../../state/useArchiveStore';
 
-const categories: CosmeticCategory[] = ['AVATAR','FRAME','BADGE','NAMEPLATE','PALETTE','TERMINAL','BACKGROUND','EFFECT'];
+const categories: CosmeticCategory[] = ['AVATAR','FRAME','BADGE','NAMEPLATE','PALETTE','STAMP','SIDEBAR','OMNIBOX','CURSOR','TRANSITION','NOTIFICATION','PINSET','IDCARD','SIGNATURE','TERMINAL','AMBIENT','BACKGROUND','EFFECT','HAUNTED'];
 
 export const InvestigatorProfileView: React.FC<{ store: ArchiveState }> = ({ store }) => {
   const [activeCategory, setActiveCategory] = useState<CosmeticCategory>('AVATAR');
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState({ handle: store.investigatorProfile.handle, displayName: store.investigatorProfile.displayName, pronouns: store.investigatorProfile.pronouns, status: store.investigatorProfile.status });
   const equipped = (category: CosmeticCategory) => cosmeticsCatalog.find(item => item.id === store.investigatorProfile.equipped[category]);
-  const avatar = equipped('AVATAR'); const frame = equipped('FRAME'); const badge = equipped('BADGE'); const nameplate = equipped('NAMEPLATE'); const background = equipped('BACKGROUND');
+  const avatar = equipped('AVATAR'); const frame = equipped('FRAME'); const badge = equipped('BADGE'); const nameplate = equipped('NAMEPLATE'); const background = equipped('BACKGROUND'); const stamp = equipped('STAMP');
   const filtered = useMemo(() => cosmeticsCatalog.filter(item => item.category === activeCategory), [activeCategory]);
   const nextRankXp = store.archiveRank < 10 ? xpForRank(store.archiveRank + 1) : store.archiveXp;
   const progress = store.archiveRank >= 10 ? 100 : Math.max(0, Math.min(100, ((store.archiveXp - xpForRank(store.archiveRank)) / 350) * 100));
@@ -23,7 +23,8 @@ export const InvestigatorProfileView: React.FC<{ store: ArchiveState }> = ({ sto
 
   return <div className="profile-workspace human-archive-route investigator-accession-route">
     <section className="profile-hero" style={{ '--profile-a': background?.colors[0], '--profile-b': background?.colors[1] } as React.CSSProperties}>
-      <div className="profile-card-preview">
+      <div className="profile-card-preview" data-haunted-stage={store.investigationChapter}>
+        {stamp && <span className="profile-dossier-stamp" style={{ '--stamp-a': stamp.colors[0] } as React.CSSProperties}>{stamp.glyph} {stamp.name}</span>}
         <div className="profile-avatar" style={{ '--frame-a': frame?.colors[0], '--frame-b': frame?.colors[1] } as React.CSSProperties}><span>{avatar?.glyph || '◉'}</span></div>
         <div className="profile-identity">
           <span className="profile-nameplate" style={{ borderColor: nameplate?.colors[0], color: nameplate?.colors[0] }}>{nameplate?.name}</span>
@@ -52,7 +53,7 @@ export const InvestigatorProfileView: React.FC<{ store: ArchiveState }> = ({ sto
     </section>}
 
     <section className="wardrobe-section">
-      <div className="wardrobe-heading"><div><span className="investigation-kicker">CHECKPOINT 7 // COSMETIC REPOSITORY</span><h2><Shirt size={22} /> Investigator Wardrobe</h2></div><span>{store.unlockedCosmeticIds.length} / {cosmeticsCatalog.length} unlocked</span></div>
+      <div className="wardrobe-heading"><div><span className="investigation-kicker">CHECKPOINT 9 // COSMETIC AVALANCHE</span><h2><Shirt size={22} /> Investigator Wardrobe</h2></div><span>{store.unlockedCosmeticIds.length} / {cosmeticsCatalog.length} unlocked</span></div>
       <div className="cosmetic-tabs" role="tablist" aria-label="Cosmetic categories">{categories.map(category => <button role="tab" aria-selected={activeCategory === category} className={activeCategory === category ? 'active' : ''} key={category} onClick={() => setActiveCategory(category)}>{category}</button>)}</div>
       <div className="cosmetic-grid">{filtered.map(item => {
         const unlocked = store.unlockedCosmeticIds.includes(item.id); const isEquipped = store.investigatorProfile.equipped[item.category] === item.id;

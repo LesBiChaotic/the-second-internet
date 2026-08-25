@@ -332,10 +332,11 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
 
                 {post.comments.map((c) => {
                   const isWintermute = c.author.includes('wintermute');
+                  const isVisitor = c.author.includes('you (');
                   return (
                     <div 
                       key={c.id} 
-                      className="trace-comment-item"
+                      className={`trace-comment-item ${isVisitor ? 'user-comment-signature' : ''}`}
                       style={{
                         borderColor: isWintermute ? 'rgba(239, 68, 68, 0.4)' : undefined,
                         background: isWintermute ? 'rgba(239, 68, 68, 0.08)' : undefined

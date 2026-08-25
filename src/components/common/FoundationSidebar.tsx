@@ -286,7 +286,7 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             className="sidebar-nav-item"
             onClick={() => {
               if (!ambientHumEnabled) {
-                soundEngine.startAmbientHum();
+                soundEngine.startAmbientHum(store.investigatorProfile.equipped.AMBIENT);
               } else {
                 soundEngine.stopAmbientHum();
               }
