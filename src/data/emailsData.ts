@@ -127,5 +127,37 @@ export const emailsData: EmailRecord[] = [
   },
   {
     id: 'em-22', from: 'unknown@0.0.0.0', to: 'scraper-07@nethistoryfoundation.org', date: '2026-07-14 03:26', subject: 'RE: Blue Window differential: nonmatching domestic details', body: `Keep the basil. It died in every network except this one.`, isAnomalous: true, isCorrupted: true
+  },
+  {
+    id: 'em-23', from: 'nyxgirl@marrow.net', to: 'marrow-list@students.wisc.edu', date: '1998-08-04 17:20', subject: 'Cassia birthday picnic / absolutely no computers', threadId: 'cassia-birthday-98',
+    body: `Cassia turns twenty-one Saturday. Picnic behind the music building at four. Bring snacks, blankets, and one song recommendation written on paper. Corbin: “no computers” includes the laptop you keep calling a portable stereo.\n\nNoemi`
+  },
+  {
+    id: 'em-24', from: 'pixelpunk@marrow.net', to: 'marrow-list@students.wisc.edu', date: '1998-08-04 17:33', subject: 'RE: Cassia birthday picnic / absolutely no computers', threadId: 'cassia-birthday-98',
+    body: `The laptop has speakers and therefore meets the ordinary definition of stereo. I accept the ruling anyway. I am bringing lemon bars and a paper card like a person from the nineteenth century.\n\nCorbin`
+  },
+  {
+    id: 'em-25', from: 'rowanglass@bluewindow.net', to: 'lucidwitch@afterhours.org', date: '2004-10-14 18:06', subject: 'memorial page — private draft first', threadId: 'oct14-memorial-04',
+    body: `Noemi,\n\nI drafted a small memorial page for Alden, Julian, and Simon. No theories, no screenshots from the breach thread, no phrase “the disappeared.” Just names, ordinary photographs approved by family, and things they liked.\n\nWill you review it before I publish?\n\nRowan`
+  },
+  {
+    id: 'em-26', from: 'noemi_c@bluewindow.net', to: 'rowanglass@bluewindow.net', date: '2004-10-14 18:41', subject: 'RE: memorial page — private draft first', threadId: 'oct14-memorial-04',
+    body: `Yes. Add that Alden hated raisins but ate them from trail mix rather than waste food. Remove his final forum sentence. He should not be memorialized by the worst minute of his life.\n\nNoemi`
+  },
+  {
+    id: 'em-27', from: 'maribel.ortiz@greyline.net', to: 'terminal21-admin@lists.net', date: '2003-02-17 09:12', subject: 'Your privacy reminder reached customer care', threadId: 'cross-site-privacy-03',
+    body: `Sable,\n\nSomeone forwarded your Terminal 21 post about scrubbing customer names from logs. Thank you. Greyline support has adopted the same rule for incident attachments. Technical curiosity does not outrank frightened customers.\n\nMaribel`
+  },
+  {
+    id: 'em-28', from: 'mod_sable@terminal21.org', to: 'maribel.ortiz@greyline.net', date: '2003-02-17 10:04', subject: 'RE: Your privacy reminder reached customer care', threadId: 'cross-site-privacy-03',
+    body: `Glad it helped. In return, rackrat copied your overnight-food list into our NOC thread and caused a forty-message argument about sesame noodles. Cross-site knowledge transfer remains imperfect.\n\nSable`
+  },
+  {
+    id: 'em-29', from: 'facilities@nethistoryfoundation.org', to: 'all-staff@nethistoryfoundation.org', date: '2026-08-25 07:40', subject: 'Planned outage: west reading room outlets', threadId: 'nhf-outage-coffee-26',
+    body: `Power to the west reading-room outlets will be interrupted from 13:00 to 13:30 for inspection. Save work and move active imaging jobs to protected circuits. The coffee machine is not on a protected circuit. This fact has been escalated beyond its operational significance.\n\nFacilities`
+  },
+  {
+    id: 'em-30', from: 'g.falk@nethistoryfoundation.org', to: 'facilities@nethistoryfoundation.org;all-staff@nethistoryfoundation.org', date: '2026-08-25 07:44', subject: 'RE: Planned outage: west reading room outlets', threadId: 'nhf-outage-coffee-26',
+    body: `Respectfully, you underestimate both its significance and Clara before coffee. I have relocated the machine to Tape Lab B under change ticket NHF-COFFEE-01.\n\nGideon`
   }
 ];

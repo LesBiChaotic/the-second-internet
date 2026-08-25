@@ -6,6 +6,7 @@ import {
   CaseboardPin 
 } from '../types';
 import { ARCHIVE_RANKS, CosmeticCategory, cosmeticsCatalog, rankForXp } from '../data/cosmeticsData';
+import { additionalDmThreads, discoveryReactions } from '../data/archiveActivityData';
 
 export interface InvestigatorProfile {
   handle: string;
@@ -180,7 +181,8 @@ export const initialDmThreads: DMThread[] = [
         isFromUser: false
       }
     ]
-  }
+  },
+  ...additionalDmThreads
 ];
 
 export const initialCaseboardPins: CaseboardPin[] = [
@@ -238,6 +240,7 @@ const SAVE_KEYS = [
   ,'nhf_guestbook_entries'
   ,'nhf_trace_posts'
   ,'nhf_trace_uncensored'
+  ,'nhf_reacted_discoveries'
   ,'nhf_room4_messages'
   ,'nhf_notebook_decoded'
   ,'nhf_vault_unredacted'
@@ -324,6 +327,16 @@ export function useArchiveStore(): ArchiveState {
   const [activeDmThreadId, setActiveDmThreadId] = useState<string>('dm-kai');
 
   const unreadDmCount = dmThreads.filter(t => t.unread).length;
+
+  useEffect(() => {
+    setDmThreads(previous => {
+      const missing = initialDmThreads.filter(base => !previous.some(thread => thread.id === base.id));
+      if (!missing.length) return previous;
+      const next = [...previous, ...missing];
+      localStorage.setItem('nhf_dm_threads', JSON.stringify(next));
+      return next;
+    });
+  }, []);
 
   const markDmThreadRead = (threadId: string) => {
     setDmThreads(prev => {
@@ -459,7 +472,14 @@ export function useArchiveStore(): ArchiveState {
         partnerName = 'Alden Corliss';
         replyContent = JANUS_REPLIES[currentIndex % JANUS_REPLIES.length];
       } else {
-        replyContent = "I received your packet trace. Cross-referencing against the 1998 Milwaukee BGP route dumps now.";
+        const partner = dmThreads.find(thread => thread.id === threadId);
+        partnerSender = partner?.partnerHandle || 'archive_researcher';
+        partnerName = partner?.partnerName || 'Archive Researcher';
+        replyContent = threadId === 'dm-clara' ? 'Context hold recorded. I will compare your observation against the accession history.'
+          : threadId === 'dm-samira' ? 'Received. I will test the least dramatic explanation first and report what survives.'
+            : threadId === 'dm-marcus' ? 'I am checking the physical copy now. Give the scanner a minute; it has the temperament of a landlord.'
+              : threadId === 'dm-elena' ? 'I remember that page differently. Let me find my old notes before certainty starts performing tricks.'
+                : 'I received your packet trace. Cross-referencing against the 1998 Milwaukee BGP route dumps now.';
       }
 
       const autoReply: DirectMessage = {
@@ -503,10 +523,7 @@ export function useArchiveStore(): ArchiveState {
     setDmThreads(prev => {
       const threadId = senderHandle === 'wintermute_42' ? 'dm-wintermute' : senderHandle === 'janus' ? 'dm-janus' : 'dm-kai';
       const exists = prev.find(t => t.id === threadId);
-      if (exists) {
-        return prev.map(t => t.id === threadId ? { ...t, unread: true, messages: [...t.messages, newMsg] } : t);
-      }
-      return [
+      const next = exists ? prev.map(t => t.id === threadId ? { ...t, unread: true, messages: [...t.messages, newMsg] } : t) : [
         {
           id: threadId,
           partnerHandle: senderHandle,
@@ -518,6 +535,8 @@ export function useArchiveStore(): ArchiveState {
         },
         ...prev
       ];
+      localStorage.setItem('nhf_dm_threads', JSON.stringify(next));
+      return next;
     });
   };
 
@@ -530,6 +549,19 @@ export function useArchiveStore(): ArchiveState {
   const [isFieldGuideWarningOpen, setIsFieldGuideWarningOpen] = useState<boolean>(false);
   const [guestbookModalTarget, setGuestbookModalTarget] = useState<'marrow' | 'candle' | null>(null);
   const [customGuestbookEntries, setCustomGuestbookEntries] = useState<any[]>(safeParse(savedGuestbookEntries, []));
+
+  useEffect(() => {
+    const seen = safeParse<string[]>(localStorage.getItem('nhf_reacted_discoveries'), []);
+    const reaction = [...discoveryReactions].reverse().find(item => discoveredAnomalies.includes(item.anomalyId) && !seen.includes(item.anomalyId));
+    if (!reaction) return;
+    const message: DirectMessage = { id: `reaction-${reaction.anomalyId}`, sender: reaction.sender, senderName: reaction.senderName, time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), content: reaction.text, isFromUser: false };
+    setDmThreads(previous => {
+      const next = previous.map(thread => thread.id === reaction.threadId ? { ...thread, unread: true, messages: thread.messages.some(item => item.id === message.id) ? thread.messages : [...thread.messages, message] } : thread);
+      localStorage.setItem('nhf_dm_threads', JSON.stringify(next));
+      return next;
+    });
+    localStorage.setItem('nhf_reacted_discoveries', JSON.stringify([...seen, reaction.anomalyId]));
+  }, [discoveredAnomalies]);
 
   const investigationChapter = discoveredAnomalies.length >= 9 ? 5
     : discoveredAnomalies.length >= 6 ? 4

@@ -75,7 +75,9 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
 
   const tags = ['ALL', 'DISCOVERY', 'QUESTION', 'TECHNICAL', 'DEBUNKED', 'ARCHIVE FIND', 'SPECULATION', 'FOUNDATION RESPONSE', 'ANOMALOUS'];
 
-  const filteredPosts = posts.filter((p) => {
+  const rotationOffset = posts.length ? (Math.floor(Date.now() / 86400000) + store.discoveredAnomalies.length) % posts.length : 0;
+  const rotatedPosts = [...posts.slice(rotationOffset), ...posts.slice(0, rotationOffset)];
+  const filteredPosts = rotatedPosts.filter((p) => {
     if (selectedTag === 'ALL') return true;
     return p.tag === selectedTag;
   });
@@ -171,6 +173,10 @@ export const TraceCommunityView: React.FC<Props> = ({ store }) => {
           <div>8,421 Researchers Connected</div>
           <div style={{ color: '#34d399' }}>● Live Ingest Feed Active</div>
         </div>
+      </div>
+
+      <div style={{ padding: '9px 12px', border: '1px solid var(--nhf-border)', background: 'var(--nhf-bg-card)', color: 'var(--nhf-text-muted)', fontFamily: 'var(--font-mono)', fontSize: '0.72rem' }}>
+        FEED ROTATION {rotationOffset + 1}/{Math.max(posts.length, 1)} // Changes daily and when your case file records a new anomaly. Player comments remain attached to their original posts.
       </div>
 
       {/* Tag Filters */}

@@ -3,6 +3,7 @@ import { Users, Mail, ShieldAlert, AlertTriangle, UserCheck } from 'lucide-react
 import { staffRoster } from '../../data/foundationData';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { staffLiveState } from '../../data/archiveActivityData';
 
 interface Props {
   store: ArchiveState;
@@ -24,8 +25,10 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))', gap: '20px' }}>
         {staffRoster.map((staff) => {
-          const isMissing = staff.status === 'Missing';
-          const isUnverified = staff.status === 'Unverified';
+          const liveState = staffLiveState(staff.id, store);
+          const displayedStatus = liveState?.status || staff.status;
+          const isMissing = displayedStatus === 'Missing';
+          const isUnverified = displayedStatus === 'Unverified' || displayedStatus === 'Typing…';
           return (
             <div className={`personnel-file ${isMissing || isUnverified ? 'flagged' : ''}`}
               key={staff.id}
@@ -57,7 +60,7 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
                 </div>
 
                 <span className={`badge ${isMissing ? 'badge-red' : isUnverified ? 'badge-amber' : 'badge-green'}`}>
-                  {staff.status.toUpperCase()}
+                  {displayedStatus.toUpperCase()}
                 </span>
               </div>
 
@@ -72,6 +75,12 @@ export const StaffRosterView: React.FC<Props> = ({ store }) => {
               {staff.anomalyNote && (
                 <div style={{ background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', padding: '8px 12px', borderRadius: '4px', fontSize: '0.78rem', color: '#fbbf24' }}>
                   ⚠ Internal Audit Flag: {staff.anomalyNote}
+                </div>
+              )}
+
+              {liveState?.note && (
+                <div style={{ background: 'color-mix(in srgb, var(--nhf-accent-blue) 10%, var(--nhf-bg-card))', border: '1px solid color-mix(in srgb, var(--nhf-accent-blue) 35%, var(--nhf-border))', padding: '8px 12px', borderRadius: '4px', fontSize: '0.78rem', color: 'var(--nhf-text-secondary)' }}>
+                  ● Live assignment: {liveState.note}
                 </div>
               )}
 
