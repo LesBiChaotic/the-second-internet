@@ -366,6 +366,14 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             <span>Archive Dashboard</span>
           </div>
 
+          <div
+            className={`sidebar-nav-item ${currentView === 'INVESTIGATION_LEDGER' ? 'active' : ''}`}
+            onClick={() => handleNav('INVESTIGATION_LEDGER')}
+          >
+            <Compass size={16} color="#38bdf8" />
+            <span>Investigation Ledger</span>
+          </div>
+
           <div 
             className={`sidebar-nav-item ${currentView === 'COLLECTIONS' ? 'active' : ''}`}
             onClick={() => handleNav('COLLECTIONS')}
