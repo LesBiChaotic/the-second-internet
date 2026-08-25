@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -79,7 +80,7 @@ export const StationNullRadioTool: React.FC<Props> = ({ store }) => {
   const [selectedMode, setSelectedMode] = useState<'AM' | 'USB' | 'CW' | 'SSTV'>('USB');
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [sstvProgress, setSstvProgress] = useState<number>(0);
-  const [decodedSignal, setDecodedSignal] = useState<StationPreset | null>(null);
+  const [decodedSignal, setDecodedSignal] = usePersistentState<StationPreset | null>('nhf_station_decoded_signal', null);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const sstvCanvasRef = useRef<HTMLCanvasElement | null>(null);

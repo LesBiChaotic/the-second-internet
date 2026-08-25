@@ -250,5 +250,41 @@ export const tracePosts: TracePost[] = [
       { id: 'trace-c-12-1', author: 'investigator_kai', timestamp: '1 hour ago', upvotes: 129, content: 'Pinned. Investigation does not entitle us to turn someone else’s grief into an interactive clue.' },
       { id: 'trace-c-12-2', author: 'patchnotes', timestamp: '52 mins ago', upvotes: 94, content: 'Also stop posting “I know where you live” jokes under anomalous threads. They are not funny merely because wintermute says worse things.' }
     ]
+  },
+  {
+    id: 'trace-p-13-dead-bbs', author: 'switchboard_saint', tag: 'DISCOVERY', timestamp: '9 mins ago', upvotes: 117,
+    title: 'A disconnected hospice BBS answered after its phone line was reassigned',
+    content: `I imaged a 1996 Wildcat! BBS from Saint Agnes Hospice. The server and modem are in my lab with no telephone cable attached. At 02:47 it logged a caller named NURSE_6 and appended: “ROOMS 12–18 HAVE BEEN DISCHARGED. ROOM 19 IS STILL DREAMING.”\n\nThe hospice closed in 1999. Its old number now belongs to a bakery. The bakery owner says their card reader sometimes prints ROOM 19 on declined receipts.`,
+    comments: [
+      { id: 'trace-c-13-1', author: 'patchnotes', timestamp: '6 mins ago', upvotes: 31, content: 'Please post the modem model, power source, disk image hash, and whether the RTC battery was replaced before anyone calls this an incoming connection.' },
+      { id: 'trace-c-13-2', author: 'archive_moth', timestamp: '4 mins ago', upvotes: 48, content: 'Saint Agnes appears in Collection 03’s volunteer newsletter. Room 19 was the computer room, not a patient room.' }
+    ]
+  },
+  {
+    id: 'trace-p-14-ordinary', author: 'mara_net', tag: 'ARCHIVE FIND', timestamp: '26 mins ago', upvotes: 92,
+    title: 'Found the Marrow community recipe file—Alden contributed terrible soup',
+    content: `Not an anomaly. Just population evidence. The 1998 shared FTP had a text file called FOOD.TXT. Alden’s contribution was canned tomato soup, instant coffee, black pepper, and “one apology to whoever eats this.” Noemi replied by banning him from the kitchen.\n\nThese tiny files are why preserving directory context matters. A server is not only its famous breach log.`,
+    comments: [
+      { id: 'trace-c-14-1', author: 'investigator_kai', timestamp: '18 mins ago', upvotes: 57, content: 'Adding this to the social-history index. Technical archives become dishonest when we preserve only the dramatic failures.' },
+      { id: 'trace-c-14-2', author: 'wintermute_42', timestamp: '2 mins ago', upvotes: 81, content: 'He added too much pepper.' }
+    ]
+  },
+  {
+    id: 'trace-p-15-payphone', author: 'candle_keeper', tag: 'QUESTION', timestamp: '41 mins ago', upvotes: 138,
+    title: 'Should we answer the Burnside payphone if it rings during the archive test?',
+    content: `The Foundation approved one supervised line-voltage test on the disconnected Burnside booth photographed by Rowan. It has no carrier and the municipal trunk was removed. During setup, the bell rang once.\n\nProtocol says record without answering. The recovered Candle Room notes say unanswered rings repeat elsewhere. I want opinions before tomorrow’s test—preserve, contact, or contain?`,
+    comments: [
+      { id: 'trace-c-15-1', author: 'analogghost', timestamp: '32 mins ago', upvotes: 63, content: 'Record first. If it rings again, lift the receiver without speaking and monitor voltage.' },
+      { id: 'trace-c-15-2', author: 'mod_overseer', timestamp: '21 mins ago', upvotes: 74, content: 'Nobody in this thread is authorized to alter the approved protocol. Do not encourage field staff to improvise.' }
+    ]
+  },
+  {
+    id: 'trace-p-16-last-seen', author: 'packetmason', tag: 'TECHNICAL', timestamp: '1 hour ago', upvotes: 166,
+    title: 'Dead network map: “last seen” dates form an eleven-minute loop',
+    content: `I mapped the final confirmed packets from 23 dead personal sites. Sorted geographically, the shutdown timestamps differ normally. Sorted by traceroute hop, every site is last seen exactly eleven minutes after the previous node. The final node routes back to the first eleven minutes before it closed.\n\nThis may be an artifact of normalized archive timestamps. I uploaded the method so someone can try to disprove it.`,
+    comments: [
+      { id: 'trace-c-16-1', author: 'patchnotes', timestamp: '47 mins ago', upvotes: 84, content: 'Thank you for including the method. I can reproduce 19 of 23 intervals. Four fail unless daylight-saving corrections are removed.' },
+      { id: 'trace-c-16-2', author: 'analogghost', timestamp: '38 mins ago', upvotes: 69, content: 'The four failures are all physical hosts that survived decommissioning. That distinction may matter.' }
+    ]
   }
 ];

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Terminal, Shield, ArrowRight, CornerDownLeft, Sparkles, BookmarkCheck, Trash2, Cpu } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { usePersistentState } from '../../state/usePersistentState';
 
 interface Props {
   store: ArchiveState;
@@ -16,9 +17,9 @@ interface TerminalLog {
 export const ApertureTerminalView: React.FC<Props> = ({ store }) => {
   const { clearanceLevel, discoverAnomaly, pinToCaseboard } = store;
   const [commandInput, setCommandInput] = useState('');
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = usePersistentState<string[]>('nhf_aperture_history', []);
   const [historyIndex, setHistoryIndex] = useState<number>(-1);
-  const [logs, setLogs] = useState<TerminalLog[]>([
+  const [logs, setLogs] = usePersistentState<TerminalLog[]>('nhf_aperture_logs', [
     {
       id: 'init-1',
       type: 'SYSTEM',

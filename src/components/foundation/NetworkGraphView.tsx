@@ -31,7 +31,7 @@ export const NetworkGraphView: React.FC<Props> = ({ store }) => {
   const { navigate, discoverAnomaly } = store;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
-  const [showSecondLayer, setShowSecondLayer] = useState<boolean>(false);
+  const [showSecondLayer, setShowSecondLayer] = useState<boolean>(store.discoveredAnomalies.includes('graph-reveal-second-net'));
 
   const initialNodes: Node[] = [
     { id: 'nhf', name: 'Net History Foundation', type: 'ORGANIZATION', x: 400, y: 150, vx: 0, vy: 0, radius: 14, color: '#3b82f6' },

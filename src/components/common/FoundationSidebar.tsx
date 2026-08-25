@@ -704,7 +704,8 @@ export const FoundationSidebar: React.FC<Props> = ({ store, mobileOpen, onCloseM
             style={{ marginTop: '6px' }}
           >
             <HelpCircle size={16} color="#f43f5e" />
-            <span>Archivist Personality Quiz</span>
+            <span>Archive Quiz Lab</span>
+            <span className="badge badge-red" style={{ marginLeft: 'auto', fontSize: '0.58rem' }}>3 QUIZZES</span>
           </div>
 
           <div className={`sidebar-nav-item ${currentView === 'PROFILE' ? 'active' : ''}`} onClick={() => handleNav('PROFILE')} style={{ marginTop: '6px' }}>

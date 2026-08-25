@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HelpCircle, Sparkles, ArrowRight, RefreshCw, BookmarkPlus, ExternalLink, CheckCircle2, Radio, User, Compass, Zap } from 'lucide-react';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { soundEngine } from '../../state/useAudioEngine';
+import { DeadNetworkQuizPanel } from './DeadNetworkQuizPanel';
 
 interface Props {
   store: ArchiveState;
@@ -359,6 +360,7 @@ const ARCHETYPES: Record<string, ArchetypeResult> = {
 };
 
 export const LostWebQuizView: React.FC<Props> = ({ store }) => {
+  const [showDeadNetworkQuizzes, setShowDeadNetworkQuizzes] = useState(false);
   const { navigate, pinToCaseboard, discoverAnomaly, setUserArchetype } = store;
   const [currentQIndex, setCurrentQIndex] = useState(0);
   const [scores, setScores] = useState({
@@ -426,6 +428,8 @@ export const LostWebQuizView: React.FC<Props> = ({ store }) => {
 
   const currentQ = QUIZ_QUESTIONS[currentQIndex];
 
+  if (showDeadNetworkQuizzes) return <DeadNetworkQuizPanel store={store} onBack={() => setShowDeadNetworkQuizzes(false)} />;
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '840px', margin: '0 auto', width: '100%' }}>
       {/* Header */}
@@ -442,6 +446,7 @@ export const LostWebQuizView: React.FC<Props> = ({ store }) => {
         <p style={{ fontSize: '0.88rem', color: 'var(--nhf-text-secondary)', lineHeight: 1.6 }}>
           Discover your cognitive resonance within the early telecommunications commons. Answer 5 historical inquiries to reveal your digital persona, character affinity, and curated archive recommendations.
         </p>
+        <button className="btn btn-secondary" style={{ marginTop: '14px' }} onClick={() => setShowDeadNetworkQuizzes(true)}><Radio size={15} /> Open Dead Network Diagnostics (2 quizzes)</button>
       </div>
 
       {!quizComplete ? (
