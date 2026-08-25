@@ -55,6 +55,11 @@ export const ArchiveSettingsModal: React.FC<Props> = ({ store, open, onClose }) 
             }} />
           </div>
           <p className="settings-explainer">Export first if you may want this investigation back. Reset operations only affect this browser.</p>
+          <section className="atmosphere-controls" aria-labelledby="atmosphere-title">
+            <div className="atmosphere-heading"><div><strong id="atmosphere-title">Environmental atmosphere</strong><p>Dust, weather, snapshot loaders, route corruption and realm transitions. Decorative layers never block interaction.</p></div><button className={`btn ${store.environmentalEffects ? 'btn-primary' : 'btn-secondary'}`} aria-pressed={store.environmentalEffects} onClick={() => store.setEnvironmentalEffects(!store.environmentalEffects)}>{store.environmentalEffects ? 'Enabled' : 'Disabled'}</button></div>
+            <fieldset disabled={!store.environmentalEffects}><legend>Visual intensity</legend><div className="segmented-control">{(['quiet', 'standard', 'full'] as const).map(value => <button type="button" className={store.environmentalIntensity === value ? 'active' : ''} aria-pressed={store.environmentalIntensity === value} onClick={() => store.setEnvironmentalIntensity(value)} key={value}>{value}</button>)}</div></fieldset>
+            <fieldset><legend>Motion</legend><div className="segmented-control">{(['system', 'reduced', 'full'] as const).map(value => <button type="button" className={store.motionPreference === value ? 'active' : ''} aria-pressed={store.motionPreference === value} onClick={() => store.setMotionPreference(value)} key={value}>{value === 'full' ? 'Cinematic' : value}</button>)}</div><small>Reduced mode removes drifting particles, corruption flashes and animated transitions. System follows your device preference.</small></fieldset>
+          </section>
           <div className="reset-option-list">
             {resetOptions.map(option => (
               <div className={`reset-option ${option.scope === 'all' ? 'danger' : ''}`} key={option.scope}>

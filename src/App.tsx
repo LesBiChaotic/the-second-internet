@@ -11,6 +11,7 @@ import { FieldGuideWarningModal } from './components/common/FieldGuideWarningMod
 import { NotificationViewport } from './components/common/NotificationViewport';
 import { ArchiveSettingsModal } from './components/common/ArchiveSettingsModal';
 import { AmbientArchiveLayer } from './components/common/AmbientArchiveLayer';
+import { EnvironmentalEffectsLayer } from './components/common/EnvironmentalEffectsLayer';
 
 // Foundation Views
 import { FoundationDashboard } from './components/foundation/FoundationDashboard';
@@ -96,6 +97,12 @@ export function App() {
     mainContentRef.current?.focus({ preventScroll: true });
   }, [store.currentView, store.currentSubId]);
 
+  React.useEffect(() => {
+    if (!store.ambientHumEnabled) return;
+    soundEngine.stopAmbientHum();
+    soundEngine.startAmbientHum(store.investigatorProfile.equipped.AMBIENT, store.environmentalEffects ? store.currentView : '', store.environmentalIntensity);
+  }, [store.currentView, store.ambientHumEnabled, store.environmentalEffects, store.environmentalIntensity, store.investigatorProfile.equipped.AMBIENT]);
+
   const renderCurrentView = () => {
     if (store.currentView !== 'RESTRICTED_VAULT' && !canAccessView(store.currentView, store.clearanceLevel)) {
       return <AccessGate store={store} view={store.currentView} />;
@@ -148,9 +155,10 @@ export function App() {
   };
 
   const isHistoricalOrSecondNet = store.currentView.startsWith('SITE_') || store.currentView === 'SECOND_NET';
+  const routeRealm = store.currentView === 'SECOND_NET' || store.currentView === 'TRACE' ? 'second-internet' : store.currentView.startsWith('SITE_') ? 'first-internet' : 'foundation';
 
   return (
-    <div data-palette={store.investigatorProfile.equipped.PALETTE} data-effect={store.investigatorProfile.equipped.EFFECT} data-terminal={store.investigatorProfile.equipped.TERMINAL} data-stamp={store.investigatorProfile.equipped.STAMP} data-sidebar={store.investigatorProfile.equipped.SIDEBAR} data-omnibox={store.investigatorProfile.equipped.OMNIBOX} data-cursor={store.investigatorProfile.equipped.CURSOR} data-transition={store.investigatorProfile.equipped.TRANSITION} data-notification={store.investigatorProfile.equipped.NOTIFICATION} data-pinset={store.investigatorProfile.equipped.PINSET} data-idcard={store.investigatorProfile.equipped.IDCARD} data-signature={store.investigatorProfile.equipped.SIGNATURE} data-ambient={store.investigatorProfile.equipped.AMBIENT} data-haunted={store.investigatorProfile.equipped.HAUNTED} data-haunted-stage={store.investigationChapter} className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
+    <div data-realm={routeRealm} data-environment={store.environmentalEffects ? store.environmentalIntensity : 'off'} data-motion={store.motionPreference} data-palette={store.investigatorProfile.equipped.PALETTE} data-effect={store.investigatorProfile.equipped.EFFECT} data-terminal={store.investigatorProfile.equipped.TERMINAL} data-stamp={store.investigatorProfile.equipped.STAMP} data-sidebar={store.investigatorProfile.equipped.SIDEBAR} data-omnibox={store.investigatorProfile.equipped.OMNIBOX} data-cursor={store.investigatorProfile.equipped.CURSOR} data-transition={store.investigatorProfile.equipped.TRANSITION} data-notification={store.investigatorProfile.equipped.NOTIFICATION} data-pinset={store.investigatorProfile.equipped.PINSET} data-idcard={store.investigatorProfile.equipped.IDCARD} data-signature={store.investigatorProfile.equipped.SIGNATURE} data-ambient={store.investigatorProfile.equipped.AMBIENT} data-haunted={store.investigatorProfile.equipped.HAUNTED} data-haunted-stage={store.investigationChapter} className={`app-shell ${store.theme === 'light' ? 'theme-light' : 'theme-dark'} ${store.useDeviceFont ? 'use-device-font' : ''} ${isCrtActive ? 'crt-active' : ''}`}>
       <a className="skip-link" href="#archive-main">Skip to archive content</a>
       <div className="app-container">
         {/* Institutional Top Header */}
@@ -245,6 +253,7 @@ export function App() {
         )}
         <ArchiveSettingsModal store={store} open={settingsOpen} onClose={() => setSettingsOpen(false)} />
         <AmbientArchiveLayer store={store} />
+        <EnvironmentalEffectsLayer store={store} />
         <NotificationViewport store={store} />
       </div>
     </div>

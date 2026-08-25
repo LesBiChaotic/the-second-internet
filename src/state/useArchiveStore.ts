@@ -31,6 +31,9 @@ export interface ArchiveState {
   activeSourceModal: { title: string; htmlSource: string } | null;
   audioMuted: boolean;
   ambientHumEnabled: boolean;
+  environmentalEffects: boolean;
+  environmentalIntensity: 'quiet' | 'standard' | 'full';
+  motionPreference: 'system' | 'reduced' | 'full';
   notifications: ArchiveNotification[];
   investigationChapter: number;
   canEnterSecondInternet: boolean;
@@ -83,6 +86,9 @@ export interface ArchiveState {
   setSourceModal: (modal: { title: string; htmlSource: string } | null) => void;
   toggleAudioMute: () => void;
   toggleAmbientHum: () => void;
+  setEnvironmentalEffects: (enabled: boolean) => void;
+  setEnvironmentalIntensity: (intensity: 'quiet' | 'standard' | 'full') => void;
+  setMotionPreference: (preference: 'system' | 'reduced' | 'full') => void;
   setUserArchetype: (archetype: string) => void;
   setIsGateOpen: (open: boolean) => void;
   setIsPhoneDialerOpen: (open: boolean) => void;
@@ -242,6 +248,9 @@ const SAVE_KEYS = [
   ,'nhf_trace_uncensored'
   ,'nhf_reacted_discoveries'
   ,'nhf_ambient_events'
+  ,'nhf_environmental_effects'
+  ,'nhf_environmental_intensity'
+  ,'nhf_motion_preference'
   ,'nhf_route_visits'
   ,'nhf_room4_messages'
   ,'nhf_notebook_decoded'
@@ -296,6 +305,9 @@ export function useArchiveStore(): ArchiveState {
   const [activeSourceModal, setActiveSourceModal] = useState<{ title: string; htmlSource: string } | null>(null);
   const [audioMuted, setAudioMuted] = useState<boolean>(false);
   const [ambientHumEnabled, setAmbientHumEnabled] = useState<boolean>(false);
+  const [environmentalEffects, setEnvironmentalEffectsState] = useState<boolean>(() => localStorage.getItem('nhf_environmental_effects') !== 'false');
+  const [environmentalIntensity, setEnvironmentalIntensityState] = useState<'quiet' | 'standard' | 'full'>(() => (localStorage.getItem('nhf_environmental_intensity') as 'quiet' | 'standard' | 'full') || 'quiet');
+  const [motionPreference, setMotionPreferenceState] = useState<'system' | 'reduced' | 'full'>(() => (localStorage.getItem('nhf_motion_preference') as 'system' | 'reduced' | 'full') || 'system');
   const [notifications, setNotifications] = useState<ArchiveNotification[]>([]);
   const defaultProfile: InvestigatorProfile = { handle: 'visitor_01', displayName: '', pronouns: '', status: 'Cataloguing what the first internet forgot.', equipped: { AVATAR: 'avatar-1', FRAME: 'frame-1', BADGE: 'badge-1', NAMEPLATE: 'nameplate-1', PALETTE: 'palette-1', STAMP: 'stamp-1', SIDEBAR: 'sidebar-1', OMNIBOX: 'omnibox-1', CURSOR: 'cursor-1', TRANSITION: 'transition-1', NOTIFICATION: 'notification-1', PINSET: 'pinset-1', IDCARD: 'idcard-1', SIGNATURE: 'signature-1', TERMINAL: 'terminal-1', AMBIENT: 'ambient-1', BACKGROUND: 'background-1', EFFECT: 'effect-1', HAUNTED: 'haunted-1' } };
   const restoredProfile = safeParse(savedProfile, defaultProfile);
@@ -882,6 +894,21 @@ export function useArchiveStore(): ArchiveState {
     setAmbientHumEnabled(prev => !prev);
   };
 
+  const setEnvironmentalEffects = (enabled: boolean) => {
+    setEnvironmentalEffectsState(enabled);
+    localStorage.setItem('nhf_environmental_effects', String(enabled));
+  };
+
+  const setEnvironmentalIntensity = (intensity: 'quiet' | 'standard' | 'full') => {
+    setEnvironmentalIntensityState(intensity);
+    localStorage.setItem('nhf_environmental_intensity', intensity);
+  };
+
+  const setMotionPreference = (preference: 'system' | 'reduced' | 'full') => {
+    setMotionPreferenceState(preference);
+    localStorage.setItem('nhf_motion_preference', preference);
+  };
+
   const openGuestbookModal = (target: 'marrow' | 'candle') => {
     setGuestbookModalTarget(target);
     setIsGuestbookModalOpen(true);
@@ -932,8 +959,14 @@ export function useArchiveStore(): ArchiveState {
     if (scope === 'appearance' || scope === 'all') {
       localStorage.removeItem('nhf_theme_mode');
       localStorage.removeItem('nhf_use_device_font');
+      localStorage.removeItem('nhf_environmental_effects');
+      localStorage.removeItem('nhf_environmental_intensity');
+      localStorage.removeItem('nhf_motion_preference');
       setThemeMode('system');
       setUseDeviceFont(isMobileDevice);
+      setEnvironmentalEffectsState(true);
+      setEnvironmentalIntensityState('quiet');
+      setMotionPreferenceState('system');
     }
     if (scope === 'profile' || scope === 'all') {
       localStorage.removeItem('nhf_investigator_profile');
@@ -992,6 +1025,9 @@ export function useArchiveStore(): ArchiveState {
     activeSourceModal,
     audioMuted,
     ambientHumEnabled,
+    environmentalEffects,
+    environmentalIntensity,
+    motionPreference,
     notifications,
     investigationChapter,
     canEnterSecondInternet,
@@ -1036,6 +1072,9 @@ export function useArchiveStore(): ArchiveState {
     setSourceModal,
     toggleAudioMute,
     toggleAmbientHum,
+    setEnvironmentalEffects,
+    setEnvironmentalIntensity,
+    setMotionPreference,
     setUserArchetype,
     setIsGateOpen,
     setIsPhoneDialerOpen,
