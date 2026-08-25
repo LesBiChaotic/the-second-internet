@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArchiveWrapperBar } from '../common/ArchiveWrapperBar';
 import { ArchiveState } from '../../state/useArchiveStore';
 import { afterhoursCategories, afterhoursThreads, afterhoursModLogs } from '../../data/afterhoursData';
+import { ambientAfterHoursThreads } from '../../data/worldPopulationData';
 import { soundEngine } from '../../state/useAudioEngine';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const AfterHoursSite: React.FC<Props> = ({ store }) => {
+  const populatedThreads = [...afterhoursThreads, ...ambientAfterHoursThreads];
   const { currentSubId, navigate, discoverAnomaly } = store;
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(
     currentSubId && currentSubId !== 'afterhours' ? currentSubId : null
@@ -74,7 +76,7 @@ export const AfterHoursSite: React.FC<Props> = ({ store }) => {
 
           {selectedThreadId ? (
             (() => {
-              const thread = afterhoursThreads.find(t => t.id === selectedThreadId) || afterhoursThreads[0];
+              const thread = populatedThreads.find(t => t.id === selectedThreadId) || populatedThreads[0];
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -132,7 +134,7 @@ export const AfterHoursSite: React.FC<Props> = ({ store }) => {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {/* Category Board Tables */}
               {afterhoursCategories.map((cat) => {
-                const catThreads = afterhoursThreads.filter(t => t.category === cat.name || (cat.id === 'cat-quarantine' && t.isAnomalous));
+                const catThreads = populatedThreads.filter(t => t.category === cat.name || (cat.id === 'cat-quarantine' && t.isAnomalous));
                 return (
                   <div key={cat.id}>
                     <table className="afterhours-table">
